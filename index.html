@@ -198,8 +198,9 @@
                 <h2>Nossos <span>Menus</span></h2>
                  <div class="menu-container">
                     <div class="menu-card">
-                        <h3>Experiência Ossala</h3>
+                        <h3>Sequência Livre</h3>
                         <p class="price">R$ 220,00 por pessoa</p>
+                        <p style="font-style: italic; font-weight: 300; margin-bottom: 20px;">Um total de 27 pratos selecionados, sem repetição.</p>
                         <div class="pratos-lista">
                            <span class="prato-tag">Sunomono</span><span class="prato-tag">Edamame</span><span class="prato-tag">Salmorê</span><span class="prato-tag">Camarão Crocante</span><span class="prato-tag">Gyosas Autorais</span><span class="prato-tag">Trilogia de Ceviches</span><span class="prato-tag">Sashimis Frescos</span><span class="prato-tag">Tartare do Dia</span><span class="prato-tag">Gunkas do Chef</span><span class="prato-tag">Niguiris do Chef</span><span class="prato-tag">Ebiossala</span><span class="prato-tag">Brownie com Sorvete</span>
                         </div>
@@ -207,6 +208,7 @@
                     <div class="menu-card">
                         <h3>Menu Degustação</h3>
                         <p class="price">R$ 268,00 por pessoa</p>
+                        <p style="font-style: italic; font-weight: 300; margin-bottom: 20px;">Sequência livre para você saborear seus pratos favoritos à vontade.</p>
                          <div class="pratos-lista">
                            <span class="prato-tag">Sunomono</span><span class="prato-tag">Missoshiro</span><span class="prato-tag">Sashimis</span><span class="prato-tag">Ceviches</span><span class="prato-tag">Sushis do Chef</span><span class="prato-tag">Sushis Tradicionais</span><span class="prato-tag">Salmorê</span><span class="prato-tag">Robata</span><span class="prato-tag">Gyoza</span><span class="prato-tag">Shimeji</span><span class="prato-tag">Tartar</span><span class="prato-tag">Ebiguru</span><span class="prato-tag">Uramaki Ebitem</span><span class="prato-tag">Temakis</span><span class="prato-tag">Yakissoba</span><span class="prato-tag">Sobremesa do Dia</span>
                         </div>
@@ -224,10 +226,10 @@
                 <h2>Como <span>Chegar</span></h2>
                 <p class="address"><i class="fas fa-map-marker-alt"></i> Rua Desembargador Espiridião de Lima Medeiros, 317 - Três Figueiras, Porto Alegre - RS, 91330-020</p>
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=5" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=7" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <div class="direction-buttons">
-                    <a href="https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipNg15Rg3zi6OxgvsWqW1TuSlxRXEDvUyfoPUuZD!2e10!4m2!3m1!1s0x9519779ab50580d5:0xe1f5bf21d333c7fc" target="_blank" class="cta-button">Rotas no Google Maps</a>
+                    <a href="https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipPRKaJuaWXYeRbm_0krPsTWFBoeBWmYu-h29GpB!2e10!4m2!3m1!1s0x9519779ab50580d5:0xe1f5bf21d333c7fc" target="_blank" class="cta-button">Rotas no Google Maps</a>
                     <a href="https://waze.com/ul?q=Rua%20Desembargador%20Espiridião%20de%20Lima%20Medeiros%2C%20317%2C%20Porto%20Alegre%2C%20RS" target="_blank" class="cta-button">Abrir no Waze</a>
                 </div>
                 <br><br>
@@ -242,7 +244,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- GERAÇÃO DE CONTEÚDO DINÂMICO ---
             const formContainer = document.getElementById('reserva-form');
             if (formContainer) {
                 formContainer.innerHTML = `
@@ -250,7 +251,7 @@
                     <div class="form-group" id="aviso-horario-check-container" style="display: none;">
                         <label for="horario-ciente-check" class="checkbox-label">
                             <input type="checkbox" id="horario-ciente-check">
-                            <span>Estou ciente da regra de fechamento da conta às 20:30 para este horário.</span>
+                            <span>Estou ciente da regra de fechamento da conta às 20:30.</span>
                         </label>
                     </div>
                     <div class="form-group"><label for="pessoas-select">2. Pessoas:</label><select id="pessoas-select" name="pessoas"><option value="">-- Selecione --</option><option value="2">2 pessoas</option><option value="4">4 pessoas</option></select></div>
@@ -265,7 +266,6 @@
             const sky = document.querySelector('.background-sky');
             if(sky) { for (let i = 0; i < 100; i++) { const star = document.createElement('div'); star.className = 'star'; star.style.width = `${Math.random() * 2}px`; star.style.height = star.style.width; star.style.top = `${Math.random() * 100}%`; star.style.left = `${Math.random() * 100}%`; star.style.animationDelay = `${Math.random() * 5}s`; sky.appendChild(star); } }
             
-            // --- LÓGICA DA CONTAGEM REGRESSIVA ---
             const countdownSection = document.getElementById('countdown-section');
             if (countdownSection) {
                  const dataFinal = new Date("June 11, 2025 22:59:59").getTime();
@@ -281,21 +281,25 @@
                 }, 1000);
             }
 
-            // --- NAVEGAÇÃO ENTRE PÁGINAS (CORRIGIDO) ---
             const paginas = { inicial: document.getElementById('pagina-inicial'), menus: document.getElementById('pagina-menus'), comoChegar: document.getElementById('pagina-como-chegar') };
             function trocarDePagina(paginaAlvo) {
-                Object.values(paginas).forEach(p => { if (p) p.classList.add('escondido'); });
-                if (paginaAlvo) {
-                    paginaAlvo.classList.remove('fade-out', 'escondido');
-                    paginaAlvo.classList.add('pagina-secao');
-                    window.scrollTo(0, 0);
+                let paginaAtiva = Object.values(paginas).find(p => p && !p.classList.contains('escondido'));
+                if (paginaAtiva && paginaAtiva !== paginaAlvo) {
+                    paginaAtiva.classList.add('fade-out');
+                    setTimeout(() => {
+                        paginaAtiva.classList.add('escondido');
+                        paginaAtiva.classList.remove('fade-out');
+                        if (paginaAlvo) {
+                            paginaAlvo.classList.remove('escondido');
+                            window.scrollTo(0, 0);
+                        }
+                    }, 600);
                 }
             }
             document.getElementById('btn-ver-menus')?.addEventListener('click', () => trocarDePagina(paginas.menus));
             document.getElementById('btn-como-chegar')?.addEventListener('click', () => trocarDePagina(paginas.comoChegar));
             document.querySelectorAll('.btn-voltar').forEach(btn => btn.addEventListener('click', () => trocarDePagina(paginas.inicial)));
             
-            // --- LÓGICA DO FORMULÁRIO (ATUALIZADA) ---
             const reservaForm = document.getElementById('reserva-form');
             if (reservaForm) {
                 const elementos = {
@@ -317,6 +321,7 @@
                         elementos.horarioCienteContainer.style.display = 'none';
                         elementos.horarioCienteCheck.checked = false;
                     }
+                    verificarCampos();
                 });
 
                 function verificarCampos() {
@@ -329,7 +334,7 @@
                         confirmado: elementos.confirmacao.checked
                     };
 
-                    let horarioCiente = true; // Assume true, se não for o primeiro horário
+                    let horarioCiente = true;
                     if (valores.horario === '18h30 às 20h30') {
                         horarioCiente = elementos.horarioCienteCheck.checked;
                     }
@@ -341,16 +346,15 @@
 
                     if (valores.horario && valores.pessoas && valores.confirmado && valores.nome && valores.telefone && horarioCiente) {
                         elementos.botao.classList.remove('disabled');
-                        // MENSAGEM ATUALIZADA
-                        const mensagem = `Olá! Gostaria de fazer uma reserva para a noite especial de Dia dos Namorados. Seguem os detalhes:\n\n- Nome: ${valores.nome}\n- Telefone: ${valores.telefone}\n- Horário: ${valores.horario}\n- Pessoas: ${valores.pessoas} pessoas\n- Sinal: R$ ${valorSinal},00\n\nConfirmo que estou ciente das condições. Obrigado!`;
+                        const mensagem = `Olá! Gostaria de fazer uma reserva para a noite especial de Dia dos Namorados. Seguem os detalhes:\n\n- Nome: ${valores.nome}\n- Telefone: ${valores.telefone}\n- Horário: ${valores.horario}\n- Pessoas: ${valores.pessoas}\n- Sinal: R$ ${valorSinal},00\n\nConfirmo que estou ciente das condições. Obrigado!`;
                         elementos.botao.href = `https://wa.me/555133288330?text=${encodeURIComponent(mensagem)}`;
                     } else {
                         elementos.botao.classList.add('disabled');
                         elementos.botao.href = '#';
                     }
                 }
-                [elementos.horario, elementos.pessoas, elementos.nome, elementos.telefone, elementos.confirmacao, elementos.horarioCienteCheck].forEach(el => {
-                    if(el) { ['change', 'keyup'].forEach(evt => el.addEventListener(evt, verificarCampos)); }
+                Object.values(elementos).forEach(el => {
+                    if(el) { ['change', 'keyup', 'input'].forEach(evt => el.addEventListener(evt, verificarCampos)); }
                 });
                 verificarCampos();
             }
