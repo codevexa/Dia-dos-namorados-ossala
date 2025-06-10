@@ -1,382 +1,281 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Especial de Namorados - Ossala Sushi</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva Especial de Namorados - Ossala Sushi</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-  <style>
-    /* Usando variáveis para as cores, fica mais fácil de mudar depois! */
-    :root {
-      --cor-primaria: #c0392b; /* Um vermelho mais sofisticado */
-      --cor-secundaria: #2c3e50; /* Um azul-escuro/chumbo */
-      --cor-fundo: #fdfaf8; /* Um branco levemente "quente" */
-      --cor-texto: #333333;
-      --fonte-titulo: 'Playfair Display', serif;
-      --fonte-corpo: 'Roboto', sans-serif;
-    }
+    <style>
+        /* --- Variáveis e Estilos Gerais --- */
+        :root {
+            --cor-primaria: #c0392b;
+            --cor-secundaria: #2c3e50;
+            --cor-fundo: #fdfaf8;
+            --cor-texto: #333333;
+            --fonte-titulo: 'Playfair Display', serif;
+            --fonte-corpo: 'Roboto', sans-serif;
+            --transition-speed: 0.5s; /* Velocidade da transição */
+        }
 
-    body {
-      font-family: var(--fonte-corpo);
-      background-color: var(--cor-fundo);
-      color: var(--cor-texto);
-      line-height: 1.7;
-      margin: 0;
-      padding: 0;
-    }
+        body {
+            font-family: var(--fonte-corpo);
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-      max-width: 960px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
+        /* --- LÓGICA DE TRANSIÇÃO E VISIBILIDADE DAS "PÁGINAS" --- */
+        .pagina-secao {
+            animation: fadeIn var(--transition-speed) forwards;
+        }
 
-    /* --- CABEÇALHO (HERO) --- */
-    .hero {
-      background-color: var(--cor-secundaria);
-      background-size: cover;
-      background-position: center;
-      color: #fff;
-      padding: 60px 20px;
-      text-align: center;
-    }
+        .escondido {
+            display: none;
+        }
 
-    .hero h1 {
-      font-family: var(--fonte-titulo);
-      margin: 0;
-      font-size: 3em;
-      letter-spacing: 1px;
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .hero p {
-      font-size: 1.2em;
-      opacity: 0.9;
-    }
+        .fade-out {
+            animation: fadeOut var(--transition-speed) forwards;
+        }
 
-    /* --- SEÇÕES E TÍTULOS --- */
-    section {
-      margin-bottom: 50px;
-    }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
 
-    h2 {
-      font-family: var(--fonte-titulo);
-      color: var(--cor-primaria);
-      text-align: center;
-      font-size: 2.2em;
-      margin-bottom: 30px;
-    }
 
-    #horarios ul li strong {
-        color: var(--cor-primaria);
-    }
+        /* --- Componentes --- */
+        .container { max-width: 960px; margin: 40px auto; padding: 0 20px; }
+        .hero { background-color: var(--cor-secundaria); color: #fff; padding: 60px 20px; text-align: center; }
+        .hero.hero-small { padding: 40px 20px; }
+        .hero h1 { font-family: var(--fonte-titulo); margin: 0; font-size: 3em; }
+        .hero p { font-size: 1.2em; opacity: 0.9; }
+        section { margin-bottom: 50px; text-align: center; }
+        h2 { font-family: var(--fonte-titulo); color: var(--cor-primaria); font-size: 2.2em; margin-bottom: 20px; }
 
-    /* --- LAYOUT DOS MENUS --- */
-    .menu-container {
-      display: flex;
-      gap: 30px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+        /* --- Seção de Introdução e CTA --- */
+        .intro p, .cta-section p { max-width: 600px; margin: 0 auto 20px auto; }
+        .cta-button {
+            display: inline-block; background: linear-gradient(45deg, #e74c3c, var(--cor-primaria));
+            color: white; padding: 15px 30px; text-decoration: none; font-weight: bold; font-size: 1.1em;
+            border-radius: 50px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);
+            border: none; cursor: pointer;
+        }
+        .cta-button:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(192, 57, 43, 0.6); }
 
-    .menu-card {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      border-top: 5px solid var(--cor-primaria);
-      flex: 1;
-      min-width: 300px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+        /* --- Cards de Menu --- */
+        .menu-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; text-align: left; }
+        .menu-card { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-top: 5px solid var(--cor-primaria); flex: 1; min-width: 300px; }
+        .menu-card h3 { font-family: var(--fonte-titulo); font-size: 1.6em; margin-top: 0; }
+        .menu-card .price { font-size: 1.3em; font-weight: 500; color: var(--cor-secundaria); margin-bottom: 15px; }
+        .menu-card ul { padding-left: 20px; }
 
-    .menu-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    }
+        /* --- Formulário de Reserva --- */
+        #reserva { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: left; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--cor-secundaria); }
+        .form-group select { width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #ccc; font-size: 1em; }
+        .checkbox-label { display: flex; align-items: center; cursor: pointer; font-weight: normal; }
+        .checkbox-label input { width: 18px; height: 18px; margin-right: 12px; }
+        .valor-sinal { text-align: center; margin: 20px 0; font-size: 1.2em; font-weight: bold; color: var(--cor-primaria); min-height: 25px; transition: opacity 0.3s; }
+        .cta-box { text-align: center; }
+        .cta-box p { margin-top: 0; margin-bottom: 20px; font-size: 1.1em; }
+        .cta-button.disabled { background: #ddd; color: #888; box-shadow: none; cursor: not-allowed; }
+        .cta-button.disabled:hover { transform: none; box-shadow: none; }
 
-    .menu-card h3 {
-      font-family: var(--fonte-titulo);
-      font-size: 1.6em;
-      margin-top: 0;
-    }
-
-    .menu-card .price {
-      font-size: 1.3em;
-      font-weight: 500;
-      color: var(--cor-secundaria);
-      margin-bottom: 15px;
-    }
-
-    .menu-card .description {
-      font-style: italic;
-      color: #666;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 15px;
-    }
-
-    .menu-card ul {
-      padding-left: 0;
-      list-style: none;
-    }
-
-    .menu-card ul li {
-      margin-bottom: 10px;
-    }
-
-    .menu-card ul li::before {
-      content: '🥢';
-      margin-right: 10px;
-    }
-
-    /* --- FORMULÁRIO DE RESERVA --- */
-    #reserva {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 8px;
-      margin-bottom: 50px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    #reserva h2 {
-      margin-top: 0;
-      margin-bottom: 20px;
-    }
-
-    .form-reserva {
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 500;
-      color: var(--cor-secundaria);
-    }
-
-    .form-group select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 1em;
-      font-family: var(--fonte-corpo);
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background-image: url('data:image/svg+xml;charset=UTF-8,<svg fill="%23333" viewBox="0 0 24 24" width="20" height="20"><path d="M7 10l5 5 5-5z"/></svg>');
-      background-repeat: no-repeat;
-      background-position: right 10px top 50%;
-    }
-
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      font-weight: normal !important;
-      color: var(--cor-texto);
-    }
-
-    .checkbox-label input#confirmacao-check {
-      width: 18px;
-      height: 18px;
-      margin-right: 10px;
-      flex-shrink: 0;
-      cursor: pointer;
-    }
-
-    .cta-box {
-      text-align: center;
-    }
-
-    .cta-box p {
-      margin-top: 0;
-      margin-bottom: 20px;
-      font-size: 1.1em;
-      color: var(--cor-texto);
-    }
-
-    /* --- BOTÃO DE AÇÃO (CTA) --- */
-    .cta-button {
-      display: inline-block;
-      background: linear-gradient(45deg, #e74c3c, var(--cor-primaria));
-      color: white;
-      padding: 15px 30px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1em;
-      border-radius: 50px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);
-    }
-
-    .cta-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 20px rgba(192, 57, 43, 0.6);
-    }
-
-    /* --- ESTADO DESABILITADO DO BOTÃO --- */
-    .cta-button.disabled {
-      background: #ddd;
-      color: #888;
-      box-shadow: none;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .cta-button.disabled:hover {
-      background: #ddd;
-      color: #888;
-      box-shadow: none;
-      transform: none;
-    }
-
-    /* --- RODAPÉ --- */
-    footer {
-      text-align: center;
-      padding: 30px;
-      font-size: 0.9em;
-      color: #888;
-      margin-top: 40px;
-      border-top: 1px solid #eee;
-    }
-
-    /* --- DESIGN RESPONSIVO PARA CELULARES --- */
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2.2em;
-      }
-
-      .hero p {
-        font-size: 1em;
-      }
-      
-      .menu-container {
-        flex-direction: column;
-      }
-      
-      .menu-card {
-        min-width: auto;
-        margin-bottom: 20px;
-      }
-    }
-  </style>
+        /* --- Outros --- */
+        footer { text-align: center; padding: 30px; font-size: 0.9em; color: #888; margin-top: 40px; border-top: 1px solid #eee; }
+        @media (max-width: 768px) { .hero h1 { font-size: 2.2em; } .menu-container { flex-direction: column; } }
+    </style>
 </head>
 <body>
 
-<header class="hero">
-  <div class="hero-content">
-    <h1>🍣 Especial de Namorados Ossala</h1>
-    <p>Uma noite inesquecível com a nossa cozinha japonesa autoral</p>
-  </div>
-</header>
+    <div id="pagina-inicial" class="pagina-secao">
+        <header class="hero">
+            <div class="hero-content">
+                <h1>🍣 Especial de Namorados Ossala</h1>
+                <p>Uma noite inesquecível com a nossa cozinha japonesa autoral</p>
+            </div>
+        </header>
 
-<main class="container">
+        <main class="container">
+            <section class="intro">
+                <h2>Uma Experiência Única</h2>
+                <p>Preparamos duas experiências gastronômicas exclusivas para tornar sua noite de namorados inesquecível. Conheça os detalhes dos nossos menus e garanta sua mesa.</p>
+                <button id="btn-ver-menus" class="cta-button">Ver os Menus</button>
+            </section>
 
-  <section id="horarios">
-    <h2>📆 Horários disponíveis</h2>
-    <ul>
-      <li><strong>1º Horário:</strong> das <strong>18h30 às 20h30</strong></li>
-      <li><strong>(ESGOTADO) 2º Horário:</strong> das <strong>21h15 às 23h00</strong></li>
-    </ul>
-  </section>
+            <section id="reserva">
+                <h2>💰 Faça sua Reserva</h2>
+                
+                <form id="reserva-form" class="form-reserva" onsubmit="return false;">
+                    <div class="form-group">
+                        <label for="horario-select">1. Escolha o horário:</label>
+                        <select id="horario-select" name="horario">
+                            <option value="">-- Selecione um horário --</option>
+                            <option value="18h30 às 20h30">1º Horário: 18h30 às 20h30</option>
+                            <option value="21h15 às 23h00 (ESGOTADO)" disabled>2º Horário: 21h15 às 23h00 (ESGOTADO)</option>
+                        </select>
+                    </div>
 
-  <section id="menu">
-    <h2>🥢 Nossas Experiências</h2>
-    <div class="menu-container">
-      
-      <div class="menu-card">
-        <h3>Experiência Ossala</h3>
-        <p class="price">R$ 220,00 por pessoa</p>
-        <p class="description">Total de 27 peças cuidadosamente selecionadas, sem repetição.</p>
-        <ul>
-          <li><strong>Entradas:</strong> Sunomono e Edamame</li>
-          <li><strong>Principais:</strong> Salmorê, Camarão Crocante, Gyosas, Trilogia de Ceviches, Sashimis Frescos (10pç), Tartare do Dia, Gunkas (4pç), Niguiris (3pç) e o exclusivo <strong>Ebiossala</strong> (2pç).</li>
-          <li><strong>Sobremesa:</strong> Sorvete com brownie.</li>
-        </ul>
-      </div>
+                    <div class="form-group">
+                        <label for="pessoas-select">2. Para quantas pessoas?</label>
+                        <select id="pessoas-select" name="pessoas">
+                            <option value="">-- Selecione uma opção --</option>
+                            <option value="2">2 pessoas</option>
+                            <option value="4">4 pessoas</option>
+                        </select>
+                    </div>
 
-      <div class="menu-card">
-        <h3>Menu Degustação</h3>
-        <p class="price">R$ 268,00 por pessoa</p>
-        <p class="description">Sequência livre para você saborear seus pratos favoritos à vontade.</p>
-        <ul>
-            <li><strong>Entradas:</strong> Sunomono, Missoshiro, Edamame.</li>
-            <li><strong>Pratos quentes e frios:</strong> Sashimis, Ceviches, Sushis Variados, Salmorê, Gyoza, Shimeji, Tartar, Temakis, Yakissoba e muito mais.</li>
-            <li><strong>Sobremesa:</strong> Inclusa.</li>
-        </ul>
-      </div>
+                    <div id="valor-sinal-display" class="valor-sinal"></div>
 
+                    <div class="form-group">
+                        <label for="confirmacao-check" class="checkbox-label">
+                            <input type="checkbox" id="confirmacao-check">
+                            <span>Estou ciente e de acordo com o pagamento antecipado do sinal para confirmar a reserva.</span>
+                        </label>
+                    </div>
+                
+                    <div class="cta-box">
+                        <p>Preencha todos os campos para liberar o botão.</p>
+                        <a id="whatsapp-button" href="#" class="cta-button disabled">
+                            Reservar por WhatsApp
+                        </a>
+                    </div>
+                </form>
+            </section>
+        </main>
     </div>
-  </section>
 
-  <section id="reserva">
-    <h2>💰 Faça sua Reserva</h2>
-    
-    <div class="form-reserva">
-      <div class="form-group">
-        <label for="horario-select">1. Escolha o horário desejado:</label>
-        <select id="horario-select" name="horario">
-          <option value="">-- Selecione um horário --</option>
-          <option value="18h30 às 20h30">1º Horário: 18h30 às 20h30</option>
-          <option value="21h15 às 23h00 (ESGOTADO)" disabled>2º Horário: 21h15 às 23h00 (ESGOTADO)</option>
-        </select>
-      </div>
+    <div id="pagina-menus" class="pagina-secao escondido">
+        <header class="hero hero-small">
+            <div class="hero-content">
+                <h1>Nossas Experiências</h1>
+                <p>Conheça em detalhes as opções que preparamos para você</p>
+            </div>
+        </header>
 
-      <div class="form-group">
-        <label for="confirmacao-check" class="checkbox-label">
-          <input type="checkbox" id="confirmacao-check">
-          <span>Estou ciente e de acordo com o pagamento antecipado de R$ 200,00 por casal para confirmar a reserva.</span>
-        </label>
-      </div>
+        <main class="container">
+            <section id="menu">
+                <div class="menu-container">
+                    <div class="menu-card">
+                        <h3>Experiência Ossala</h3>
+                        <p class="price">R$ 220,00 por pessoa</p>
+                        <p class="description">Total de 27 peças cuidadosamente selecionadas, sem repetição.</p>
+                        <ul>
+                            <li><strong>Entradas:</strong> Sunomono e Edamame</li>
+                            <li><strong>Principais:</strong> Salmorê, Camarão Crocante, Gyosas, Trilogia de Ceviches, Sashimis Frescos (10pç), Tartare do Dia, Gunkas (4pç), Niguiris (3pç) e o exclusivo <strong>Ebiossala</strong> (2pç).</li>
+                            <li><strong>Sobremesa:</strong> Sorvete com brownie.</li>
+                        </ul>
+                    </div>
+                    <div class="menu-card">
+                        <h3>Menu Degustação</h3>
+                        <p class="price">R$ 268,00 por pessoa</p>
+                        <p class="description">Sequência livre para você saborear seus pratos favoritos à vontade.</p>
+                        <ul>
+                            <li><strong>Entradas:</strong> Sunomono, Missoshiro, Edamame.</li>
+                            <li><strong>Pratos quentes e frios:</strong> Sashimis, Ceviches, Sushis Variados, Salmorê, Gyoza, Shimeji, Tartar, Temakis, Yakissoba e muito mais.</li>
+                            <li><strong>Sobremesa:</strong> Inclusa.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta-section">
+                <p>Gostou? Volte para a página inicial e garanta sua mesa!</p>
+                <button id="btn-voltar-reserva" class="cta-button">Fazer Reserva Agora</button>
+            </section>
+        </main>
     </div>
-    
-    <div class="cta-box">
-      <p>Preencha os campos acima para liberar o botão de reserva.</p>
-      <a id="whatsapp-button" href="#" class="cta-button disabled">
-        Reservar por WhatsApp
-      </a>
-    </div>
-  </section>
 
-</main>
 
-<footer>
-  <p>© 2025 Ossala Sushi – Todos os direitos reservados.</p>
-</footer>
+    <footer class="footer">
+        <p>© 2025 Ossala Sushi – Todos os direitos reservados.</p>
+    </footer>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const horarioSelect = document.getElementById('horario-select');
-    const confirmacaoCheck = document.getElementById('confirmacao-check');
-    const whatsappButton = document.getElementById('whatsapp-button');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-    function verificarCampos() {
-      const horarioSelecionado = horarioSelect.value;
-      const confirmacaoRealizada = confirmacaoCheck.checked;
+            // --- ELEMENTOS GLOBAIS E DE NAVEGAÇÃO ---
+            const paginaInicial = document.getElementById('pagina-inicial');
+            const paginaMenus = document.getElementById('pagina-menus');
+            const btnVerMenus = document.getElementById('btn-ver-menus');
+            const btnVoltarReserva = document.getElementById('btn-voltar-reserva');
+            const transitionSpeed = 500; // ms, igual ao CSS
 
-      if (horarioSelecionado && confirmacaoRealizada) {
-        whatsappButton.classList.remove('disabled');
-        const mensagem = `Olá! Gostaria de reservar uma mesa para o Especial de Namorados no horário das ${horarioSelecionado}. Confirmo que estou ciente da taxa de reserva.`;
-        whatsappButton.href = `https://wa.me/555133288330?text=${encodeURIComponent(mensagem)}`;
-      } else {
-        whatsappButton.classList.add('disabled');
-        whatsappButton.href = '#';
-      }
-    }
+            function trocarDePagina(paginaParaEsconder, paginaParaMostrar) {
+                paginaParaEsconder.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    paginaParaEsconder.classList.add('escondido');
+                    paginaParaEsconder.classList.remove('fade-out');
 
-    horarioSelect.addEventListener('change', verificarCampos);
-    confirmacaoCheck.addEventListener('change', verificarCampos);
-    verificarCampos();
-  });
-</script>
+                    paginaParaMostrar.classList.remove('escondido');
+                    // Forçar o navegador a repintar antes de adicionar a classe de animação
+                    void paginaParaMostrar.offsetWidth; 
+                    paginaParaMostrar.classList.add('pagina-secao');
+                }, transitionSpeed);
+            }
 
+            btnVerMenus.addEventListener('click', () => {
+                trocarDePagina(paginaInicial, paginaMenus);
+            });
+
+            btnVoltarReserva.addEventListener('click', () => {
+                trocarDePagina(paginaMenus, paginaInicial);
+            });
+
+
+            // --- LÓGICA DO FORMULÁRIO DE RESERVA ---
+            const horarioSelect = document.getElementById('horario-select');
+            const pessoasSelect = document.getElementById('pessoas-select');
+            const confirmacaoCheck = document.getElementById('confirmacao-check');
+            const whatsappButton = document.getElementById('whatsapp-button');
+            const valorSinalDisplay = document.getElementById('valor-sinal-display');
+
+            function verificarCampos() {
+                const horario = horarioSelect.value;
+                const pessoas = pessoasSelect.value;
+                const confirmado = confirmacaoCheck.checked;
+                
+                let valorSinal = 0;
+                let textoValorSinal = '';
+
+                if (pessoas === '2') {
+                    valorSinal = 200;
+                    textoValorSinal = 'Valor do sinal: R$ 200,00 (referente a 1 casal)';
+                } else if (pessoas === '4') {
+                    valorSinal = 400;
+                    textoValorSinal = 'Valor do sinal: R$ 400,00 (referente a 2 casais)';
+                }
+                valorSinalDisplay.textContent = textoValorSinal;
+
+                if (horario && pessoas && confirmado) {
+                    whatsappButton.classList.remove('disabled');
+                    const mensagem = `Olá! Gostaria de fazer uma reserva para o Especial de Namorados:\n\n- Horário: ${horario}\n- Pessoas: ${pessoas} pessoas\n- Valor do Sinal: R$ ${valorSinal},00\n\nConfirmo que estou ciente da taxa de reserva.`;
+                    whatsappButton.href = `https://wa.me/555133288330?text=${encodeURIComponent(mensagem)}`;
+                } else {
+                    whatsappButton.classList.add('disabled');
+                    whatsappButton.href = '#';
+                }
+            }
+
+            horarioSelect.addEventListener('change', verificarCampos);
+            pessoasSelect.addEventListener('change', verificarCampos);
+            confirmacaoCheck.addEventListener('change', verificarCampos);
+
+            verificarCampos(); // Roda a verificação uma vez no início
+        });
+    </script>
 </body>
 </html>
