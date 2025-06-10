@@ -10,13 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* --- VARIÁVEIS DE COR E ESTILOS GERAIS --- */
         :root {
-            --cor-primaria: #994a4d; /* Rosa/Vermelho que você escolheu */
+            --cor-primaria: #994a4d;
             --cor-dourado-claro: #f0e6d6;
             --cor-dourado-escuro: #c8a77e;
-            --cor-fundo: #111111; /* Preto */
-            --cor-texto: #f4f4f4; /* Branco-gelo para melhor leitura */
+            --cor-fundo: #111111;
+            --cor-texto: #f4f4f4;
             --fonte-titulo: 'Playfair Display', serif;
             --fonte-corpo: 'Roboto', sans-serif;
             --transition-speed: 0.5s;
@@ -32,7 +31,6 @@
             overflow-x: hidden;
         }
 
-        /* --- ANIMAÇÃO DE FUNDO COM CORAÇÕES E ROSAS --- */
         .background-particles {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; overflow: hidden;
@@ -46,27 +44,18 @@
             from { transform: translateY(0) rotate(0deg); opacity: 0.5; }
             to { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
-        /* Variações para criar efeito aleatório */
         .background-particles span:nth-child(1) { left: 10%; animation-duration: 15s; animation-delay: 0s; }
         .background-particles span:nth-child(2) { left: 20%; animation-duration: 12s; animation-delay: 2s; font-size: 25px; }
         .background-particles span:nth-child(3) { left: 30%; animation-duration: 18s; animation-delay: 4s; }
         .background-particles span:nth-child(4) { left: 40%; animation-duration: 14s; animation-delay: 1s; font-size: 22px; }
         .background-particles span:nth-child(5) { left: 50%; animation-duration: 16s; animation-delay: 3s; }
-        .background-particles span:nth-child(6) { left: 60%; animation-duration: 11s; animation-delay: 5s; font-size: 28px; }
-        .background-particles span:nth-child(7) { left: 70%; animation-duration: 17s; animation-delay: 0s; }
-        .background-particles span:nth-child(8) { left: 80%; animation-duration: 13s; animation-delay: 2s; font-size: 18px; }
-        .background-particles span:nth-child(9) { left: 90%; animation-duration: 19s; animation-delay: 6s; }
-        .background-particles span:nth-child(10) { left: 5%; animation-duration: 14s; animation-delay: 7s; font-size: 26px; }
-        .background-particles span:nth-child(11) { left: 95%; animation-duration: 16s; animation-delay: 8s; }
 
-        /* --- LÓGICA DE TRANSIÇÃO DAS "PÁGINAS" --- */
         .pagina-secao { animation: fadeIn var(--transition-speed) forwards; }
         .escondido { display: none; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .fade-out { animation: fadeOut var(--transition-speed) forwards; }
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
 
-        /* --- Componentes --- */
         .container { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
         .hero { background-color: rgba(0,0,0,0.3); padding: 40px 20px; text-align: center; }
         .logo-img { max-height: 80px; width: auto; }
@@ -74,20 +63,17 @@
         section { padding: 50px 0; text-align: center; position: relative; }
         h2 { font-family: var(--fonte-titulo); color: var(--cor-primaria); font-size: 2.2em; margin-bottom: 20px; }
         
-        /* --- ESTILO PARA CRIAR DIVISÓRIAS EM ÂNGULO --- */
         .angled-section {
             background-color: rgba(30,30,30,0.7);
             backdrop-filter: blur(5px);
-            /* A mágica do ângulo acontece aqui */
             clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
-            margin-top: -50px; /* Sobrepõe levemente a seção anterior */
+            margin-top: -50px;
             padding-top: 100px !important;
             padding-bottom: 100px !important;
         }
         .intro { margin-bottom: 50px; }
         .intro p, .cta-section p { max-width: 600px; margin: 0 auto 20px auto; }
-
-        /* --- Botão de Ação --- */
+        
         .cta-button {
             display: inline-block; background: linear-gradient(145deg, var(--cor-dourado-claro), var(--cor-dourado-escuro));
             color: #333; padding: 15px 30px; text-decoration: none; font-weight: bold; font-size: 1.1em;
@@ -97,8 +83,29 @@
             cursor: pointer;
         }
         .cta-button:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(200, 167, 126, 0.5); }
-
-        /* Cards de Menu */
+        
+        #galeria h2 {
+            color: var(--cor-dourado-claro);
+        }
+        .galeria-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .galeria-container img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 2px solid var(--cor-dourado-escuro);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .galeria-container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(200, 167, 126, 0.4);
+        }
+        
         .menu-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; text-align: left; }
         .menu-card {
             background-color: var(--cor-fundo);
@@ -108,8 +115,7 @@
         .menu-card h3 { font-family: var(--fonte-titulo); font-size: 1.6em; margin-top: 0; color: var(--cor-dourado-claro); }
         .menu-card .price { font-size: 1.3em; font-weight: 500; color: var(--cor-dourado-claro); margin-bottom: 15px; }
         .menu-card ul { padding-left: 20px; }
-
-        /* Estilos da Contagem Regressiva em Corações */
+        
         #countdown-section h3 {
             font-family: var(--fonte-corpo); font-size: 1.2em;
             font-weight: 500; color: var(--cor-dourado-claro); margin-bottom: 20px;
@@ -132,7 +138,6 @@
             padding: 30px; border-radius: 20px; border: 2px solid var(--cor-primaria);
         }
 
-        /* Formulário de Reserva */
         #reserva {
             padding: 30px; border-radius: 20px; text-align: left;
         }
@@ -158,7 +163,6 @@
         .cta-button.disabled { background: #555; color: #999; box-shadow: none; cursor: not-allowed; border-color: #555; }
         .cta-button.disabled:hover { transform: none; box-shadow: none; }
 
-        /* Outros */
         footer { text-align: center; padding: 30px; font-size: 0.9em; color: #888; margin-top: 40px; border-top: 1px solid #444; }
         @media (max-width: 768px) {
             .angled-section { clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%); margin-top: -20px; }
@@ -193,6 +197,15 @@
                 <h2>Uma Experiência Única</h2>
                 <p>Preparamos duas experiências gastronômicas exclusivas para tornar sua noite de namorados inesquecível. Conheça os detalhes dos nossos menus e garanta sua mesa.</p>
                 <button id="btn-ver-menus" class="cta-button">Ver os Menus</button>
+            </section>
+
+            <section id="galeria">
+                <h2>Um Pouco da Nossa Arte</h2>
+                <div class="galeria-container">
+                    <img src="https://ossala.com.br/wp-content/uploads/2023/11/ambiente-ossala-1.jpg" alt="Ambiente do restaurante Ossala com mesa longa">
+                    <img src="https://lh3.googleusercontent.com/p/AF1QipMwV9E_a-5I4O8Xb2dY_yY0E7C5Vp3sFwR8J_s=s1360-w1360-h1020" alt="Salão principal do Ossala com o bar ao fundo">
+                    <img src="https://ossala.com.br/wp-content/uploads/2023/11/prato-sushi-ossala-1.jpg" alt="Prato de sushi variado sendo servido">
+                </div>
             </section>
             
             <section id="countdown-section" class="angled-section">
