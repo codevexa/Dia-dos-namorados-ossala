@@ -10,15 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-
     <style>
-        /* --- NOVA PALETA DE CORES E ESTILOS GERAIS "AMOROSO" --- */
+        /* --- Paleta de Cores e Estilos "Amoroso" --- */
         :root {
-            --cor-primaria: #ff8fab; /* Rosa suave para detalhes */
-            --cor-secundaria: #f8bbd0; /* Rosa mais claro */
-            --cor-fundo-inicio: #1e1e3f; /* Azul noite */
-            --cor-fundo-fim: #4c2a4c; /* Púrpura/Vinho */
-            --cor-texto: #fce4ec; /* Branco com tom rosado */
+            --cor-primaria: #ff8fab; 
+            --cor-secundaria: #f8bbd0;
+            --cor-fundo-inicio: #1e1e3f;
+            --cor-fundo-fim: #4c2a4c;
+            --cor-texto: #fce4ec;
             --fonte-titulo: 'Playfair Display', serif;
             --fonte-corpo: 'Poppins', sans-serif;
             --transition-speed: 0.6s;
@@ -34,34 +33,13 @@
             overflow-x: hidden;
         }
 
-        /* --- NOVO FUNDO ANIMADO "CÉU ESTRELADO" --- */
-        .background-sky {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2; overflow: hidden;
-        }
-        .star {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            animation: twinkle 5s infinite;
-        }
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-        .background-particles {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; overflow: hidden;
-        }
-        .background-particles span {
-            position: absolute; bottom: -150px; font-size: 20px;
-            animation: float 20s linear infinite;
-            color: var(--cor-primaria); opacity: 0.4;
-        }
-        @keyframes float {
-            from { transform: translateY(0) rotate(0deg); opacity: 0.4; }
-            to { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
+        .background-sky { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
+        .star { position: absolute; background-color: white; border-radius: 50%; animation: twinkle 5s infinite; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        .background-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+        .background-particles span { position: absolute; bottom: -150px; font-size: 20px; animation: float 20s linear infinite; color: var(--cor-primaria); opacity: 0.4; }
+        @keyframes float { from { transform: translateY(0); } to { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
         .background-particles span:nth-child(1) { left: 10%; animation-duration: 18s; }
         .background-particles span:nth-child(2) { left: 20%; animation-duration: 15s; font-size: 25px; }
         .background-particles span:nth-child(3) { left: 30%; animation-duration: 22s; }
@@ -69,14 +47,12 @@
         .background-particles span:nth-child(5) { left: 60%; animation-duration: 20s; }
         .background-particles span:nth-child(6) { left: 85%; animation-duration: 13s; font-size: 28px; }
 
-        /* --- LÓGICA DE TRANSIÇÃO DAS "PÁGINAS" --- */
         .pagina-secao { animation: fadeIn var(--transition-speed) forwards; }
         .escondido { display: none; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
         .fade-out { animation: fadeOut var(--transition-speed) forwards; }
         @keyframes fadeOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.98); } }
 
-        /* --- Componentes com Layout "Amoroso" --- */
         .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
         .hero { background: transparent; padding: 40px 20px; text-align: center; }
         .logo-img { max-height: 90px; width: auto; filter: drop-shadow(0 0 10px var(--cor-secundaria)); }
@@ -90,7 +66,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 30px;
-            border-radius: 40px; /* Bordas bem arredondadas */
+            border-radius: 40px;
         }
 
         .intro p, .cta-section p { max-width: 600px; margin: 0 auto 25px auto; font-weight: 300; }
@@ -103,28 +79,18 @@
             cursor: pointer;
         }
         .cta-button:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6); }
+        .cta-button.secondary { background: transparent; border: 1px solid var(--cor-primaria); color: var(--cor-primaria); }
 
         .menu-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; text-align: left; }
-        .menu-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 30px; border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1); flex: 1; min-width: 300px;
-        }
+        .menu-card { background-color: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 40px; border: 1px solid rgba(255, 255, 255, 0.1); flex: 1; min-width: 300px; }
         .menu-card h3 { font-family: var(--fonte-titulo); font-size: 1.6em; margin-top: 0; color: var(--cor-primaria); }
         .menu-card .price { font-size: 1.3em; font-weight: 500; color: var(--cor-texto); margin-bottom: 15px; }
         .menu-card ul { padding-left: 20px; list-style-type: '❤️ '; }
 
-        #countdown-section h3 {
-            font-family: var(--fonte-corpo); font-size: 1.2em;
-            font-weight: 400; color: var(--cor-texto); margin-bottom: 20px;
-        }
+        #countdown-section h3 { font-family: var(--fonte-corpo); font-size: 1.2em; font-weight: 400; color: var(--cor-texto); margin-bottom: 20px; }
         .countdown-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-bottom: 30px; }
         .countdown-item { position: relative; width: 90px; height: 90px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .countdown-item::before, .countdown-item::after {
-            content: ''; position: absolute; top: 0; width: 50px; height: 80px;
-            background: var(--cor-primaria); border-radius: 50px 50px 0 0;
-            transform-origin: bottom; z-index: 1;
-        }
+        .countdown-item::before, .countdown-item::after { content: ''; position: absolute; top: 0; width: 50px; height: 80px; background: var(--cor-primaria); border-radius: 50px 50px 0 0; transform-origin: bottom; z-index: 1; }
         .countdown-item::before { left: 45px; transform: rotate(-45deg); }
         .countdown-item::after { left: 0; transform: rotate(45deg); }
         .countdown-content { position: relative; z-index: 2; color: white; }
@@ -134,31 +100,16 @@
         .form-group label { display: block; margin-bottom: 8px; font-weight: 400; color: var(--cor-secundaria); }
         .form-group select,
         .form-group input[type="text"],
-        .form-group input[type="tel"] {
-            width: 100%; padding: 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);
-            font-size: 1em; font-family: var(--fonte-corpo); box-sizing: border-box;
-            background-color: rgba(255,255,255,0.1); color: var(--cor-texto);
-        }
+        .form-group input[type="tel"] { width: 100%; padding: 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); font-size: 1em; font-family: var(--fonte-corpo); box-sizing: border-box; background-color: rgba(255,255,255,0.1); color: var(--cor-texto); }
         .form-group input::placeholder { color: rgba(255,255,255,0.4); }
         .valor-sinal { text-align: center; margin: 20px 0; font-size: 1.2em; font-weight: bold; color: var(--cor-secundaria); min-height: 25px; }
         .cta-button.disabled { background: #555; color: #999; box-shadow: none; cursor: not-allowed; }
 
-        #pagina-como-chegar .map-container {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            padding-top: 56.25%; /* Proporção 16:9 */
-            border-radius: 40px;
-            margin: 20px 0;
-        }
-        #pagina-como-chegar .map-container iframe {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: 0;
-        }
+        #pagina-como-chegar .map-container { position: relative; overflow: hidden; width: 100%; padding-top: 56.25%; border-radius: 40px; margin: 20px 0; }
+        #pagina-como-chegar .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         #pagina-como-chegar .address { font-size: 1.1em; margin-bottom: 30px; }
-        .direction-buttons { display: flex; justify-content: center; gap: 20px; }
-
+        .direction-buttons { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        
         footer { text-align: center; padding: 30px; font-size: 0.9em; color: #888; margin-top: 40px; }
     </style>
 </head>
@@ -179,10 +130,13 @@
             <section class="intro">
                 <h2>Uma Experiência <span>Única</span></h2>
                 <p>Preparamos duas experiências gastronômicas exclusivas para tornar sua noite de namorados inesquecível. Conheça os detalhes dos nossos menus e garanta sua mesa.</p>
-                <button id="btn-ver-menus" class="cta-button">Ver os Menus</button>
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <button id="btn-ver-menus" class="cta-button">Ver os Menus</button>
+                    <button id="btn-como-chegar" class="cta-button secondary">Como Chegar</button>
+                </div>
             </section>
             
-            <section id="countdown-section">
+            <section id="countdown-section" class="panel">
                 <h3>As reservas encerram em:</h3>
                 <div id="countdown" class="countdown-container">
                     <div class="countdown-item"><div class="countdown-content"><span id="dias">00</span><span>Dias</span></div></div>
@@ -192,37 +146,48 @@
                 </div>
             </section>
 
+            <div id="mensagem-encerrado" class="escondido panel">
+                <h2>Reservas <span>Encerradas</span>!</h2>
+                <p>Agradecemos o seu interesse. As vagas para nosso evento especial foram preenchidas ou o prazo foi encerrado.</p>
+            </div>
+
             <div id="reserva-container" class="panel">
                 <section id="reserva">
                     <h2>Faça sua <span>Reserva</span></h2>
-                    <form id="reserva-form" onsubmit="return false;">
-                        </form>
+                    <form id="reserva-form" onsubmit="return false;"></form>
                 </section>
             </div>
-            
-            <section class="cta-section">
-                <button id="btn-como-chegar" class="cta-button" style="background: transparent; border: 1px solid var(--cor-primaria); color: var(--cor-primaria);">Como Chegar</button>
-            </section>
         </main>
     </div>
 
     <div id="pagina-menus" class="pagina-secao escondido">
-        </div>
+         <main class="container">
+            <section class="panel">
+                <h2>Nossos <span>Menus</span></h2>
+                 <div class="menu-container">
+                    <div class="menu-card"><h3>Experiência Ossala</h3><p class="price">R$ 220,00 por pessoa</p><ul><li><strong>Entradas:</strong> Sunomono e Edamame</li><li><strong>Principais:</strong> Salmorê, Camarão Crocante, Gyosas, Trilogia de Ceviches, Sashimis Frescos (10pç), Tartare do Dia, Gunkas (4pç), Niguiris (3pç) e o exclusivo <strong>Ebiossala</strong> (2pç).</li><li><strong>Sobremesa:</strong> Sorvete com brownie.</li></ul></div>
+                    <div class="menu-card"><h3>Menu Degustação</h3><p class="price">R$ 268,00 por pessoa</p><ul><li><strong>Entradas:</strong> Sunomono, Missoshiro, Edamame.</li><li><strong>Pratos quentes e frios:</strong> Sashimis, Ceviches, Sushis Variados, Salmorê, Gyoza, Shimeji, Tartar, Temakis, Yakissoba e muito mais.</li><li><strong>Sobremesa:</strong> Inclusa.</li></ul></div>
+                </div>
+                <br><br>
+                <button class="btn-voltar cta-button secondary">Voltar</button>
+            </section>
+        </main>
+    </div>
 
     <div id="pagina-como-chegar" class="pagina-secao escondido">
         <main class="container">
-            <section>
+            <section class="panel">
                 <h2>Como <span>Chegar</span></h2>
-                <p class="address">R. Padre Chagas, 46 - Moinhos de Vento, Porto Alegre - RS, 90570-020</p>
+                <p class="address"><i class="fas fa-map-marker-alt"></i> Rua Desembargador Espiridião de Lima Medeiros, 317 - Três Figueiras, Porto Alegre - RS, 91330-020</p>
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.493998592981!2d-51.2062978!3d-30.0227184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951979b1836a084d%3A0x8534b35e98542a42!2sOssala%20Sushi!5e0!3m2!1spt-BR!2sbr!4v1718006451515!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.495831779679!2d-51.17876792368729!3d-30.02271842898991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951978160ea43361%3A0xf63a6de66283b632!2sR.%20Des.%20Espiridi%C3%A3o%20de%20Lima%20Medeiros%2C%20317%20-%20Tr%C3%AAs%20Figueiras%2C%20Porto%20Alegre%20-%20RS%2C%2091330-020!5e0!3m2!1spt-BR!2sbr!4v1718100000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <div class="direction-buttons">
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=Ossala+Sushi+R.+Padre+Chagas,+46" target="_blank" class="cta-button">Rotas no Google Maps</a>
-                    <a href="https://waze.com/ul?q=Ossala%20Sushi%20Rua%20Padre%20Chagas%2046%20Porto%20Alegre" target="_blank" class="cta-button">Abrir no Waze</a>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Rua%20Desembargador%20Espiridião%20de%20Lima%20Medeiros%2C%20317%2C%20Três%20Figueiras%2C%20Porto%20Alegre%2C%20RS%2C%2091330-020" target="_blank" class="cta-button">Rotas no Google Maps</a>
+                    <a href="https://waze.com/ul?q=Rua%20Desembargador%20Espiridião%20de%20Lima%20Medeiros%2C%20317%2C%20Porto%20Alegre%2C%20RS" target="_blank" class="cta-button">Abrir no Waze</a>
                 </div>
                 <br><br>
-                <button class="btn-voltar cta-button" style="background: transparent; border: 1px solid var(--cor-primaria); color: var(--cor-primaria);">Voltar</button>
+                <button class="btn-voltar cta-button secondary">Voltar</button>
             </section>
         </main>
     </div>
@@ -233,7 +198,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Preencher o formulário
             const formContainer = document.getElementById('reserva-form');
             if (formContainer) {
                 formContainer.innerHTML = `
@@ -242,31 +206,32 @@
                     <div class="form-group"><label for="nome-reserva">3. Nome para a reserva:</label><input type="text" id="nome-reserva" name="nome" placeholder="Seu nome completo"></div>
                     <div class="form-group"><label for="telefone-reserva">4. Telefone:</label><input type="tel" id="telefone-reserva" name="telefone" placeholder="(xx) xxxxx-xxxx"></div>
                     <div id="valor-sinal-display" class="valor-sinal"></div>
-                    <div class="form-group"><label for="confirmacao-check" class="checkbox-label"><input type="checkbox" id="confirmacao-check"><span>Estou ciente do sinal de R$200 por casal.</span></label></div>
+                    <div class="form-group"><label for="confirmacao-check" class="checkbox-label" style="color:var(--cor-texto); font-weight:300; align-items:flex-start;"><input type="checkbox" id="confirmacao-check" style="margin-top:4px;"><span>Estou ciente de que a reserva é confirmada mediante o pagamento do sinal de R$200 por casal, que será abatido do valor total.</span></label></div>
                     <div class="cta-box"><a id="whatsapp-button" href="#" class="cta-button disabled">Reservar por WhatsApp</a></div>
                 `;
             }
 
-            // Gerar estrelas
             const sky = document.querySelector('.background-sky');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.width = `${Math.random() * 2}px`;
-                star.style.height = star.style.width;
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.animationDelay = `${Math.random() * 5}s`;
-                sky.appendChild(star);
+            if(sky) {
+                for (let i = 0; i < 100; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.width = `${Math.random() * 2}px`;
+                    star.style.height = star.style.width;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 5}s`;
+                    sky.appendChild(star);
+                }
             }
-
-            // Lógica da Contagem Regressiva e outras...
-            const dataFinal = new Date("June 11, 2025 22:59:59").getTime();
-            const diasEl = document.getElementById('dias'), horasEl = document.getElementById('horas'), minutosEl = document.getElementById('minutos'), segundosEl = document.getElementById('segundos');
-            const countdownSection = document.getElementById('countdown-section'), reservaContainer = document.getElementById('reserva-container'), mensagemEncerrado = document.getElementById('mensagem-encerrado');
+            
+            const countdownSection = document.getElementById('countdown-section');
             if (countdownSection) {
+                 const dataFinal = new Date("June 11, 2025 22:59:59").getTime();
                  const intervalo = setInterval(function() {
                     const agora = new Date().getTime(), diferenca = dataFinal - agora;
+                    const diasEl = document.getElementById('dias'), horasEl = document.getElementById('horas'), minutosEl = document.getElementById('minutos'), segundosEl = document.getElementById('segundos');
+                    const reservaContainer = document.getElementById('reserva-container'), mensagemEncerrado = document.getElementById('mensagem-encerrado');
                     if (diferenca < 0) {
                         clearInterval(intervalo);
                         countdownSection.style.display = 'none';
@@ -274,54 +239,65 @@
                         if(mensagemEncerrado) mensagemEncerrado.classList.remove('escondido');
                         return;
                     }
-                    const dias = Math.floor(diferenca / 86400000), horas = Math.floor((diferenca % 86400000) / 3600000), minutos = Math.floor((diferenca % 3600000) / 60000), segundos = Math.floor((diferenca % 60000) / 1000);
-                    diasEl.innerHTML = dias < 10 ? '0' + dias : dias;
-                    horasEl.innerHTML = horas < 10 ? '0' + horas : horas;
-                    minutosEl.innerHTML = minutos < 10 ? '0' + minutos : minutos;
-                    segundosEl.innerHTML = segundos < 10 ? '0' + segundos : segundos;
+                    diasEl.innerHTML = Math.floor(diferenca / 86400000).toString().padStart(2, '0');
+                    horasEl.innerHTML = Math.floor((diferenca % 86400000) / 3600000).toString().padStart(2, '0');
+                    minutosEl.innerHTML = Math.floor((diferenca % 3600000) / 60000).toString().padStart(2, '0');
+                    segundosEl.innerHTML = Math.floor((diferenca % 60000) / 1000).toString().padStart(2, '0');
                 }, 1000);
             }
 
-            // Navegação entre "Páginas"
-            const paginaInicial = document.getElementById('pagina-inicial'), paginaMenus = document.getElementById('pagina-menus'), paginaComoChegar = document.getElementById('pagina-como-chegar');
-            const allPages = [paginaInicial, paginaMenus, paginaComoChegar];
-            const btnVerMenus = document.getElementById('btn-ver-menus'), btnComoChegar = document.getElementById('btn-como-chegar');
-            const btnsVoltar = document.querySelectorAll('.btn-voltar');
+            const paginas = {
+                inicial: document.getElementById('pagina-inicial'),
+                menus: document.getElementById('pagina-menus'),
+                comoChegar: document.getElementById('pagina-como-chegar')
+            };
 
-            function trocarDePagina(paginaParaMostrar) {
-                let paginaAtiva = allPages.find(p => !p.classList.contains('escondido'));
-                if (paginaAtiva) {
-                    paginaAtiva.classList.add('fade-out');
-                    setTimeout(() => {
-                        paginaAtiva.classList.add('escondido');
-                        paginaAtiva.classList.remove('fade-out');
-                        paginaParaMostrar.classList.remove('escondido');
-                    }, 600);
+            function trocarDePagina(paginaAlvo) {
+                let paginaAtiva = Object.values(paginas).find(p => p && !p.classList.contains('escondido'));
+                if (paginaAtiva && paginaAlvo) {
+                    paginaAtiva.classList.add('escondido');
+                    paginaAlvo.classList.remove('escondido');
                 }
             }
 
-            if(btnVerMenus) btnVerMenus.addEventListener('click', () => trocarDePagina(paginaMenus));
-            if(btnComoChegar) btnComoChegar.addEventListener('click', () => trocarDePagina(paginaComoChegar));
-            btnsVoltar.forEach(btn => btn.addEventListener('click', () => trocarDePagina(paginaInicial)));
+            document.getElementById('btn-ver-menus')?.addEventListener('click', () => trocarDePagina(paginas.menus));
+            document.getElementById('btn-como-chegar')?.addEventListener('click', () => trocarDePagina(paginas.comoChegar));
+            document.querySelectorAll('.btn-voltar').forEach(btn => btn.addEventListener('click', () => trocarDePagina(paginas.inicial)));
             
-            // Lógica do Formulário
+            const reservaForm = document.getElementById('reserva-form');
             if (reservaForm) {
-                const horarioSelect = document.getElementById('horario-select'), pessoasSelect = document.getElementById('pessoas-select'), nomeInput = document.getElementById('nome-reserva'), telefoneInput = document.getElementById('telefone-reserva'), confirmacaoCheck = document.getElementById('confirmacao-check'), whatsappButton = document.getElementById('whatsapp-button'), valorSinalDisplay = document.getElementById('valor-sinal-display');
+                const elementos = {
+                    horario: document.getElementById('horario-select'), 
+                    pessoas: document.getElementById('pessoas-select'), 
+                    nome: document.getElementById('nome-reserva'), 
+                    telefone: document.getElementById('telefone-reserva'), 
+                    confirmacao: document.getElementById('confirmacao-check'), 
+                    botao: document.getElementById('whatsapp-button'), 
+                    valorSinal: document.getElementById('valor-sinal-display')
+                };
                 function verificarCampos() {
-                    const horario = horarioSelect.value, pessoas = pessoasSelect.value, nome = nomeInput.value.trim(), telefone = telefoneInput.value.trim(), confirmado = confirmacaoCheck.checked;
+                    const valores = {
+                        horario: elementos.horario.value,
+                        pessoas: elementos.pessoas.value,
+                        nome: elementos.nome.value.trim(),
+                        telefone: elementos.telefone.value.trim(),
+                        confirmado: elementos.confirmacao.checked
+                    };
                     let valorSinal = 0, textoValorSinal = '';
-                    if (pessoas === '2') { valorSinal = 200; textoValorSinal = 'Valor do sinal: R$ 200,00 (1 casal)'; } else if (pessoas === '4') { valorSinal = 400; textoValorSinal = 'Valor do sinal: R$ 400,00 (2 casais)'; }
-                    valorSinalDisplay.textContent = textoValorSinal;
-                    if (horario && pessoas && confirmado && nome && telefone) {
-                        whatsappButton.classList.remove('disabled');
-                        const mensagem = `Reserva Especial Namorados:\n\n- Nome: ${nome}\n- Telefone: ${telefone}\n- Horário: ${horario}\n- Pessoas: ${pessoas}\n- Sinal: R$ ${valorSinal},00\n\nCiente da taxa.`;
-                        whatsappButton.href = `https://wa.me/555133288330?text=${encodeURIComponent(mensagem)}`;
+                    if (valores.pessoas === '2') { valorSinal = 200; textoValorSinal = 'Sinal: R$ 200 (1 casal)'; } 
+                    else if (valores.pessoas === '4') { valorSinal = 400; textoValorSinal = 'Sinal: R$ 400 (2 casais)'; }
+                    elementos.valorSinal.textContent = textoValorSinal;
+
+                    if (valores.horario && valores.pessoas && valores.confirmado && valores.nome && valores.telefone) {
+                        elementos.botao.classList.remove('disabled');
+                        const mensagem = `Reserva Especial Namorados:\n\n- Nome: ${valores.nome}\n- Telefone: ${valores.telefone}\n- Horário: ${valores.horario}\n- Pessoas: ${valores.pessoas}\n- Sinal: R$ ${valorSinal},00\n\nCiente da taxa.`;
+                        elementos.botao.href = `https://wa.me/555133288330?text=${encodeURIComponent(mensagem)}`;
                     } else {
-                        whatsappButton.classList.add('disabled');
-                        whatsappButton.href = '#';
+                        elementos.botao.classList.add('disabled');
+                        elementos.botao.href = '#';
                     }
                 }
-                [horarioSelect, pessoasSelect, nomeInput, telefoneInput, confirmacaoCheck].forEach(el => {
+                Object.values(elementos).forEach(el => {
                     if(el) { ['change', 'keyup'].forEach(evt => el.addEventListener(evt, verificarCampos)); }
                 });
                 verificarCampos();
