@@ -1,254 +1,165 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noite Especial de Namorados - Ossala Sushi</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Vexa - Faça sua Reserva</title>
 
     <style>
-        :root {
-            --cor-primaria: #ff8fab; 
-            --cor-secundaria: #f8bbd0;
-            --cor-fundo-inicio: #1e1e3f;
-            --cor-fundo-fim: #4c2a4c;
-            --cor-texto: #fce4ec;
-            --fonte-titulo: 'Playfair Display', serif;
-            --fonte-corpo: 'Poppins', sans-serif;
-            --transition-speed: 0.6s;
-        }
-
         body {
-            font-family: var(--fonte-corpo);
-            background: linear-gradient(135deg, var(--cor-fundo-inicio), var(--cor-fundo-fim));
-            color: var(--cor-texto);
-            line-height: 1.7;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        .background-sky { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
-        .star { position: absolute; background-color: white; border-radius: 50%; animation: twinkle 5s infinite; }
-        @keyframes twinkle { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
-        .background-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
-        .background-particles span { position: absolute; bottom: -150px; font-size: 20px; animation: float 20s linear infinite; color: var(--cor-primaria); opacity: 0.4; }
-        @keyframes float { from { transform: translateY(0); } to { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
-        .background-particles span:nth-child(1) { left: 10%; animation-duration: 18s; }
-        .background-particles span:nth-child(2) { left: 20%; animation-duration: 15s; font-size: 25px; }
-        .background-particles span:nth-child(3) { left: 30%; animation-duration: 22s; }
-        .background-particles span:nth-child(4) { left: 45%; animation-duration: 16s; font-size: 22px; }
-        .background-particles span:nth-child(5) { left: 60%; animation-duration: 20s; }
-        .background-particles span:nth-child(6) { left: 85%; animation-duration: 13s; font-size: 28px; }
-
-        .pagina-secao { animation: fadeIn var(--transition-speed) forwards; }
-        .escondido { display: none; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
-        .fade-out { animation: fadeOut var(--transition-speed) forwards; }
-        @keyframes fadeOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.98); } }
-
-        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
-        .hero { background: transparent; padding: 40px 20px; text-align: center; }
-        .logo-img { max-height: 90px; width: auto; filter: drop-shadow(0 0 10px var(--cor-secundaria)); }
-        .hero p { font-size: 1.2em; font-weight: 300; opacity: 0.9; }
-        section { padding: 20px 0; text-align: center; position: relative; }
-        h2 { font-family: var(--fonte-titulo); color: var(--cor-texto); font-size: 2.5em; margin-bottom: 20px; }
-        h2 span { color: var(--cor-primaria); }
-
-        .panel {
-            background-color: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 40px;
-            margin-bottom: 40px;
-        }
-
-        .intro p, .cta-section p { max-width: 600px; margin: 0 auto 25px auto; font-weight: 300; }
-        .cta-button {
-            display: inline-block; background: linear-gradient(145deg, var(--cor-primaria), #e91e63);
-            color: white; padding: 16px 35px; text-decoration: none; font-weight: 500; font-size: 1.1em;
-            border-radius: 50px; transition: all 0.3s ease;
-            border: none;
-            box-shadow: 0 5px 20px rgba(255, 105, 180, 0.4);
-            cursor: pointer;
-        }
-        .cta-button:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6); }
-        .cta-button.secondary { background: transparent; border: 1px solid var(--cor-primaria); color: var(--cor-primaria); }
-
-        .menu-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; text-align: left; }
-        .menu-card { background-color: rgba(0,0,0, 0.2); padding: 30px; border-radius: 40px; border: 1px solid rgba(255, 255, 255, 0.1); flex: 1; min-width: 300px; }
-        .menu-card h3 { font-family: var(--fonte-titulo); font-size: 1.8em; margin-top: 0; color: var(--cor-primaria); }
-        .menu-card .price { font-size: 1.3em; font-weight: 500; color: var(--cor-texto); margin-bottom: 25px; }
-        .pratos-lista { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-start; }
-        .prato-tag { background-color: rgba(255, 255, 255, 0.1); padding: 8px 15px; border-radius: 20px; font-size: 0.9em; font-weight: 400; }
-
-        /* Estilos do contador e formulário removidos, já que as seções foram desativadas */
-        
-        #pagina-como-chegar .map-container { position: relative; overflow: hidden; width: 100%; padding-top: 56.25%; border-radius: 40px; margin: 20px 0; }
-        #pagina-como-chegar .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        #pagina-como-chegar .address { font-size: 1.1em; margin-bottom: 30px; }
-        .direction-buttons { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        
-        #informacoes-importantes { padding-top: 0; }
-        .avisos-container { display: flex; flex-direction: column; gap: 20px; }
-        .aviso-box {
-            background-color: rgba(0,0,0,0.2);
-            border: 1px solid rgba(255, 105, 180, 0.2);
-            border-radius: 30px;
-            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 20px;
-            text-align: left;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
-        .aviso-box i { font-size: 1.8em; color: var(--cor-primaria); }
-        
-        footer { text-align: center; padding: 30px; font-size: 0.9em; color: #888; margin-top: 40px; }
+
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box; 
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 5px;
+            background-color: #25D366; /* Cor do WhatsApp */
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #128C7E;
+        }
     </style>
 </head>
 <body>
 
-    <div class="background-sky"></div>
-    <div class="background-particles">
-        <span>❤️</span> <span>🌹</span> <span>❤️</span> <span>🌹</span> <span>❤️</span> <span>🌹</span>
+    <div class="form-container">
+        <h2>Faça sua Reserva</h2>
+        <p>Preencha os dados abaixo para solicitar sua reserva pelo WhatsApp.</p>
+        
+        <form id="form-reserva">
+            <label for="nome">Seu Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="data">Data da Reserva:</label>
+            <input type="date" id="data" name="data" required>
+
+            <label for="hora">Horário:</label>
+            <input type="time" id="hora" name="hora" required>
+
+            <label for="pessoas">Número de Pessoas:</label>
+            <input type="number" id="pessoas" name="pessoas" min="1" required>
+
+            <button type="submit">Reservar via WhatsApp</button>
+        </form>
     </div>
-
-    <div id="pagina-inicial" class="pagina-secao">
-        <header class="hero">
-            <img src="https://ossala.com.br/wp-content/uploads/2024/01/logotipo-ossala-dourado.webp" alt="Ossala Logo" class="logo-img">
-            <p>Uma noite inesquecível com a nossa cozinha japonesa autoral</p>
-        </header>
-
-        <main class="container">
-            <section class="intro">
-                <h2>Uma Experiência <span>Única</span></h2>
-                <p>Preparamos duas experiências gastronômicas exclusivas para tornar sua noite de namorados inesquecível. Conheça os detalhes dos nossos menus e garanta sua mesa.</p>
-                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                    <button id="btn-ver-menus" class="cta-button">Ver os Menus</button>
-                    <button id="btn-como-chegar" class="cta-button secondary">Como Chegar</button>
-                </div>
-            </section>
-            
-            <div id="mensagem-encerrado" class="panel">
-                <h2>Reservas <span>Esgotadas</span>!</h2>
-                <p>Agradecemos o seu interesse! Todas as nossas mesas para a Noite Especial de Namorados foram preenchidas. Esperamos vê-lo(a) em futuras ocasiões.</p>
-            </div>
-
-            <section id="informacoes-importantes">
-                <div class="avisos-container">
-                    <div class="aviso-box">
-                        <i class="fas fa-clock"></i>
-                        <p><strong>Aviso de Horário:</strong> Para as reservas do 1º turno (18:30), as contas serão fechadas às 20:30, não sendo possível realizar novos pedidos após este momento para prepararmos o salão para o próximo turno.</p>
-                    </div>
-                    <div class="aviso-box">
-                        <i class="fas fa-car-side"></i>
-                        <p><strong>Dica de Transporte:</strong> Para sua maior comodidade, sugerimos o uso de apps de transporte. A rua costuma ficar bastante movimentada, e queremos que você aproveite a noite com mais tranquilidade. 💕</p>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-    </div>
-
-    <div id="pagina-menus" class="pagina-secao escondido">
-         <main class="container">
-            <section class="panel">
-                <h2>Nossos <span>Menus</span></h2>
-                 <div class="menu-container">
-                    <div class="menu-card">
-                        <h3>Experiência Ossala</h3>
-                        <p class="price">R$ 220,00 por pessoa</p>
-                        <p style="font-style: italic; font-weight: 300; margin-bottom: 20px;">Um total de 27 pratos selecionados, sem repetição.</p>
-                        <div class="pratos-lista">
-                           <span class="prato-tag">Sunomono</span><span class="prato-tag">Edamame</span><span class="prato-tag">Salmorê</span><span class="prato-tag">Camarão Crocante</span><span class="prato-tag">Gyosas Autorais</span><span class="prato-tag">Trilogia de Ceviches</span><span class="prato-tag">Sashimis Frescos</span><span class="prato-tag">Tartare do Dia</span><span class="prato-tag">Gunkas do Chef</span><span class="prato-tag">Niguiris do Chef</span><span class="prato-tag">Ebiossala</span><span class="prato-tag">Brownie com Sorvete</span>
-                        </div>
-                    </div>
-                    <div class="menu-card">
-                        <h3>Menu Degustação</h3>
-                        <p class="price">R$ 268,00 por pessoa</p>
-                        <p style="font-style: italic; font-weight: 300; margin-bottom: 20px;">Sequência livre para você saborear seus pratos favoritos à vontade.</p>
-                         <div class="pratos-lista">
-                           <span class="prato-tag">Sunomono</span><span class="prato-tag">Missoshiro</span><span class="prato-tag">Sashimis</span><span class="prato-tag">Ceviches</span><span class="prato-tag">Sushis do Chef</span><span class="prato-tag">Sushis Tradicionais</span><span class="prato-tag">Salmorê</span><span class="prato-tag">Robata</span><span class="prato-tag">Gyoza</span><span class="prato-tag">Shimeji</span><span class="prato-tag">Tartar</span><span class="prato-tag">Ebiguru</span><span class="prato-tag">Uramaki Ebitem</span><span class="prato-tag">Temakis</span><span class="prato-tag">Yakissoba</span><span class="prato-tag">Sobremesa do Dia</span>
-                        </div>
-                    </div>
-                </div>
-                <br><br>
-                <button class="btn-voltar cta-button secondary">Voltar</button>
-            </section>
-        </main>
-    </div>
-
-    <div id="pagina-como-chegar" class="pagina-secao escondido">
-        <main class="container">
-            <section class="panel">
-                <h2>Como <span>Chegar</span></h2>
-                <p class="address"><i class="fas fa-map-marker-alt"></i> Rua Desembargador Espiridião de Lima Medeiros, 317 - Três Figueiras, Porto Alegre - RS, 91330-020</p>
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=9" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-                <div class="direction-buttons">
-                    <a href="https://maps.google.com/maps/contrib/108815177491396922549" target="_blank" class="cta-button">Rotas no Google Maps</a>
-                    <a href="https://waze.com/ul?q=Rua%20Desembargador%20Espiridião%20de%20Lima%20Medeiros%2C%20317%2C%20Porto%20Alegre%2C%20RS" target="_blank" class="cta-button">Abrir no Waze</a>
-                </div>
-                <br><br>
-                <button class="btn-voltar cta-button secondary">Voltar</button>
-            </section>
-        </main>
-    </div>
-
-    <footer class="footer">
-        <p>© 2025 Ossala Sushi – Todos os direitos reservados (criado por Juan Oliveira).</p>
-    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sky = document.querySelector('.background-sky');
-            if(sky) { 
-                for (let i = 0; i < 100; i++) { 
-                    const star = document.createElement('div'); 
-                    star.className = 'star'; 
-                    star.style.width = `${Math.random() * 2}px`; 
-                    star.style.height = star.style.width; 
-                    star.style.top = `${Math.random() * 100}%`; 
-                    star.style.left = `${Math.random() * 100}%`; 
-                    star.style.animationDelay = `${Math.random() * 5}s`; 
-                    sky.appendChild(star); 
-                } 
-            }
-            
-            const paginas = { 
-                inicial: document.getElementById('pagina-inicial'), 
-                menus: document.getElementById('pagina-menus'), 
-                comoChegar: document.getElementById('pagina-como-chegar') 
-            };
+        // --- FUNCIONALIDADE 1: ATUALIZAR O TÍTULO DA PÁGINA ---
+        const campoNome = document.getElementById('nome');
 
-            function trocarDePagina(paginaAlvo) {
-                let paginaAtiva = Object.values(paginas).find(p => p && !p.classList.contains('escondido'));
-                if (paginaAtiva && paginaAtiva !== paginaAlvo) {
-                    paginaAtiva.classList.add('fade-out');
-                    setTimeout(() => {
-                        paginaAtiva.classList.add('escondido');
-                        paginaAtiva.classList.remove('fade-out');
-                        if (paginaAlvo) {
-                            paginaAlvo.classList.remove('escondido');
-                            window.scrollTo(0, 0);
-                        }
-                    }, 600);
-                }
+        campoNome.addEventListener('keyup', function() {
+            const nomeDoUsuario = campoNome.value.trim();
+
+            if (nomeDoUsuario) {
+                document.title = `Vexa e ${nomeDoUsuario}`;
+            } else {
+                document.title = 'Vexa - Faça sua Reserva';
+            }
+        });
+
+
+        // --- FUNCIONALIDADE 2: ENVIAR DADOS PARA O WHATSAPP ---
+        const formReserva = document.getElementById('form-reserva');
+        
+        formReserva.addEventListener('submit', function(event) {
+            // Impede o envio padrão do formulário
+            event.preventDefault();
+
+            // ⚠️ MUDE AQUI: Coloque o número de WhatsApp da loja
+            const numeroLoja = '55XXXXXXXXXXX'; // Formato: 55 + DDD + Numero (tudo junto)
+
+            // Pega os valores dos campos
+            const nomeCliente = document.getElementById('nome').value;
+            const dataReserva = document.getElementById('data').value;
+            const horaReserva = document.getElementById('hora').value;
+            const numPessoas = document.getElementById('pessoas').value;
+
+            // Validação simples para garantir que os campos não estão vazios
+            if (!nomeCliente || !dataReserva || !horaReserva || !numPessoas) {
+                alert("Por favor, preencha todos os campos da reserva.");
+                return;
             }
 
-            document.getElementById('btn-ver-menus')?.addEventListener('click', () => trocarDePagina(paginas.menus));
-            document.getElementById('btn-como-chegar')?.addEventListener('click', () => trocarDePagina(paginas.comoChegar));
-            document.querySelectorAll('.btn-voltar').forEach(btn => btn.addEventListener('click', () => trocarDePagina(paginas.inicial)));
-            
-            // O código JavaScript para o contador e o formulário de reserva foi removido.
+            // Formata a data para o padrão brasileiro (DD/MM/AAAA)
+            const dataFormatada = new Date(dataReserva).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+
+            // Monta a mensagem final
+            const mensagem = `
+Olá, *Vexa*! 👋
+Gostaria de fazer uma solicitação de reserva.
+-----------------------------------
+*Cliente:* ${nomeCliente}
+*Data:* ${dataFormatada}
+*Horário:* ${horaReserva}
+*Pessoas:* ${numPessoas}
+-----------------------------------
+Aguardando confirmação. Obrigado(a)!
+            `;
+
+            // Codifica a mensagem para a URL
+            const mensagemCodificada = encodeURIComponent(mensagem);
+
+            // Cria o link final e abre o WhatsApp
+            const urlWhatsApp = `https://wa.me/${numeroLoja}?text=${mensagemCodificada}`;
+            window.open(urlWhatsApp, '_blank');
         });
     </script>
+
 </body>
 </html>
