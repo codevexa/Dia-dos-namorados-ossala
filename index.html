@@ -1,165 +1,440 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Vexa - Faça sua Reserva</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Especial de Namorados - Ossala</title>
+  <style>
+    /* Importar uma fonte do Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400&display=swap');
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
+    body {
+      font-family: 'Roboto', sans-serif; /* Fonte mais moderna para o corpo */
+      background-color: #fefefe;
+      color: #222;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
 
-        .form-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            max-width: 400px;
-            width: 100%;
-        }
+    header {
+      background-color: #111;
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
 
-        h2 {
-            text-align: center;
-            color: #333;
-        }
+    header h1 {
+      font-family: 'Playfair Display', serif; /* Fonte elegante para títulos */
+      margin: 0;
+      font-size: 2.8em; /* Aumentei um pouco o tamanho */
+      letter-spacing: 1px; /* Leve espaçamento entre letras */
+    }
 
-        p {
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-        }
+    header p {
+        font-size: 1.1em; /* Ajuste o tamanho da descrição */
+        margin-top: 10px;
+    }
 
-        label {
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            color: #555;
-            font-weight: bold;
-        }
+    /* Estilos para o Hero Banner */
+    .hero-banner {
+      position: relative;
+      width: 100%;
+      height: 400px; /* Altura do banner */
+      overflow: hidden;
+      background-color: #333; /* Fundo caso a imagem não carregue */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
 
-        input[type="text"],
-        input[type="date"],
-        input[type="time"],
-        input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box; 
-        }
+    .hero-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Garante que a imagem cubra todo o espaço */
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      filter: brightness(0.7); /* Escurece um pouco a imagem para o texto sobressair */
+    }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 25px;
-            border: none;
-            border-radius: 5px;
-            background-color: #25D366; /* Cor do WhatsApp */
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+    .hero-overlay {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      padding: 20px;
+    }
 
-        button:hover {
-            background-color: #128C7E;
-        }
-    </style>
+    .hero-overlay h2 {
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 3em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .hero-overlay p {
+      font-size: 1.2em;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .container {
+      max-width: 960px; /* Aumentei um pouco o max-width para mais espaço */
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif; /* Fonte elegante para subtítulos */
+      color: #cc0000;
+      margin-top: 40px;
+      font-size: 2em;
+      text-align: center; /* Centraliza os títulos das seções */
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      color: #333;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .menu-bloco {
+      background-color: #f8f8f8;
+      padding: 20px;
+      margin: 30px 0;
+      border-left: 4px solid #cc0000;
+      border-radius: 5px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05); /* Adiciona uma leve sombra */
+      transition: transform 0.2s ease-in-out; /* Para um efeito sutil ao passar o mouse */
+    }
+
+    .menu-bloco:hover {
+      transform: translateY(-3px); /* Leve deslocamento para cima ao passar o mouse */
+    }
+
+    .reserva {
+      background-color: #cc0000;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 5px;
+      margin-top: 40px;
+    }
+
+    .reserva a {
+      display: inline-block;
+      margin-top: 10px;
+      background-color: white;
+      color: #cc0000;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      box-shadow: 0 0 0 rgba(204, 0, 0, 0.4); /* Sombra inicial invisível */
+      transition: box-shadow 0.3s ease;
+    }
+
+    .reserva a:hover {
+      background-color: #fff0f0;
+      box-shadow: 0 0 10px rgba(204, 0, 0, 0.8); /* Sombra que simula um brilho */
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #888;
+      margin-top: 60px; /* Mais espaço para o rodapé */
+      background-color: #f8f8f8; /* Leve fundo no rodapé */
+    }
+
+    /* Estilos para os botões de horário */
+    .horarios-disponiveis {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .botao-horario {
+      background-color: #f8f8f8;
+      color: #222;
+      border: 1px solid #ddd;
+      padding: 15px 20px;
+      text-align: center;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.03); /* Sombra sutil nos botões de horário */
+    }
+
+    .botao-horario:hover {
+      background-color: #eee;
+    }
+
+    .botao-horario strong {
+      display: block;
+      font-size: 1.1em;
+      margin-bottom: 5px;
+    }
+
+    .botao-horario small {
+      color: #888;
+      display: block;
+      font-size: 0.9em;
+    }
+
+    .botao-horario.botao-esgotado {
+      background-color: #ddd;
+      color: #888;
+      border-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .botao-horario.botao-esgotado:hover {
+      background-color: #ddd;
+    }
+
+    /* Estilos para a navegação entre seções */
+    .main-nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap; /* Permite que os botões quebrem linha em telas menores */
+    }
+
+    .nav-button {
+      background-color: #eee;
+      border: 1px solid #ccc;
+      padding: 12px 20px;
+      border-radius: 25px; /* Botões mais arredondados */
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #555;
+      transition: all 0.3s ease;
+    }
+
+    .nav-button:hover {
+      background-color: #ddd;
+      color: #333;
+      transform: translateY(-2px); /* Efeito de elevação */
+    }
+
+    .nav-button.active {
+      background-color: #cc0000;
+      color: white;
+      border-color: #cc0000;
+      box-shadow: 0 4px 8px rgba(204, 0, 0, 0.3);
+    }
+
+    .nav-button.active:hover {
+      background-color: #a00000; /* Tom mais escuro ao passar o mouse */
+      color: white;
+      transform: none; /* Remove a elevação para o botão ativo */
+    }
+
+    /* Estilos para as seções de "páginas" */
+    .page-section {
+      display: none; /* Por padrão, todas as seções estarão ocultas */
+      padding: 20px 0;
+      animation: fadeIn 0.5s ease-in-out; /* Animação ao aparecer */
+    }
+
+    .page-section.active {
+      display: block; /* A seção ativa será exibida */
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Estilos para o box de confirmação */
+    .confirm-box {
+      background-color: #fffacd; /* Amarelo claro para destaque */
+      border: 1px solid #ffcc00;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1em;
+      color: #666;
+    }
+
+    .confirm-box input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #cc0000; /* Cor do checkbox quando marcado */
+    }
+
+    /* Estilo para desabilitar o botão de reserva inicialmente */
+    .reserva a.disabled-link {
+      pointer-events: none; /* Impede cliques */
+      opacity: 0.6; /* Deixa o botão mais opaco */
+      cursor: not-allowed;
+      background-color: #f8f8f8 !important; /* Sobrescreve o hover */
+      color: #aaa !important; /* Sobrescreve o hover */
+      box-shadow: none !important;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="form-container">
-        <h2>Faça sua Reserva</h2>
-        <p>Preencha os dados abaixo para solicitar sua reserva pelo WhatsApp.</p>
-        
-        <form id="form-reserva">
-            <label for="nome">Seu Nome:</label>
-            <input type="text" id="nome" name="nome" required>
+<header>
+  <h1>🍣 Especial de Namorados Ossala</h1>
+  <p>Uma noite inesquecível com a nossa cozinha japonesa autoral</p>
+</header>
 
-            <label for="data">Data da Reserva:</label>
-            <input type="date" id="data" name="data" required>
+<section class="hero-banner">
+  <img src="https://via.placeholder.com/1200x400/111111/FFFFFF?text=FOTO+ESPECIAL+NAMORADOS" alt="Especial de Namorados Ossala - Imagem de Destaque">
+  <div class="hero-overlay">
+    <h2>Celebre o Amor com Sabor!</h2>
+    <p>Descubra uma experiência gastronômica única pensada para vocês.</p>
+  </div>
+</section>
 
-            <label for="hora">Horário:</label>
-            <input type="time" id="hora" name="hora" required>
+<div class="container">
 
-            <label for="pessoas">Número de Pessoas:</label>
-            <input type="number" id="pessoas" name="pessoas" min="1" required>
+  <nav class="main-nav">
+    <button class="nav-button active" data-target="menu-section">🥢 Nossas Opções</button>
+    <button class="nav-button" data-target="schedule-section">📆 Escolha Seu Horário</button>
+    <button class="nav-button" data-target="reservation-section">💰 Confirmar Reserva</button>
+  </nav>
 
-            <button type="submit">Reservar via WhatsApp</button>
-        </form>
+  <section id="menu-section" class="page-section active">
+    <h2>🥢 Opções de Menu</h2>
+
+    <div class="menu-bloco">
+      <h3>1️⃣ Experiência Ossala- Total de 27 peças (SEM REPETIÇÃO) – R$ 220,00 por pessoa</h3>
+      <p><strong>Entrada:</strong></p>
+      <ul>
+        <li>Sunomono</li>
+        <li>Edamame</li>
+      </ul>
+      <p><strong>Pratos principais:</strong></p>
+      <ul>
+        <li>Salmorê</li>
+        <li>Camarão crocante com molho ananako</li>
+        <li>Gyosas autorais (3 peças)</li>
+        <li>Trilogia de ceviches: Thai, Cítrico e Ananako</li>
+        <li>Sashimis (10 peças – peixes frescos do dia)</li>
+        <li>Tartare do dia</li>
+        <li>Gunkas do chef (4 peças)</li>
+        <li>Niguiris do chef (3 peças)</li>
+        <li><strong>Ebiossala (2 peças):</strong> Camarão empanado envolto em salmão, cebola roxa marinada no leite de tigre, crisps de couve-manteiga e flor de sal</li>
+      </ul>
+      <p><strong>Sobremesa:</strong> Sorvete de baunilha com brownie</p>
+      <p><em>Esta sequência não possui repetição.</em></p>
     </div>
 
-    <script>
-        // --- FUNCIONALIDADE 1: ATUALIZAR O TÍTULO DA PÁGINA ---
-        const campoNome = document.getElementById('nome');
+    <div class="menu-bloco">
+      <h3>2️⃣ Menu Degustação (Sequência Livre) – R$ 268,00 por pessoa</h3>
+      <p>Uma experiência completa com variedade e liberdade para saborear à vontade:</p>
+      <ul>
+        <li>Sunomono, Missoshiro, Edamame</li>
+        <li>Sashimis, Trilogia de ceviches</li>
+        <li>Sushis do chef e tradicionais</li>
+        <li>Salmorê, Robata, Gyoza, Shimeji</li>
+        <li>Tartar, Ebiguru, Uramaki Ebitem</li>
+        <li>Temakis, Yakissoba</li>
+        <li>Sobremesa</li>
+      </ul>
+    </div>
+  </section>
 
-        campoNome.addEventListener('keyup', function() {
-            const nomeDoUsuario = campoNome.value.trim();
+  <section id="schedule-section" class="page-section">
+    <h2>📆 Escolha seu Horário:</h2>
+    <div class="horarios-disponiveis">
+      <button class="botao-horario" onclick="window.open('https://wa.me/555133288330?text=Gostaria%20de%20reservar%20para%20o%201º%20horário:%20das%2018h30%20às%2020h30', '_blank')">
+        <strong>1º Horário:</strong> 18h30 às 20h30
+        <small>(Contas fechadas até 20h30)</small>
+      </button>
+      <button class="botao-horario botao-esgotado" disabled>
+        <strong>2º Horário:</strong> 21h15 às 23h00
+        <small>(RESERVAS ESGOTADAS)</small>
+      </button>
+    </div>
+  </section>
 
-            if (nomeDoUsuario) {
-                document.title = `Vexa e ${nomeDoUsuario}`;
-            } else {
-                document.title = 'Vexa - Faça sua Reserva';
-            }
-        });
+  <section id="reservation-section" class="page-section">
+    <h2>💰 Confirme Sua Reserva</h2>
+    <p>Para confirmar sua reserva, pedimos um pagamento antecipado de <strong>R$ 200,00 por casal</strong>, que será abatido do valor total.</p>
 
+    <div class="confirm-box">
+      <input type="checkbox" id="cienteCheckbox">
+      <label for="cienteCheckbox">Estou ciente dos valores e opções apresentadas.</label>
+    </div>
 
-        // --- FUNCIONALIDADE 2: ENVIAR DADOS PARA O WHATSAPP ---
-        const formReserva = document.getElementById('form-reserva');
-        
-        formReserva.addEventListener('submit', function(event) {
-            // Impede o envio padrão do formulário
-            event.preventDefault();
+    <div class="reserva">
+      <p><strong>Garanta sua mesa agora mesmo clicando no botão abaixo!</strong></p>
+      <a href="https://wa.me/555133288330?text=Quero%20reservar%20minha%20mesa%20para%20o%20dia%20dos%20namorados" target="_blank" id="reservar-btn" class="disabled-link">Reserve Agora Seu Horário</a>
+    </div>
+  </section>
 
-            // ⚠️ MUDE AQUI: Coloque o número de WhatsApp da loja
-            const numeroLoja = '55XXXXXXXXXXX'; // Formato: 55 + DDD + Numero (tudo junto)
+</div> <footer>
+  © 2025 Ossala Sushi – Todos os direitos reservados.
+</footer>
 
-            // Pega os valores dos campos
-            const nomeCliente = document.getElementById('nome').value;
-            const dataReserva = document.getElementById('data').value;
-            const horaReserva = document.getElementById('hora').value;
-            const numPessoas = document.getElementById('pessoas').value;
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const navButtons = document.querySelectorAll('.nav-button');
+    const pageSections = document.querySelectorAll('.page-section');
+    const cienteCheckbox = document.getElementById('cienteCheckbox');
+    const reservarBtn = document.getElementById('reservar-btn');
 
-            // Validação simples para garantir que os campos não estão vazios
-            if (!nomeCliente || !dataReserva || !horaReserva || !numPessoas) {
-                alert("Por favor, preencha todos os campos da reserva.");
-                return;
-            }
+    // Função para mostrar a seção correta
+    function showSection(targetId) {
+      pageSections.forEach(section => {
+        if (section.id === targetId) {
+          section.classList.add('active');
+        } else {
+          section.classList.remove('active');
+        }
+      });
+      navButtons.forEach(button => {
+        if (button.dataset.target === targetId) {
+          button.classList.add('active');
+        } else {
+          button.classList.remove('active');
+        }
+      });
+    }
 
-            // Formata a data para o padrão brasileiro (DD/MM/AAAA)
-            const dataFormatada = new Date(dataReserva).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+    // Event Listeners para os botões de navegação
+    navButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const targetId = this.dataset.target;
+        showSection(targetId);
+      });
+    });
 
-            // Monta a mensagem final
-            const mensagem = `
-Olá, *Vexa*! 👋
-Gostaria de fazer uma solicitação de reserva.
------------------------------------
-*Cliente:* ${nomeCliente}
-*Data:* ${dataFormatada}
-*Horário:* ${horaReserva}
-*Pessoas:* ${numPessoas}
------------------------------------
-Aguardando confirmação. Obrigado(a)!
-            `;
+    // Lógica do botão "Estou Ciente"
+    // Inicialmente, o botão de reserva está desabilitado pelo CSS (.disabled-link)
+    cienteCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+        reservarBtn.classList.remove('disabled-link');
+        reservarBtn.href = "https://wa.me/555133288330?text=Quero%20reservar%20minha%20mesa%20para%20o%20dia%20dos%20namorados"; // Garante o link ativo
+      } else {
+        reservarBtn.classList.add('disabled-link');
+        reservarBtn.removeAttribute('href'); // Remove o link para garantir que não seja clicável
+      }
+    });
 
-            // Codifica a mensagem para a URL
-            const mensagemCodificada = encodeURIComponent(mensagem);
-
-            // Cria o link final e abre o WhatsApp
-            const urlWhatsApp = `https://wa.me/${numeroLoja}?text=${mensagemCodificada}`;
-            window.open(urlWhatsApp, '_blank');
-        });
-    </script>
+    // Mostrar a primeira seção (Menus) por padrão ao carregar
+    showSection('menu-section');
+  });
+</script>
 
 </body>
 </html>
