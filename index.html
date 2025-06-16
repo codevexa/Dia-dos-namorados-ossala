@@ -1,36 +1,223 @@
-<!-- login.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Login - Estudo de Cardápio</title>
-  <style>
-    body { font-family: Arial; background: #222; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; }
-    form { background: #333; padding: 20px; border-radius: 10px; }
-    input { display: block; margin: 10px 0; padding: 8px; width: 100%; }
-    button { padding: 10px; background: #007BFF; color: white; border: none; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Estudo de Cardápio - Dark</title>
+<style>
+  body {
+    background: #121212;
+    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 0;
+  }
+  .tela {
+    display: none;
+    padding: 20px;
+    max-width: 700px;
+    margin: auto;
+  }
+  .ativo {
+    display: block;
+  }
+  input, button, select, textarea {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+  }
+  button {
+    background: #1e88e5;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #1565c0;
+  }
+  h2 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+  }
+  .categoria {
+    margin-top: 20px;
+  }
+  .prato {
+    background: #222;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  .prova-pergunta {
+    background: #222;
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 8px;
+  }
+</style>
 </head>
 <body>
-  <form onsubmit="return login()">
-    <h2>Login do Estudo</h2>
-    <input type="text" id="nome" placeholder="Seu nome" required>
-    <input type="password" id="codigo" placeholder="Código de acesso" required>
-    <button type="submit">Entrar</button>
-  </form>
 
-  <script>
-    function login() {
-      const nome = document.getElementById("nome").value;
-      const codigo = document.getElementById("codigo").value;
+<!-- Tela Login -->
+<div id="telaLogin" class="tela ativo">
+  <h2>Login</h2>
+  <input type="text" id="usuario" placeholder="Nome de usuário" />
+  <input type="password" id="senha" placeholder="Senha" />
+  <button onclick="login()">Entrar</button>
+  <div id="msgLogin" style="color:#f44336;"></div>
+</div>
 
-      if (nome.toLowerCase() === "aluno" && codigo === "1234") {
-        window.location.href = "cardapio.html";
-      } else {
-        alert("Nome ou código incorretos.");
-      }
-      return false;
+<!-- Tela Cardápio -->
+<div id="telaCardapio" class="tela">
+  <h2>Cardápio</h2>
+  <div id="cardapioContainer"></div>
+  <button onclick="mostrarTela('telaProva')">Treinar meu conhecimento</button>
+  <button onclick="logout()" style="margin-top: 20px; background:#b71c1c;">Sair</button>
+</div>
+
+<!-- Tela Prova -->
+<div id="telaProva" class="tela">
+  <h2>Prova de Conhecimento</h2>
+  <form id="formProva"></form>
+  <button onclick="corrigirProva()">Enviar Respostas</button>
+  <div id="resultadoProva" style="margin-top:20px; font-weight:bold;"></div>
+  <button onclick="mostrarTela('telaCardapio')" style="margin-top: 20px;">Voltar ao Cardápio</button>
+</div>
+
+<script>
+  // Usuários de exemplo, depois vai vir do Excel
+  const usuarios = [
+    { usuario: "aluno1", senha: "1234" },
+    { usuario: "aluno2", senha: "4321" }
+  ];
+
+  // Cardápio exemplo por categoria, depois vamos importar do Excel
+  const cardapio = {
+    "Sushis": [
+      { nome: "Uramaki Ebiten", descricao: "Enrolado de camarão empanado, cream cheese e molho tarê." },
+      { nome: "Alanskarasha", descricao: "Salmão selado com molho cítrico e crocância de cebola." }
+    ],
+    "Temakis": [
+      { nome: "Ebiguru", descricao: "Temaki de camarão empanado com maionese da casa." }
+    ]
+  };
+
+  // Perguntas geradas a partir do cardápio (simples)
+  let perguntas = [];
+
+  function login() {
+    const u = document.getElementById("usuario").value.trim();
+    const s = document.getElementById("senha").value.trim();
+    const valido = usuarios.some(user => user.usuario === u && user.senha === s);
+    if (valido) {
+      document.getElementById("msgLogin").innerText = "";
+      mostrarTela("telaCardapio");
+      montarCardapio();
+      gerarPerguntas();
+    } else {
+      document.getElementById("msgLogin").innerText = "Usuário ou senha inválidos!";
     }
-  </script>
+  }
+
+  function logout() {
+    mostrarTela("telaLogin");
+    document.getElementById("usuario").value = "";
+    document.getElementById("senha").value = "";
+    document.getElementById("formProva").innerHTML = "";
+    document.getElementById("resultadoProva").innerText = "";
+  }
+
+  function mostrarTela(id) {
+    document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativo'));
+    document.getElementById(id).classList.add('ativo');
+  }
+
+  function montarCardapio() {
+    const container = document.getElementById("cardapioContainer");
+    container.innerHTML = "";
+    for (const categoria in cardapio) {
+      const divCat = document.createElement("div");
+      divCat.classList.add("categoria");
+      divCat.innerHTML = `<h3>${categoria}</h3>`;
+      cardapio[categoria].forEach(prato => {
+        const divPrato = document.createElement("div");
+        divPrato.classList.add("prato");
+        divPrato.innerHTML = `<strong>${prato.nome}</strong><p>${prato.descricao}</p>`;
+        divCat.appendChild(divPrato);
+      });
+      container.appendChild(divCat);
+    }
+  }
+
+  function gerarPerguntas() {
+    perguntas = [];
+    for (const categoria in cardapio) {
+      cardapio[categoria].forEach(prato => {
+        perguntas.push({
+          pergunta: `Qual a descrição correta do prato "${prato.nome}"?`,
+          respostas: embaralharRespostas(prato.descricao),
+          correta: prato.descricao
+        });
+      });
+    }
+    montarProva();
+  }
+
+  function embaralharRespostas(correta) {
+    // Cria 2 respostas falsas pegando descrições aleatórias diferentes da correta
+    const descricoes = [];
+    for (const categoria in cardapio) {
+      cardapio[categoria].forEach(p => {
+        if (p.descricao !== correta) descricoes.push(p.descricao);
+      });
+    }
+    descricoes.sort(() => Math.random() - 0.5);
+    let respostas = [correta, descricoes[0] || "Descrição alternativa 1", descricoes[1] || "Descrição alternativa 2"];
+    return respostas.sort(() => Math.random() - 0.5);
+  }
+
+  function montarProva() {
+    const form = document.getElementById("formProva");
+    form.innerHTML = "";
+    perguntas.forEach((p, i) => {
+      const divQ = document.createElement("div");
+      divQ.classList.add("prova-pergunta");
+      divQ.innerHTML = `<p><strong>${p.pergunta}</strong></p>`;
+      p.respostas.forEach((resp, idx) => {
+        const id = `q${i}_r${idx}`;
+        divQ.innerHTML += `
+          <label for="${id}">
+            <input type="radio" name="q${i}" id="${id}" value="${resp}" required />
+            ${resp}
+          </label><br/>
+        `;
+      });
+      form.appendChild(divQ);
+    });
+  }
+
+  function corrigirProva() {
+    let acertos = 0;
+    let total = perguntas.length;
+    for (let i = 0; i < total; i++) {
+      const radios = document.getElementsByName(`q${i}`);
+      let respostaUsuario = null;
+      for (const r of radios) {
+        if (r.checked) {
+          respostaUsuario = r.value;
+          break;
+        }
+      }
+      if (respostaUsuario === perguntas[i].correta) {
+        acertos++;
+      }
+    }
+    document.getElementById("resultadoProva").innerText = `Você acertou ${acertos} de ${total} perguntas.`;
+  }
+</script>
+
 </body>
 </html>
