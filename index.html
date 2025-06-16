@@ -1,187 +1,36 @@
+<!-- login.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Estudo de Cardápio</title>
+  <title>Login - Estudo de Cardápio</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f5f5f5; }
-    .tela { display: none; padding: 20px; }
-    .ativo { display: block; }
-    input, textarea, button { padding: 10px; margin: 5px 0; width: 100%; }
-    .prato { border: 1px solid #ccc; padding: 10px; background: #fff; margin-bottom: 10px; border-radius: 8px; }
-    img { max-width: 100%; height: auto; }
-    .botoes { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-    .btn { padding: 10px 20px; background: #222; color: white; text-decoration: none; cursor: pointer; border: none; }
+    body { font-family: Arial; background: #222; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    form { background: #333; padding: 20px; border-radius: 10px; }
+    input { display: block; margin: 10px 0; padding: 8px; width: 100%; }
+    button { padding: 10px; background: #007BFF; color: white; border: none; }
   </style>
 </head>
 <body>
-
-<!-- Login -->
-<div id="telaLogin" class="tela ativo">
-  <h2>Login</h2>
-  <input type="text" id="nome" placeholder="Seu nome">
-  <input type="password" id="senha" placeholder="Senha de acesso">
-  <button onclick="fazerLogin()">Entrar</button>
-</div>
-
-<!-- Cardápio -->
-<div id="telaCardapio" class="tela">
-  <h2>Estudo de Cardápio</h2>
-  <div id="listaPratosAluno"></div>
-  <div class="botoes">
-    <button class="btn" onclick="mostrarTela('telaProva')">Testar meu conhecimento</button>
-    <button class="btn" onclick="mostrarTela('telaLogin')">Sair</button>
-  </div>
-</div>
-
-<!-- Prova -->
-<div id="telaProva" class="tela">
-  <h2>Mini Prova</h2>
-  <form id="formProva" onsubmit="return corrigirProva()">
-    <div class="pergunta">
-      <p>1. Qual ingrediente está no Uramaki Ebiten?</p>
-      <label><input type="radio" name="p1" value="certo"> Camarão empanado</label><br>
-      <label><input type="radio" name="p1" value="errado"> Salmão cru</label><br>
-      <label><input type="radio" name="p1" value="errado"> Gergelim preto</label>
-    </div>
-    <div class="pergunta">
-      <p>2. Qual molho é usado no Alanskarasha?</p>
-      <label><input type="radio" name="p2" value="certo"> Molho cítrico</label><br>
-      <label><input type="radio" name="p2" value="errado"> Molho shoyu</label><br>
-      <label><input type="radio" name="p2" value="errado"> Molho barbecue</label>
-    </div>
-    <button type="submit">Enviar</button>
+  <form onsubmit="return login()">
+    <h2>Login do Estudo</h2>
+    <input type="text" id="nome" placeholder="Seu nome" required>
+    <input type="password" id="codigo" placeholder="Código de acesso" required>
+    <button type="submit">Entrar</button>
   </form>
-  <p id="resultadoProva"></p>
-  <div class="botoes">
-    <button class="btn" onclick="mostrarTela('telaCardapio')">Voltar</button>
-  </div>
-</div>
 
-<!-- Administrador -->
-<div id="telaAdmin" class="tela">
-  <h2>Administração - Gerenciar Pratos</h2>
-  <form id="formAdmin">
-    <input type="text" id="nomePrato" placeholder="Nome do prato" required>
-    <textarea id="descPrato" placeholder="Descrição do prato" required></textarea>
-    <input type="text" id="imgPrato" placeholder="URL da imagem" required>
-    <button type="submit">Adicionar Prato</button>
-  </form>
-  <h3>Pratos cadastrados:</h3>
-  <div id="listaPratosAdmin"></div>
-  <div class="botoes">
-    <button class="btn" onclick="mostrarTela('telaLogin')">Sair</button>
-  </div>
-</div>
+  <script>
+    function login() {
+      const nome = document.getElementById("nome").value;
+      const codigo = document.getElementById("codigo").value;
 
-<script>
-  let pratos = JSON.parse(localStorage.getItem("pratos")) || [
-    {
-      nome: "Uramaki Ebiten",
-      descricao: "Enrolado de camarão empanado com cream cheese e cobertura de molho tarê.",
-      imagem: "https://via.placeholder.com/300x150?text=Uramaki+Ebiten"
-    },
-    {
-      nome: "Alanskarasha",
-      descricao: "Salmão selado com molho cítrico e crocância de cebola.",
-      imagem: "https://via.placeholder.com/300x150?text=Alanskarasha"
+      if (nome.toLowerCase() === "aluno" && codigo === "1234") {
+        window.location.href = "cardapio.html";
+      } else {
+        alert("Nome ou código incorretos.");
+      }
+      return false;
     }
-  ];
-
-  function salvarPratos() {
-    localStorage.setItem("pratos", JSON.stringify(pratos));
-  }
-
-  function mostrarTela(id) {
-    document.querySelectorAll('.tela').forEach(div => div.classList.remove('ativo'));
-    document.getElementById(id).classList.add('ativo');
-    if (id === "telaCardapio") renderizarAluno();
-    if (id === "telaAdmin") renderizarAdmin();
-  }
-
-  function fazerLogin() {
-    const nome = document.getElementById("nome").value.trim().toLowerCase();
-    const senha = document.getElementById("senha").value.trim();
-    if (nome === "admin" && senha === "admin123") {
-      mostrarTela("telaAdmin");
-    } else if (nome && senha === "1234") {
-      mostrarTela("telaCardapio");
-    } else {
-      alert("Login inválido.");
-    }
-  }
-
-  function renderizarAluno() {
-    const container = document.getElementById("listaPratosAluno");
-    container.innerHTML = "";
-    pratos.forEach(p => {
-      const div = document.createElement("div");
-      div.className = "prato";
-      div.innerHTML = `<h3>${p.nome}</h3><img src="${p.imagem}"><p>${p.descricao}</p>`;
-      container.appendChild(div);
-    });
-  }
-
-  function renderizarAdmin() {
-    const container = document.getElementById("listaPratosAdmin");
-    container.innerHTML = "";
-    pratos.forEach((p, i) => {
-      const div = document.createElement("div");
-      div.className = "prato";
-      div.innerHTML = `
-        <strong>${p.nome}</strong><br>
-        <img src="${p.imagem}" width="100"><br>
-        <p>${p.descricao}</p>
-        <div class="botoes">
-          <button class="btn" onclick="editar(${i})">Editar</button>
-          <button class="btn" onclick="remover(${i})">Remover</button>
-        </div>
-      `;
-      container.appendChild(div);
-    });
-  }
-
-  document.getElementById("formAdmin").onsubmit = function(e) {
-    e.preventDefault();
-    const novo = {
-      nome: document.getElementById("nomePrato").value,
-      descricao: document.getElementById("descPrato").value,
-      imagem: document.getElementById("imgPrato").value
-    };
-    pratos.push(novo);
-    salvarPratos();
-    this.reset();
-    renderizarAdmin();
-  };
-
-  function editar(i) {
-    const p = pratos[i];
-    const nome = prompt("Novo nome:", p.nome);
-    const desc = prompt("Nova descrição:", p.descricao);
-    const img = prompt("Nova imagem:", p.imagem);
-    if (nome && desc && img) {
-      pratos[i] = { nome, descricao: desc, imagem: img };
-      salvarPratos();
-      renderizarAdmin();
-    }
-  }
-
-  function remover(i) {
-    if (confirm("Deseja remover esse prato?")) {
-      pratos.splice(i, 1);
-      salvarPratos();
-      renderizarAdmin();
-    }
-  }
-
-  function corrigirProva() {
-    let acertos = 0;
-    const form = document.forms["formProva"];
-    if (form["p1"].value === "certo") acertos++;
-    if (form["p2"].value === "certo") acertos++;
-    document.getElementById("resultadoProva").innerText = `Você acertou ${acertos} de 2 questões.`;
-    return false;
-  }
-</script>
+  </script>
 </body>
 </html>
