@@ -1,223 +1,904 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Estudo de Cardápio - Dark</title>
-<style>
-  body {
-    background: #121212;
-    color: #eee;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0; padding: 0;
-  }
-  .tela {
-    display: none;
-    padding: 20px;
-    max-width: 700px;
-    margin: auto;
-  }
-  .ativo {
-    display: block;
-  }
-  input, button, select, textarea {
-    display: block;
-    width: 100%;
-    max-width: 400px;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-  }
-  button {
-    background: #1e88e5;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  button:hover {
-    background: #1565c0;
-  }
-  h2 {
-    border-bottom: 2px solid #333;
-    padding-bottom: 5px;
-  }
-  .categoria {
-    margin-top: 20px;
-  }
-  .prato {
-    background: #222;
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 8px;
-  }
-  .prova-pergunta {
-    background: #222;
-    margin: 15px 0;
-    padding: 15px;
-    border-radius: 8px;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudo de Cardápio Ossala</title>
+    <style>
+        :root {
+            --background-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --primary-color: #4CAF50; /* Green */
+            --secondary-color: #333;
+            --border-color: #555;
+            --card-background: #2a2a2a;
+            --button-hover-color: #45a049;
+            --quiz-correct: #28a745;
+            --quiz-incorrect: #dc3545;
+            --link-color: #00bcd4; /* Light blue for links */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            padding: 1rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--primary-color);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 0;
+            background-color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav button {
+            background-color: transparent;
+            color: var(--text-color);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav button:hover {
+            background-color: #555;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Login Screen */
+        #login-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #login-form {
+            background-color: var(--card-background);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        #login-form h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        #login-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            text-align: left;
+        }
+
+        #login-form input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: #333;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        #login-form button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        #login-form button:hover {
+            background-color: var(--button-hover-color);
+        }
+
+        /* Menu Section */
+        .menu-category {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background-color: var(--card-background);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .menu-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-category h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .dish-item {
+            background-color: var(--secondary-color);
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            padding: 1.2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .dish-item h3 {
+            color: var(--text-color);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .dish-item p {
+            font-size: 0.95rem;
+            color: #ccc;
+            margin-bottom: 0;
+        }
+
+        /* Quiz Section */
+        #quiz-screen {
+            display: none;
+        }
+
+        #quiz-container {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        #quiz-container h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .question-block {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--secondary-color);
+        }
+
+        .question-block p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: #333;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .options label:hover {
+            background-color: #444;
+            border-color: var(--primary-color);
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .quiz-controls {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .quiz-controls button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .quiz-controls button:hover {
+            background-color: var(--button-hover-color);
+        }
+
+        #quiz-results {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--secondary-color);
+            display: none;
+        }
+
+        #quiz-results h3 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .result-item {
+            margin-bottom: 1rem;
+            padding: 10px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-item.correct {
+            color: var(--quiz-correct);
+        }
+
+        .result-item.incorrect {
+            color: var(--quiz-incorrect);
+        }
+
+        .result-item .explanation {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        /* Scoreboard */
+        #scoreboard-screen {
+            display: none;
+        }
+
+        #scoreboard-container {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        #scoreboard-container h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        #scoreboard-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        #scoreboard-list li {
+            background-color: var(--secondary-color);
+            margin-bottom: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+        }
+
+        #scoreboard-list li span:first-child {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        #scoreboard-list li span:last-child {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        /* Utility classes */
+        .hidden {
+            display: none !important;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--secondary-color);
+            color: #aaa;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav button {
+                padding: 0.6rem 1rem;
+                margin: 0 0.3rem;
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            .container, #login-form {
+                padding: 1.5rem;
+            }
+
+            .menu-category h2 {
+                font-size: 1.5rem;
+            }
+
+            .dish-item h3 {
+                font-size: 1.1rem;
+            }
+
+            .dish-item p {
+                font-size: 0.85rem;
+            }
+
+            #login-form input[type="text"], #login-form button {
+                font-size: 0.95rem;
+            }
+
+            .quiz-controls button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 0.8rem 1rem;
+            }
+            nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            nav button {
+                margin: 0.2rem 0;
+                border-radius: 0;
+            }
+            main {
+                padding: 0.5rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            #login-form {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- Tela Login -->
-<div id="telaLogin" class="tela ativo">
-  <h2>Login</h2>
-  <input type="text" id="usuario" placeholder="Nome de usuário" />
-  <input type="password" id="senha" placeholder="Senha" />
-  <button onclick="login()">Entrar</button>
-  <div id="msgLogin" style="color:#f44336;"></div>
-</div>
+    <div id="login-screen">
+        <div id="login-form">
+            <h2>Bem-vindo ao Estudo de Cardápio!</h2>
+            <p>Por favor, digite seu nome para começar.</p>
+            <label for="username">Nome de Usuário:</label>
+            <input type="text" id="username" placeholder="Seu nome aqui" required>
+            <button id="login-button">Entrar</button>
+        </div>
+    </div>
 
-<!-- Tela Cardápio -->
-<div id="telaCardapio" class="tela">
-  <h2>Cardápio</h2>
-  <div id="cardapioContainer"></div>
-  <button onclick="mostrarTela('telaProva')">Treinar meu conhecimento</button>
-  <button onclick="logout()" style="margin-top: 20px; background:#b71c1c;">Sair</button>
-</div>
+    <div id="main-app" class="hidden">
+        <header>
+            <h1>Cardápio Ossala - Mural do Conhecimento</h1>
+        </header>
+        <nav>
+            <button id="show-menu-btn">Cardápio</button>
+            <button id="show-quiz-btn">TREINAR MEU CONHECIMENTO</button>
+            <button id="show-scoreboard-btn">Mural de Pontuações</button>
+        </nav>
 
-<!-- Tela Prova -->
-<div id="telaProva" class="tela">
-  <h2>Prova de Conhecimento</h2>
-  <form id="formProva"></form>
-  <button onclick="corrigirProva()">Enviar Respostas</button>
-  <div id="resultadoProva" style="margin-top:20px; font-weight:bold;"></div>
-  <button onclick="mostrarTela('telaCardapio')" style="margin-top: 20px;">Voltar ao Cardápio</button>
-</div>
+        <main>
+            <section id="menu-screen">
+                </section>
 
-<script>
-  // Usuários de exemplo, depois vai vir do Excel
-  const usuarios = [
-    { usuario: "aluno1", senha: "1234" },
-    { usuario: "aluno2", senha: "4321" }
-  ];
+            <section id="quiz-screen">
+                <div id="quiz-container" class="container">
+                    <h2>Prova Interativa</h2>
+                    <div id="quiz-questions">
+                        </div>
+                    <div class="quiz-controls">
+                        <button id="submit-quiz-btn">Finalizar Prova</button>
+                        <button id="retake-quiz-btn" class="hidden">Fazer Novamente</button>
+                    </div>
+                    <div id="quiz-results" class="hidden">
+                        <h3>Resultados da Prova</h3>
+                        <p>Sua pontuação: <span id="final-score"></span> / <span id="total-questions"></span></p>
+                        <div id="individual-results">
+                            </div>
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button id="save-score-btn" class="hidden">Salvar Pontuação no Mural</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-  // Cardápio exemplo por categoria, depois vamos importar do Excel
-  const cardapio = {
-    "Sushis": [
-      { nome: "Uramaki Ebiten", descricao: "Enrolado de camarão empanado, cream cheese e molho tarê." },
-      { nome: "Alanskarasha", descricao: "Salmão selado com molho cítrico e crocância de cebola." }
-    ],
-    "Temakis": [
-      { nome: "Ebiguru", descricao: "Temaki de camarão empanado com maionese da casa." }
-    ]
-  };
+            <section id="scoreboard-screen">
+                <div id="scoreboard-container" class="container">
+                    <h2>Mural de Pontuações</h2>
+                    <ul id="scoreboard-list">
+                        </ul>
+                </div>
+            </section>
+        </main>
 
-  // Perguntas geradas a partir do cardápio (simples)
-  let perguntas = [];
+        <footer>
+            <p>&copy; 2023 Estudo de Cardápio. Desenvolvido por IA.</p>
+        </footer>
+    </div>
 
-  function login() {
-    const u = document.getElementById("usuario").value.trim();
-    const s = document.getElementById("senha").value.trim();
-    const valido = usuarios.some(user => user.usuario === u && user.senha === s);
-    if (valido) {
-      document.getElementById("msgLogin").innerText = "";
-      mostrarTela("telaCardapio");
-      montarCardapio();
-      gerarPerguntas();
-    } else {
-      document.getElementById("msgLogin").innerText = "Usuário ou senha inválidos!";
-    }
-  }
+    <script>
+        const menuData = {
+            "Destaques": [
+                { "name": "Combinado de salmão Ossala 36 peças", "description": "IDEAL PARA 2 PESSOAS - ● 16 sashimis de salmão. ● 4 uramakis variados ● 8 niguiris de salmão ● 2 gunka de salmão com cebolinha ● 4 hossomaki de salmão ● 2 niguiris skin OBS: Prato sem alteração (Podendo solicitar a remoção do cream cheese e pepino)" },
+                { "name": "Ebiguru- 6un", "description": "Camarão tempurá envolto com salmão, couve crocante, ovas de massago, gergelim torrado, azeite com trufas." }
+            ],
+            "Os mais pedidos": [
+                { "name": "Uramaki Ebiten 10un", "description": "Uramaki de Camarão empanado, salmão e cream cheese" },
+                { "name": "Ceviche Thai", "description": "Salmão, molho de maracujá picante." },
+                { "name": "Niguiri de Salmão Maçaricado - 8un", "description": "Niguiri de Salmão Maçaricado, tare e mix de alho poró e batata doce crocante - 8 unidades" },
+                { "name": "Combinado N5 Ossala-18 peças", "description": "PERFEITO PARA 1 PESSOA - ● 02 fatias salmão ● 02 de atum ● 02 de atum selado ou peixe branco ● 04 uramakis variados ● 02 nigiris salmão ● 02 nigiris de atum ● 02 shakeneguis ● 02 nigiris ski" },
+                { "name": "Temaki Filadélfia", "description": "Temaki de salmão e cream cheese" },
+                { "name": "Sashimi salmão 5 fatias", "description": "5 fatias de salmão" },
+                { "name": "Hot Filadélfia - 8 Peças", "description": "Salmão enrolado com cream cheese em alga nori por fora, empanado e frito" }
+            ],
+            "Entradas": [
+                { "name": "Ceviche Thai", "description": "Salmão, molho de maracujá picante." },
+                { "name": "Ceviche Cítrico", "description": "Salmão, atum e peixe branco (sazonal) , com molho Doguru e alho poró. Acompanha chips de batata doce." },
+                { "name": "Ceviche Ananako", "description": "Salmão, calda de coco e abacaxi e molho Doguru." },
+                { "name": "Carpaccio Shake Trufado", "description": "16 finas fatias de salmão condimentado com flor de sal, azeite trufado, ovas de massagô e gergelim" },
+                { "name": "Salmorê negro", "description": "Sushi de salmão, purê de batata, chapeado, com cobertura de salmão cru, cebolinha e molho thai (maracujá picante)" },
+                { "name": "Tartare Gegiskan", "description": "Salmão, ovas de massago, azeite com trufa, flor de sal e alho-poró crocante" },
+                { "name": "Tartare Mussashi", "description": "Atum, ovas de massago, azeite com trufa e palha de couve asiática" },
+                { "name": "Tartare Doguro", "description": "Salmão, atum, ovas de massagô, mix de alho-poró e batata doce crocante" },
+                { "name": "Robaoshi 4 Peças", "description": "Delicioso espetinho japonês de salmão recheado com peixes, molho tarê, gergelim torrado e cebolinha verde." },
+                { "name": "Sunomono San", "description": "Sunomono San" },
+                { "name": "Bolinho de Salmão", "description": "Bolinho de salmao frito contém traços de lactose e glúten" }
+            ],
+            "Combinados": [
+                { "name": "Combinado de Salmão Ossala 56 Peças", "description": "● 26 sashimis de de salmão ● 10 niguiri de salmão ● 8 hossomaki ● 4 gunka de salmão com cebolinha ● 4 uramakis variados ● 4 niguiris skin OBS: Prato Sem Alteração (Podendo solicitar a remoção do cream cheese e pepino)" },
+                { "name": "Combinado de salmão Ossala 36 peças", "description": "IDEAL PARA 2 PESSOAS - ● 16 sashimis de salmão. ● 4 uramakis variados ● 8 niguiris de salmão ● 2 gunka de salmão com cebolinha ● 4 hossomaki de salmão ● 2 niguiris skin OBS: Prato sem alteração (Podendo solicitar a remoção do cream cheese e pepino)" },
+                { "name": "Combinado N7 Ossala 36 Peças", "description": "● 4 Fatias de sashimi de salmão ●4 Fatias de sashimi de atum ● 4 Fatias de sashimi de atum selado ●4 Fatias de sashimi de peixe branco ● 4 Uramakis variados ● 4 Nigiris de salmão ● 2 Shakeneguis ● 2 Nigiris de atum ● 2 Nigiris skin ●2 niguiris peixe branco ● 4 hossomakis variados prato sem alteração (Podendo solicitar a remoção do cream cheese e pepino)" },
+                { "name": "Combinado de Salmão Ossala 18 Peças", "description": "● 6 sashimis de salmão ● 4 niguiri de salmão ● 4 uramakis variados ● 2 gunka salmão com cebolinha ● 2 niguiri skin OBS: ( Prato Sem Alteração) (Podendo solicitar a remoção do cream cheese e pepino)" },
+                { "name": "Combinado N11 Ossala 56 peças", "description": "SERVE DE 2 a 3 PESSOAS ● 6 fatias de sashimi de salmao ● 6 fatias de sashimi de atum ● 7 fatias de atum selado ●7 fatias de peixe branco ● 8 hossomakis variados ● 4 nigiris de salmão ● 4 uramakis variados ● 4 shakeneguis ● 4 nigiris de skin ● 3 nigiris de atum ●3 niguiris de peixe branco (Podendo solicitar a remoção do cream cheese e pepino)" },
+                { "name": "Combinado N5 Ossala-18 peças", "description": "● 2 fatias sashimi de salmão ● 2 fatias de sashimi de atum ● 2 fatias sashimi de atum celado ou peixe branco ● 4 uramakis variados ● 2 niguiris salmão ● 2 niguiris de atum ● 2 shakeneguis ● 2 niguiris skin" },
+                { "name": "Combinado Ômega 22 - 22 peças", "description": "IDEAL PARA 1 PESSOA ● 4 bolinhos de salmão ● 4 niguirirs skin ●10 uramakis skin ● 2 niguiris de salmão ● 2 shakeneguis (Podendo solicitar a remoção do cream cheese e pepino)" },
+                { "name": "Combinado N6 - 38 peças", "description": "● 8 hossomakis variados ● 6 uramakis alaska ● 2 niguiris salmão ● 4 shakenegui ●4 gunka kiurimendo ● 2 shakechokes ● 3 niguiris atum ●3 niguiris de peixe branco ● 2 niguiris camarão ● 2 niguiris hadock ● 2 niguiris tako (polvo) OBS: Prato sem alteração (Podendo solicitar a remoção do cream cheese e pepino)" }
+            ],
+            "Sashimis": [
+                { "name": "Sashimi de Salmão - 5un", "description": "5 fatias de Sashimi de Salmão" },
+                { "name": "Sashimi Salmao Trufado 5 fatias", "description": "5 lâminas de salmão trufado e flor de sal" },
+                { "name": "Sashimi de Salmão Maçaricado- 5un", "description": "5 fatias de Sashimi de salmão maçaricado com molho tarê e mix de batata doce crocante e alho poró em crisps" },
+                { "name": "Sashimi de Atum Selado com tarê e cebolinha - 5un", "description": "5 fatias de Sashimi de Atum selado com tare e cebolinha" },
+                { "name": "Sashimi de Polvo - 5un", "description": "5 fatias de sashimi de polvo" },
+                { "name": "Sashimi de Atum - 5un", "description": "5 fatias de Sashimi de Atum" },
+                { "name": "Sashimi de peixe branco defumado - 5un", "description": "5 laminas de peixe branco defumado" }
+            ],
+            "Exclusivos": [
+                { "name": "Gunkalan com trufa - 6 peças", "description": "arroz envolto no salmão, atum, gergelim torrado, couve na manteiga crocante e azeite com trufas." },
+                { "name": "Combinado Não Levo Desaforo Pra Casa 24un", "description": "● 7 sashimis salmão maçaricado (temperado com tarê, gergelim e negui), ● 7 sushis desaforo, ● 6 uramakis alaska ● 2 niguiris de camarão ● 2 gunkamakis cogumelo OBS: Prato sem Alteração (Podendo solicitar a remoção do cream cheese e pepino)" },
+                { "name": "Ebiguru Com Trufa- 6un", "description": "Camarão empanado envolto do salmão azeite com trufas e flor de sal" },
+                { "name": "Shake Wobeto- 6un", "description": "niguiri salmão Maçaricado, Arroz, Azeite Trufado, Ovas de Massagô e mix alho-Poró." },
+                { "name": "Shakelang- 6un", "description": "niguiri Salmão maçaricado, lamina fina de cebola roxa, ovas de massago e azeite com trufas" },
+                { "name": "Desaforo 8 Peças", "description": "Sushi tempura envolto no salmão, negui e gergelim torrado." },
+                { "name": "Ebiguru- 6un", "description": "Camarão tempurá envolto com salmão, couve crocante, ovas de massago, gergelim torrado, azeite com trufas." },
+                { "name": "Shake Honey - 6un", "description": "niguiri Salmão maçaricado, mel com trufas, flor de sal, ovas de massago." }
+            ],
+            "Temakis": [
+                { "name": "Temaki Atum", "description": "Temaki Atum" },
+                { "name": "Temaki Salmão", "description": "Temaki salmão" },
+                { "name": "Temaki Filadélfia", "description": "Temaki de salmão e cream cheese" },
+                { "name": "Temaki Skin", "description": "Temaki Skin-pele de salmao grelhada" },
+                { "name": "Temaki Ebi Tempura Com Cream Cheese", "description": "Camarão empanado e cream cheese" },
+                { "name": "Temaki Ossala", "description": "Camarão empanado, salmão, cream cheese e ovas de massagô." },
+                { "name": "Temaki Ebi", "description": "Camarão Cozido." },
+                { "name": "Temaki peixe branco defumado", "description": "Peixe defumado." }
+            ],
+            "Uramakis": [
+                { "name": "Uramaki Ebiten - 10un", "description": "Uramaki de Camarão empanado, salmão e cream cheese" },
+                { "name": "Uramaki Alanskarasha 10un", "description": "Salmão, calda de maracujá picante, shirasha e mix de alho poró e batata doce crocante." },
+                { "name": "Uramaki Filadelfiano 10un", "description": "Salmão, cream cheese com raspas de limão siciliano." },
+                { "name": "Uramaki Filadelfia 10 Peças", "description": "Salmão e cream cheese 10 uni" },
+                { "name": "Uramaki Atum 10 Peças", "description": "Enrolado de arroz por fora e atum" },
+                { "name": "Uramaki Alaska 10 peças", "description": "Uramaki Alaska" }
+            ],
+            "Gunkas": [
+                { "name": "Gunka Kiurimendo - 8un", "description": "Sushi envolto de pepino com amêndoa dentro, ceviche cítrico e crispy de couve frita" },
+                { "name": "Gunka Shake Skin - 6un", "description": "Arroz envolto de salmão, pele de salmão grelhado, tarê e gergelim por cima- 6 unidades" },
+                { "name": "Gunka Shakemeji-8 peças", "description": "enrolado arroz com salmão em volta e tataki de salmão com cogumelos." },
+                { "name": "Gunka Shakebi-8 peças", "description": "enrolado de arroz com salmão em volta e tataki de salmão com camarão cozido." },
+                { "name": "Gunka Shakenegui - 8un", "description": "Arroz envolto com salmão, salmão e cebolinha em cima - 8 unidades" },
+                { "name": "Gunka Shakeguro -8un", "description": "Arroz envolto de salmão com atum por cima" },
+                { "name": "Gunka Shakemado- 8un", "description": "Arroz salmão em volta com peixe branco defumado em cima - 8 unidades" }
+            ],
+            "Niguiris": [
+                { "name": "Niguiri Shakechoque- 8un", "description": "niguiri de salmão, com tare, cream cheeese e cebolinha." },
+                { "name": "Niguiri de Salmão Maçaricado - 8un", "description": "Niguiri de Salmão Maçaricado, tare e mix de alho poró e batata doce crocante em crisps - 8 unidades" },
+                { "name": "Niguiri de Salmão - 8un", "description": "Niguiri de Salmão - 8 unidades" },
+                { "name": "Niguiri Polvo - 8un", "description": "Bolinho de Arroz com Polvo - 8 unidades" },
+                { "name": "Niguiri de Atum - 8un", "description": "Niguiri de Atum- 8unidades" },
+                { "name": "Niguiri Camarão - 8un", "description": "Bolinho de arroz com camarão - 8 unidades" },
+                { "name": "Niguiri Skin - 8un", "description": "Nniguiris de Salmão Skin com tarê e raspa de limão siciliano - 8 unidades" }
+            ],
+            "Hossomakis": [
+                { "name": "Hosso Shakemaki - 8un", "description": "Hossomaki de salmão - 8 unidades" },
+                { "name": "Hosso Pepino 8 uni", "description": "Hossomaki de pepino japonês - 8 unidades" },
+                { "name": "Hosso de Atum- 8un", "description": "Hossomaki de atum - 8 unidades" },
+                { "name": "Hosso de Camarão cozido - 8un", "description": "Hossomaki de Camarão - 8 unidades" },
+                { "name": "Hosso Filamaki - 8un", "description": "Salmão, cream cheese, arroz, enrolado com alga nori por fora" }
+            ],
+            "Pratos Quentes": [
+                { "name": "Kinoko Shimeji", "description": "cogumelo shimeji na manteiga" },
+                { "name": "Risoto de Frutos do Mar", "description": "Risoto de Frutos do Mar- 450g" },
+                { "name": "Risoto de file mignon", "description": "risoto de file mignon- 450g imagem meramente ilustrativa" },
+                { "name": "Risoto de Camarão", "description": "risoto de camarao imagem meramente ilustrativa" },
+                { "name": "Guioza de Camarão", "description": "Guioza de camarão" },
+                { "name": "Guioza de carne de panela", "description": "Guioza de carne bovina" },
+                { "name": "Guioza de carne de porco", "description": "Guioza de carne de porco" },
+                { "name": "Gyosa de Salmão - 6un", "description": "Pastel japonês recheado de salmão , nirá e molho Ponzu." },
+                { "name": "Kibe Dinare - 6un", "description": "Delicioso Kibe de salmão com molho rose picante." },
+                { "name": "Harumaki - 2un", "description": "Pastel japonês com salmão, vegetais servido com molho agridoce picante - 2 unidades" },
+                { "name": "Edamame", "description": "Grãos de soja verde cozida e flor de sal" },
+                { "name": "Teppanyaki de Salmão", "description": "Salmão grelhado legumes e arroz" },
+                { "name": "Teppanyaki de Camarão", "description": "Camarão grelhado legumes e arroz" },
+                { "name": "Teppanyaki File Mignon", "description": "Filé mignon legumes salteados e gohan" },
+                { "name": "Teppanyaki Frutos do Mar", "description": "Teppanyaki Frutos do Mar" },
+                { "name": "Teppanyaki Frango", "description": "Frango grelhado legumes e arroz" },
+                { "name": "Yakissoba Salmao", "description": "Macarrão cozido legumes e salmão" },
+                { "name": "Yakissoba File Mignon", "description": "Macarrão cozido legumes e filé mignon" },
+                { "name": "Yakissoba Frango", "description": "Macarrão cozido legumes e frango" },
+                { "name": "Yakissoba Camarão", "description": "Macarrão cozido legumes e camarão" },
+                { "name": "Yakissoba Vegano", "description": "Macarrão cozido e legumes" }
+            ],
+            "Veganos": [
+                { "name": "Yakissoba Vegano", "description": "Macarrão cozido e legumes" },
+                { "name": "Edamame", "description": "Grãos de soja verde cozida e flor de sal" },
+                { "name": "Hosso Pepino 8 uni", "description": "Hossomaki de pepino japonês" }
+            ],
+            "Sobremesas": [
+                { "name": "Brownie chocolate", "description": "Brownie chocolate e calda de chocolate" }
+            ],
+            "Bebidas": [
+                { "name": "Coca Cola", "description": "Coca Cola" },
+                { "name": "Guarana Antarctica zero", "description": "Guarana Antarctica zero" },
+                { "name": "Coca Cola Zero", "description": "Coca Cola Zero" },
+                { "name": "Guaraná Antarctica", "description": "Guaraná Antarctica" },
+                { "name": "H2O limao", "description": "H2O limao" },
+                { "name": "Sprite", "description": "Sprite" },
+                { "name": "Sprite Zero", "description": "Sprite Zero" },
+                { "name": "Tônica", "description": "Tônica" },
+                { "name": "Tônica Diet", "description": "Tônica Diet" },
+                { "name": "Água Com Gás", "description": "Água Com Gás" },
+                { "name": "Água sem gás", "description": "Água sem gás" }
+            ],
+            "Cervejas": [
+                { "name": "Heineken 275ml", "description": "Heineken 275ml" },
+                { "name": "Heineken sem álcool", "description": "Heineken sem álcool" },
+                { "name": "Stella Artois 275ml", "description": "Stella Artois 275ml" }
+            ],
+            "Sakes": [
+                { "name": "Hakushika Tradicional 720", "description": "Hakushika Tradicional 720" }
+            ],
+            "Acompanhamentos": [
+                { "name": "Batata Doce Crocante", "description": "Batata doce crocante" },
+                { "name": "Shoyu sachê", "description": "Shoyu sachê" },
+                { "name": "Molho Tarê porção", "description": "Porção Molho Tarê" },
+                { "name": "Molho de Maracujá", "description": "Molho de Maracujá" },
+                { "name": "Porção gengibre", "description": "Gengibre porção 50 gramas" },
+                { "name": "Wassabi porção", "description": "Porção Wasabi 20gr" },
+                { "name": "HASHI E SHOYU", "description": "Hashi e shoyu" }
+            ]
+        };
 
-  function logout() {
-    mostrarTela("telaLogin");
-    document.getElementById("usuario").value = "";
-    document.getElementById("senha").value = "";
-    document.getElementById("formProva").innerHTML = "";
-    document.getElementById("resultadoProva").innerText = "";
-  }
+        const quizQuestions = [];
+        let currentQuiz = [];
+        let userAnswers = [];
+        let currentUsername = "";
 
-  function mostrarTela(id) {
-    document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativo'));
-    document.getElementById(id).classList.add('ativo');
-  }
-
-  function montarCardapio() {
-    const container = document.getElementById("cardapioContainer");
-    container.innerHTML = "";
-    for (const categoria in cardapio) {
-      const divCat = document.createElement("div");
-      divCat.classList.add("categoria");
-      divCat.innerHTML = `<h3>${categoria}</h3>`;
-      cardapio[categoria].forEach(prato => {
-        const divPrato = document.createElement("div");
-        divPrato.classList.add("prato");
-        divPrato.innerHTML = `<strong>${prato.nome}</strong><p>${prato.descricao}</p>`;
-        divCat.appendChild(divPrato);
-      });
-      container.appendChild(divCat);
-    }
-  }
-
-  function gerarPerguntas() {
-    perguntas = [];
-    for (const categoria in cardapio) {
-      cardapio[categoria].forEach(prato => {
-        perguntas.push({
-          pergunta: `Qual a descrição correta do prato "${prato.nome}"?`,
-          respostas: embaralharRespostas(prato.descricao),
-          correta: prato.descricao
-        });
-      });
-    }
-    montarProva();
-  }
-
-  function embaralharRespostas(correta) {
-    // Cria 2 respostas falsas pegando descrições aleatórias diferentes da correta
-    const descricoes = [];
-    for (const categoria in cardapio) {
-      cardapio[categoria].forEach(p => {
-        if (p.descricao !== correta) descricoes.push(p.descricao);
-      });
-    }
-    descricoes.sort(() => Math.random() - 0.5);
-    let respostas = [correta, descricoes[0] || "Descrição alternativa 1", descricoes[1] || "Descrição alternativa 2"];
-    return respostas.sort(() => Math.random() - 0.5);
-  }
-
-  function montarProva() {
-    const form = document.getElementById("formProva");
-    form.innerHTML = "";
-    perguntas.forEach((p, i) => {
-      const divQ = document.createElement("div");
-      divQ.classList.add("prova-pergunta");
-      divQ.innerHTML = `<p><strong>${p.pergunta}</strong></p>`;
-      p.respostas.forEach((resp, idx) => {
-        const id = `q${i}_r${idx}`;
-        divQ.innerHTML += `
-          <label for="${id}">
-            <input type="radio" name="q${i}" id="${id}" value="${resp}" required />
-            ${resp}
-          </label><br/>
-        `;
-      });
-      form.appendChild(divQ);
-    });
-  }
-
-  function corrigirProva() {
-    let acertos = 0;
-    let total = perguntas.length;
-    for (let i = 0; i < total; i++) {
-      const radios = document.getElementsByName(`q${i}`);
-      let respostaUsuario = null;
-      for (const r of radios) {
-        if (r.checked) {
-          respostaUsuario = r.value;
-          break;
+        // Function to shuffle an array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
-      }
-      if (respostaUsuario === perguntas[i].correta) {
-        acertos++;
-      }
-    }
-    document.getElementById("resultadoProva").innerText = `Você acertou ${acertos} de ${total} perguntas.`;
-  }
-</script>
 
+        // Generate quiz questions based on menu data
+        function generateQuizQuestions() {
+            quizQuestions.length = 0; // Clear previous questions
+            const allDishes = Object.values(menuData).flat();
+
+            // Create questions where the user identifies the description of a dish
+            allDishes.forEach(dish => {
+                const correctAnswer = dish.description;
+                const incorrectAnswers = shuffleArray(allDishes.filter(d => d.name !== dish.name))
+                                         .slice(0, 3)
+                                         .map(d => d.description);
+
+                const options = shuffleArray([correctAnswer, ...incorrectAnswers]);
+
+                if (options.length === 4) { // Ensure we have 4 options
+                    quizQuestions.push({
+                        question: `Qual a descrição de "${dish.name}"?`,
+                        options: options,
+                        answer: correctAnswer
+                    });
+                }
+            });
+
+            // Create questions where the user identifies the dish name from a description
+            allDishes.forEach(dish => {
+                const correctAnswer = dish.name;
+                const incorrectAnswers = shuffleArray(allDishes.filter(d => d.name !== dish.name))
+                                         .slice(0, 3)
+                                         .map(d => d.name);
+
+                const options = shuffleArray([correctAnswer, ...incorrectAnswers]);
+
+                if (options.length === 4) { // Ensure we have 4 options
+                    quizQuestions.push({
+                        question: `Qual prato tem a descrição: "${dish.description.substring(0, 100)}..."?`, // Truncate description for question readability
+                        options: options,
+                        answer: correctAnswer
+                    });
+                }
+            });
+
+            currentQuiz = shuffleArray(quizQuestions).slice(0, 10); // Take 10 random questions
+        }
+
+        // --- DOM Elements ---
+        const loginScreen = document.getElementById('login-screen');
+        const mainApp = document.getElementById('main-app');
+        const loginButton = document.getElementById('login-button');
+        const usernameInput = document.getElementById('username');
+
+        const menuScreen = document.getElementById('menu-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const scoreboardScreen = document.getElementById('scoreboard-screen');
+
+        const showMenuBtn = document.getElementById('show-menu-btn');
+        const showQuizBtn = document.getElementById('show-quiz-btn');
+        const showScoreboardBtn = document.getElementById('show-scoreboard-btn');
+
+        const quizQuestionsContainer = document.getElementById('quiz-questions');
+        const submitQuizBtn = document.getElementById('submit-quiz-btn');
+        const retakeQuizBtn = document.getElementById('retake-quiz-btn');
+        const quizResultsDiv = document.getElementById('quiz-results');
+        const finalScoreSpan = document.getElementById('final-score');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const individualResultsDiv = document.getElementById('individual-results');
+        const saveScoreBtn = document.getElementById('save-score-btn');
+
+        const scoreboardList = document.getElementById('scoreboard-list');
+
+        // --- Event Listeners ---
+        loginButton.addEventListener('click', () => {
+            currentUsername = usernameInput.value.trim();
+            if (currentUsername) {
+                loginScreen.classList.add('hidden');
+                mainApp.classList.remove('hidden');
+                renderMenu();
+                showScreen('menu-screen');
+            } else {
+                alert('Por favor, digite seu nome de usuário.');
+            }
+        });
+
+        showMenuBtn.addEventListener('click', () => showScreen('menu-screen'));
+        showQuizBtn.addEventListener('click', () => {
+            generateQuizQuestions();
+            renderQuiz();
+            showScreen('quiz-screen');
+        });
+        showScoreboardBtn.addEventListener('click', () => {
+            renderScoreboard();
+            showScreen('scoreboard-screen');
+        });
+
+        submitQuizBtn.addEventListener('click', checkQuiz);
+        retakeQuizBtn.addEventListener('click', () => {
+            generateQuizQuestions(); // Generate new questions
+            renderQuiz();
+            quizResultsDiv.classList.add('hidden');
+            submitQuizBtn.classList.remove('hidden');
+            retakeQuizBtn.classList.add('hidden');
+            saveScoreBtn.classList.add('hidden');
+        });
+
+        saveScoreBtn.addEventListener('click', saveScore);
+
+        // --- Screen Management ---
+        function showScreen(screenId) {
+            menuScreen.classList.add('hidden');
+            quizScreen.classList.add('hidden');
+            scoreboardScreen.classList.add('hidden');
+
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        // --- Menu Rendering ---
+        function renderMenu() {
+            menuScreen.innerHTML = ''; // Clear previous content
+            for (const category in menuData) {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.classList.add('menu-category');
+                categoryDiv.innerHTML = `<h2>${category}</h2>`;
+
+                menuData[category].forEach(dish => {
+                    const dishDiv = document.createElement('div');
+                    dishDiv.classList.add('dish-item');
+                    dishDiv.innerHTML = `<h3>${dish.name}</h3><p>${dish.description}</p>`;
+                    categoryDiv.appendChild(dishDiv);
+                });
+                menuScreen.appendChild(categoryDiv);
+            }
+        }
+
+        // --- Quiz Functions ---
+        function renderQuiz() {
+            quizQuestionsContainer.innerHTML = ''; // Clear previous questions
+            userAnswers = []; // Reset user answers
+
+            currentQuiz.forEach((q, index) => {
+                const questionBlock = document.createElement('div');
+                questionBlock.classList.add('question-block');
+                questionBlock.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.classList.add('options');
+
+                q.options.forEach((option, optionIndex) => {
+                    const optionId = `q${index}-opt${optionIndex}`;
+                    const label = document.createElement('label');
+                    label.setAttribute('for', optionId);
+                    label.innerHTML = `<input type="radio" id="${optionId}" name="question${index}" value="${option}"> ${option}`;
+                    optionsDiv.appendChild(label);
+                });
+                questionBlock.appendChild(optionsDiv);
+                quizQuestionsContainer.appendChild(questionBlock);
+            });
+        }
+
+        function checkQuiz() {
+            let score = 0;
+            userAnswers = [];
+            individualResultsDiv.innerHTML = '';
+
+            currentQuiz.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                const userAnswer = selectedOption ? selectedOption.value : null;
+                userAnswers.push(userAnswer);
+
+                const isCorrect = (userAnswer === q.answer);
+                if (isCorrect) {
+                    score++;
+                }
+
+                const resultItem = document.createElement('div');
+                resultItem.classList.add('result-item');
+                resultItem.classList.add(isCorrect ? 'correct' : 'incorrect');
+                resultItem.innerHTML = `
+                    <p><strong>${index + 1}. ${q.question}</strong></p>
+                    <p>Sua resposta: ${userAnswer || 'Não respondido'}</p>
+                    <p class="explanation">Resposta correta: ${q.answer}</p>
+                `;
+                individualResultsDiv.appendChild(resultItem);
+            });
+
+            finalScoreSpan.textContent = score;
+            totalQuestionsSpan.textContent = currentQuiz.length;
+            quizResultsDiv.classList.remove('hidden');
+            submitQuizBtn.classList.add('hidden');
+            retakeQuizBtn.classList.remove('hidden');
+            saveScoreBtn.classList.remove('hidden'); // Show save score button after quiz
+        }
+
+        // --- Scoreboard Functions ---
+        function getScores() {
+            const scores = localStorage.getItem('ossalaScores');
+            return scores ? JSON.parse(scores) : [];
+        }
+
+        function saveScore() {
+            const scores = getScores();
+            const finalScore = parseInt(finalScoreSpan.textContent);
+            if (currentUsername && finalScore !== undefined) {
+                scores.push({ name: currentUsername, score: finalScore, date: new Date().toLocaleString() });
+                scores.sort((a, b) => b.score - a.score); // Sort by score descending
+                localStorage.setItem('ossalaScores', JSON.stringify(scores));
+                alert('Sua pontuação foi salva no Mural do Conhecimento!');
+                renderScoreboard(); // Refresh scoreboard
+                saveScoreBtn.classList.add('hidden'); // Hide after saving
+            }
+        }
+
+        function renderScoreboard() {
+            scoreboardList.innerHTML = '';
+            const scores = getScores();
+
+            if (scores.length === 0) {
+                scoreboardList.innerHTML = '<li>Nenhuma pontuação registrada ainda.</li>';
+                return;
+            }
+
+            scores.forEach((entry, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <span>${index + 1}. ${entry.name}</span>
+                    <span>${entry.score} pontos (${entry.date})</span>
+                `;
+                scoreboardList.appendChild(listItem);
+            });
+        }
+
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', () => {
+            // No need to render menu or quiz initially, login screen handles it
+        });
+
+    </script>
 </body>
 </html>
