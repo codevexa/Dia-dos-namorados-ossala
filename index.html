@@ -1,1029 +1,401 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudo de Cardápio Ossala</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <style>
-        /* Variáveis CSS para cores e fontes */
-        :root {
-            --background-dark: #121212; /* Fundo principal mais escuro */
-            --card-bg: #1e1e1e; /* Fundo de cartões/seções */
-            --text-light: #e0e0e0; /* Texto claro */
-            --text-dimmed: #b0b0b0; /* Texto secundário/fraco */
-            --primary-accent: #6200ea; /* Roxo vibrante para destaque */
-            --secondary-accent: #03dac6; /* Ciano para secundário/hover */
-            --border-color: #333;
-            --button-hover-bg: #bb86fc; /* Roxo mais claro para hover */
-            --button-hover-text: #121212;
-            --success-color: #00c853; /* Verde para sucesso */
-            --error-color: #d50000; /* Vermelho para erro */
-
-            --font-main: 'Roboto', sans-serif;
-            --font-heading: 'Playfair Display', serif;
-        }
-
-        body {
-            font-family: var(--font-main);
-            background-color: var(--background-dark);
-            color: var(--text-light);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden; /* Evita scroll horizontal */
-        }
-
-        /* Container principal da aplicação */
-        #app-container {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            min-height: 100vh;
-            background-color: var(--background-dark); /* Garante que o fundo do container seja dark */
-        }
-
-        /* Cabeçalho */
-        header {
-            background-color: var(--card-bg);
-            padding: 1.5rem 2rem;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        header h1 {
-            margin: 0;
-            font-family: var(--font-heading);
-            color: var(--primary-accent);
-            font-size: 2.5rem;
-            letter-spacing: 1.5px;
-        }
-
-        /* Navegação */
-        nav {
-            display: flex;
-            justify-content: center;
-            padding: 0.75rem 0;
-            background-color: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-            gap: 15px; /* Espaço entre os botões */
-        }
-
-        nav button {
-            background-color: var(--primary-accent);
-            color: var(--text-light);
-            border: none;
-            padding: 0.8rem 1.8rem;
-            cursor: pointer;
-            font-size: 1.05rem;
-            font-weight: 500;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            letter-spacing: 0.5px;
-        }
-
-        nav button:hover {
-            background-color: var(--button-hover-bg);
-            color: var(--button-hover-text);
-            transform: translateY(-2px);
-        }
-
-        nav button.active {
-            background-color: var(--secondary-accent);
-            color: var(--background-dark);
-            box-shadow: 0 4px 12px rgba(0, 220, 198, 0.4);
-        }
-
-        /* Conteúdo principal de cada "página" */
-        main {
-            flex-grow: 1;
-            padding: 2.5rem;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .content-section {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 2.5rem;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-color);
-        }
-
-        .content-section h2 {
-            font-family: var(--font-heading);
-            color: var(--primary-accent);
-            border-bottom: 2px solid var(--secondary-accent);
-            padding-bottom: 0.8rem;
-            margin-top: 0;
-            margin-bottom: 2rem;
-            font-size: 2.2rem;
-            text-align: center;
-        }
-
-        /* Tela de Login */
-        #login-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
-            background-color: var(--background-dark); /* Garante que o fundo seja dark */
-        }
-
-        #login-form {
-            background-color: var(--card-bg);
-            padding: 3.5rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-            text-align: center;
-            width: 100%;
-            max-width: 450px;
-            border: 1px solid var(--border-color);
-        }
-
-        #login-form h2 {
-            font-family: var(--font-heading);
-            color: var(--secondary-accent);
-            margin-bottom: 2rem;
-            font-size: 2.2rem;
-        }
-
-        #login-form label {
-            display: block;
-            margin-bottom: 0.8rem;
-            color: var(--text-light);
-            text-align: left;
-            font-size: 1.1rem;
-            font-weight: 300;
-        }
-
-        #login-form input[type="text"] {
-            width: calc(100% - 24px); /* Ajuste para padding */
-            padding: 12px;
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background-color: #2a2a2a;
-            color: var(--text-light);
-            font-size: 1.1rem;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
-            transition: border-color 0.3s ease;
-        }
-
-        #login-form input[type="text"]:focus {
-            border-color: var(--primary-accent);
-            outline: none;
-        }
-
-        #login-form button {
-            background-color: var(--primary-accent);
-            color: var(--text-light);
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        #login-form button:hover {
-            background-color: var(--button-hover-bg);
-            color: var(--button-hover-text);
-            transform: translateY(-3px);
-        }
-
-        /* Seção do Menu */
-        .menu-category {
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .menu-category:hover {
-            transform: translateY(-5px);
-        }
-
-        .menu-category h3 {
-            font-family: var(--font-heading);
-            color: var(--secondary-accent);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.8rem;
-            margin-top: 0;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-            text-align: left;
-        }
-
-        .dish-item {
-            background-color: #2a2a2a;
-            border-radius: 8px;
-            margin-bottom: 1.2rem;
-            padding: 1.5rem;
-            border: 1px solid #444;
-            transition: background-color 0.3s ease;
-        }
-
-        .dish-item:hover {
-            background-color: #333;
-        }
-
-        .dish-item h4 {
-            color: var(--text-light);
-            margin-top: 0;
-            margin-bottom: 0.6rem;
-            font-size: 1.4rem;
-            font-weight: 500;
-        }
-
-        .dish-item p {
-            font-size: 1rem;
-            color: var(--text-dimmed);
-            margin-bottom: 0;
-        }
-
-        /* Seção do Quiz */
-        #quiz-screen .question-block {
-            margin-bottom: 2.5rem;
-            padding: 2rem;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            background-color: #2a2a2a;
-        }
-
-        #quiz-screen .question-block p {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-light);
-            font-weight: 400;
-        }
-
-        #quiz-screen .options label {
-            display: block;
-            margin-bottom: 1rem;
-            cursor: pointer;
-            padding: 12px 15px;
-            border: 1px solid #555;
-            border-radius: 8px;
-            background-color: #333;
-            transition: background-color 0.2s ease, border-color 0.2s ease;
-            font-size: 1.05rem;
-        }
-
-        #quiz-screen .options label:hover {
-            background-color: #444;
-            border-color: var(--secondary-accent);
-        }
-
-        #quiz-screen .options input[type="radio"] {
-            margin-right: 12px;
-            transform: scale(1.1);
-        }
-
-        #quiz-screen .quiz-controls {
-            text-align: center;
-            margin-top: 3rem;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        #quiz-screen .quiz-controls button {
-            background-color: var(--primary-accent);
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.15rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        #quiz-screen .quiz-controls button:hover {
-            background-color: var(--button-hover-bg);
-            color: var(--button-hover-text);
-            transform: translateY(-3px);
-        }
-
-        #quiz-results {
-            margin-top: 3rem;
-            padding: 2rem;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            background-color: #2a2a2a;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            display: none; /* Escondido por padrão */
-        }
-
-        #quiz-results h3 {
-            color: var(--secondary-accent);
-            text-align: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-            font-family: var(--font-heading);
-        }
-
-        #quiz-results p {
-            text-align: center;
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-light);
-        }
-
-        .result-item {
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            border-bottom: 1px dashed #444;
-            font-size: 1rem;
-        }
-
-        .result-item:last-child {
-            border-bottom: none;
-        }
-
-        .result-item.correct {
-            color: var(--success-color);
-        }
-
-        .result-item.incorrect {
-            color: var(--error-color);
-        }
-
-        .result-item .explanation {
-            font-size: 0.9em;
-            color: var(--text-dimmed);
-            margin-top: 8px;
-        }
-
-        /* Seção do Scoreboard */
-        #scoreboard-screen ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        #scoreboard-screen li {
-            background-color: #2a2a2a;
-            margin-bottom: 1rem;
-            padding: 1.2rem 1.8rem;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #444;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-
-        #scoreboard-screen li span:first-child {
-            font-weight: 500;
-            color: var(--text-light);
-            font-size: 1.15rem;
-        }
-
-        #scoreboard-screen li span:last-child {
-            color: var(--secondary-accent);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* Classes de utilidade */
-        .hidden {
-            display: none !important;
-        }
-
-        /* Rodapé */
-        footer {
-            text-align: center;
-            padding: 1.8rem;
-            background-color: var(--card-bg);
-            color: var(--text-dimmed);
-            margin-top: auto; /* Empurra o rodapé para baixo */
-            border-top: 1px solid var(--border-color);
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.4);
-            font-size: 0.9rem;
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            nav {
-                flex-wrap: wrap; /* Permite que os botões quebrem linha */
-                padding: 0.5rem;
-            }
-
-            nav button {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.95rem;
-                flex-grow: 1; /* Faz os botões crescerem para preencher o espaço */
-                margin: 5px; /* Ajusta a margem para telas pequenas */
-            }
-
-            main {
-                padding: 1.5rem;
-            }
-
-            .content-section {
-                padding: 1.8rem;
-            }
-
-            .content-section h2 {
-                font-size: 1.8rem;
-            }
-
-            #login-form {
-                padding: 2.5rem;
-            }
-
-            #login-form h2 {
-                font-size: 1.8rem;
-            }
-
-            .menu-category h3 {
-                font-size: 1.5rem;
-            }
-
-            .dish-item h4 {
-                font-size: 1.2rem;
-            }
-
-            .dish-item p {
-                font-size: 0.9rem;
-            }
-
-            #quiz-screen .question-block p {
-                font-size: 1.1rem;
-            }
-
-            #quiz-screen .options label {
-                font-size: 1rem;
-                padding: 10px 12px;
-            }
-
-            #quiz-screen .quiz-controls button {
-                padding: 12px 25px;
-                font-size: 1.05rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header {
-                padding: 1rem;
-            }
-            header h1 {
-                font-size: 1.6rem;
-            }
-            nav button {
-                padding: 0.6rem 0.8rem;
-                font-size: 0.85rem;
-            }
-            main {
-                padding: 1rem;
-            }
-            .content-section {
-                padding: 1.2rem;
-            }
-            .content-section h2 {
-                font-size: 1.5rem;
-            }
-            #login-form {
-                padding: 1.5rem;
-            }
-            #login-form h2 {
-                font-size: 1.6rem;
-            }
-            #login-form input[type="text"], #login-form button {
-                font-size: 0.95rem;
-            }
-            #quiz-screen .quiz-controls {
-                flex-direction: column;
-                gap: 15px;
-            }
-            #quiz-results p {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div id="login-screen">
-        <div id="login-form">
-            <h2>Bem-vindo ao Estudo de Cardápio!</h2>
-            <p style="color: var(--text-dimmed); margin-bottom: 2rem;">Por favor, digite seu nome para começar sua jornada de conhecimento sobre o cardápio Ossala.</p>
-            <label for="username">Seu Nome:</label>
-            <input type="text" id="username" placeholder="Ex: Maria Estudiosa" required>
-            <button id="login-button">Entrar no Estudo</button>
+"use client"
+
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { CheckCircle, Clock, Users, Zap, MessageCircle, TrendingUp, Star } from "lucide-react"
+
+export default function LandingPage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+      {/* Hero Section */}
+      <section className="container mx-auto px-4 py-8 md:py-16">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+          <div className="flex-1 text-center lg:text-left">
+            <Badge className="mb-4 bg-red-500 hover:bg-red-600 text-white">🔥 LANÇAMENTO EXCLUSIVO</Badge>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+              Como Ganhar <span className="text-green-600">R$100 por Dia</span> com Vendas no WhatsApp
+            </h1>
+            <p className="text-lg md:text-xl text-gray-700 mb-6">
+              <strong>Mesmo sem seguidores ou estoque!</strong> Descubra o método simples que já ajudou centenas de
+              pessoas a conquistarem sua independência financeira usando apenas o celular.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+              <div className="flex items-center gap-2 text-green-600">
+                <CheckCircle className="w-5 h-5" />
+                <span className="font-medium">100% Digital</span>
+              </div>
+              <div className="flex items-center gap-2 text-green-600">
+                <CheckCircle className="w-5 h-5" />
+                <span className="font-medium">Entrega Imediata</span>
+              </div>
+              <div className="flex items-center gap-2 text-green-600">
+                <CheckCircle className="w-5 h-5" />
+                <span className="font-medium">Sem Experiência</span>
+              </div>
+            </div>
+            <div className="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-6">
+              <div className="flex items-center gap-2 text-yellow-800">
+                <Clock className="w-5 h-5" />
+                <span className="font-bold">OFERTA LIMITADA: Bônus exclusivo para os primeiros 10 compradores!</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex-1 max-w-md">
+            <div className="relative">
+              <img
+                src="/placeholder.svg?height=600&width=400"
+                alt="Capa do eBook - Como ganhar R$100 por dia com vendas no WhatsApp"
+                className="w-full h-auto rounded-lg shadow-2xl"
+              />
+              <div className="absolute -top-4 -right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold animate-pulse">
+                NOVO!
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
+      </section>
 
-    <div id="main-app" class="hidden">
-        <div id="app-container">
-            <header>
-                <h1>Cardápio Ossala - Mural do Conhecimento</h1>
-            </header>
-            <nav>
-                <button id="nav-menu-btn" class="active">Cardápio</button>
-                <button id="nav-quiz-btn">Treinar Conhecimento</button>
-                <button id="nav-scoreboard-btn">Mural de Pontuações</button>
-            </nav>
-
-            <main>
-                <section id="menu-section" class="content-section">
-                    <h2>Nosso Cardápio Completo</h2>
-                    </section>
-
-                <section id="quiz-section" class="content-section hidden">
-                    <h2>Teste Seus Conhecimentos!</h2>
-                    <div id="quiz-questions">
-                        </div>
-                    <div class="quiz-controls">
-                        <button id="submit-quiz-btn">Finalizar Prova</button>
-                        <button id="retake-quiz-btn" class="hidden">Fazer Novamente</button>
-                    </div>
-                    <div id="quiz-results" class="hidden">
-                        <h3>Resultados da Prova</h3>
-                        <p>Sua pontuação: <span id="final-score"></span> / <span id="total-questions"></span></p>
-                        <div id="individual-results">
-                            </div>
-                        <div style="text-align: center; margin-top: 25px;">
-                            <button id="save-score-btn" class="hidden">Salvar Pontuação</button>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="scoreboard-section" class="content-section hidden">
-                    <h2>Mural de Pontuações</h2>
-                    <ul id="scoreboard-list">
-                        </ul>
-                </section>
-            </main>
-
-            <footer>
-                <p>&copy; 2023 Estudo de Cardápio Ossala. Desenvolvido para aprendizado.</p>
-            </footer>
+      {/* Sobre o Método */}
+      <section className="bg-white py-12 md:py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Por Que Este Método Funciona?</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Eu mesmo comecei com R$0, usando apenas o WhatsApp e estratégia. Agora vou te mostrar o passo a passo para
+              você conquistar seus primeiros R$100 por dia de forma consistente.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="text-center p-6">
+              <CardContent className="pt-6">
+                <MessageCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                <h3 className="font-bold text-lg mb-2">Sem Complicação</h3>
+                <p className="text-gray-600">
+                  Apenas você, seu celular e o WhatsApp. Nada de sistemas complexos ou investimentos altos.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="text-center p-6">
+              <CardContent className="pt-6">
+                <TrendingUp className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                <h3 className="font-bold text-lg mb-2">Resultados Rápidos</h3>
+                <p className="text-gray-600">
+                  Método testado e aprovado. Você pode começar a ganhar dinheiro já nos primeiros dias.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="text-center p-6">
+              <CardContent className="pt-6">
+                <Users className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                <h3 className="font-bold text-lg mb-2">Sem Seguidores</h3>
+                <p className="text-gray-600">
+                  Não precisa de milhares de seguidores. Vou te mostrar onde encontrar clientes prontos para comprar.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
+      </section>
+
+      {/* Capítulos */}
+      <section className="bg-gray-50 py-12 md:py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">O Que Você Vai Aprender</h2>
+            <p className="text-lg text-gray-600">5 capítulos diretos ao ponto + bônus exclusivo</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="p-6">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
+                    1
+                  </div>
+                  <h3 className="font-bold text-lg">O Modelo de Negócio</h3>
+                </div>
+                <p className="text-gray-600">
+                  Revenda digital com entrega imediata. Sem estoque, sem dor de cabeça. Seja o intermediário entre
+                  cliente e produto.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="p-6">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
+                    2
+                  </div>
+                  <h3 className="font-bold text-lg">Como Atrair Clientes</h3>
+                </div>
+                <p className="text-gray-600">
+                  Grupos do Facebook, WhatsApp, Telegram, OLX, Mercado Livre. Descubra onde seus clientes já estão
+                  esperando.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="p-6">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
+                    3
+                  </div>
+                  <h3 className="font-bold text-lg">Script de Vendas</h3>
+                </div>
+                <p className="text-gray-600">
+                  Mensagens prontas que convertem. Scripts testados para primeira abordagem e fechamento de vendas.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="p-6">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
+                    4
+                  </div>
+                  <h3 className="font-bold text-lg">R$100 por Dia</h3>
+                </div>
+                <p className="text-gray-600">
+                  A conta simples: 5 vendas de R$20 = R$100/dia. Estratégia diária passo a passo para atingir essa meta.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="p-6">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
+                    5
+                  </div>
+                  <h3 className="font-bold text-lg">Aumentando Lucros</h3>
+                </div>
+                <p className="text-gray-600">
+                  Como escalar depois dos primeiros R$100. Automação, produtos próprios e grupos VIP.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="p-6 border-2 border-yellow-400 bg-yellow-50">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Zap className="w-8 h-8 text-yellow-600" />
+                  <h3 className="font-bold text-lg text-yellow-800">BÔNUS</h3>
+                </div>
+                <p className="text-gray-700 font-medium">
+                  Lista completa de produtos para revender com lucro médio de R$15 a R$100 por venda!
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Depoimentos */}
+      <section className="bg-white py-12 md:py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              Veja o Que Nossos Alunos Estão Dizendo
+            </h2>
+            <p className="text-lg text-gray-600">Resultados reais de pessoas reais</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="p-6">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-gray-600 mb-4 italic">
+                  "Em 15 dias já estava ganhando meus primeiros R$100. O método é simples e funciona mesmo!"
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                    <span className="font-bold text-green-600">M</span>
+                  </div>
+                  <div>
+                    <p className="font-medium">Maria Silva</p>
+                    <p className="text-sm text-gray-500">São Paulo, SP</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="p-6">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-gray-600 mb-4 italic">
+                  "Estava desempregado e consegui uma renda extra que virou meu trabalho principal. Recomendo!"
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                    <span className="font-bold text-green-600">J</span>
+                  </div>
+                  <div>
+                    <p className="font-medium">João Santos</p>
+                    <p className="text-sm text-gray-500">Rio de Janeiro, RJ</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="p-6">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-gray-600 mb-4 italic">
+                  "Método direto e sem enrolação. Em 1 mês já estava ganhando mais que meu salário!"
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                    <span className="font-bold text-green-600">A</span>
+                  </div>
+                  <div>
+                    <p className="font-medium">Ana Costa</p>
+                    <p className="text-sm text-gray-500">Belo Horizonte, MG</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Oferta */}
+      <section className="bg-gradient-to-r from-green-600 to-emerald-700 py-12 md:py-16 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">🚨 OFERTA ESPECIAL DE LANÇAMENTO</h2>
+          <p className="text-lg md:text-xl mb-6 opacity-90">
+            Por apenas <span className="line-through opacity-75">R$97</span>
+          </p>
+          <div className="text-4xl md:text-5xl font-bold mb-6">R$47</div>
+          <div className="bg-red-500 text-white px-4 py-2 rounded-full inline-block mb-8 animate-pulse">
+            ⏰ BÔNUS EXCLUSIVO PARA OS 10 PRIMEIROS!
+          </div>
+          <div className="max-w-2xl mx-auto mb-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
+                <span>eBook Completo</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
+                <span>Scripts Prontos</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
+                <span>Lista de Produtos</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
+                <span>Suporte Direto</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-lg px-8 py-4 rounded-full"
+              onClick={() =>
+                window.open(
+                  "https://wa.me/5551982297055?text=Oi!%20Quero%20comprar%20o%20eBook%20Como%20ganhar%20R$100%20por%20dia%20com%20vendas%20no%20WhatsApp",
+                  "_blank",
+                )
+              }
+            >
+              💬 COMPRAR PELO WHATSAPP
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="bg-white text-green-600 hover:bg-gray-100 font-bold text-lg px-8 py-4 rounded-full border-2"
+            >
+              💳 COMPRAR COM CARTÃO
+            </Button>
+          </div>
+          <p className="text-sm mt-4 opacity-75">✅ Entrega imediata • ✅ Garantia de 7 dias • ✅ Pagamento seguro</p>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-gray-50 py-12 md:py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Perguntas Frequentes</h2>
+          </div>
+          <div className="max-w-3xl mx-auto space-y-6">
+            <Card className="p-6">
+              <CardContent className="pt-6">
+                <h3 className="font-bold text-lg mb-2">Preciso ter experiência em vendas?</h3>
+                <p className="text-gray-600">
+                  Não! O método foi criado justamente para iniciantes. Você recebe scripts prontos e passo a passo
+                  detalhado.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="p-6">
+              <CardContent className="pt-6">
+                <h3 className="font-bold text-lg mb-2">Quanto tempo leva para ver resultados?</h3>
+                <p className="text-gray-600">
+                  Seguindo o método, você pode ter suas primeiras vendas em 7 a 15 dias. Tudo depende da sua dedicação.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="p-6">
+              <CardContent className="pt-6">
+                <h3 className="font-bold text-lg mb-2">Preciso investir dinheiro para começar?</h3>
+                <p className="text-gray-600">
+                  Apenas o valor do eBook. O método ensina como começar sem estoque e sem investimentos altos.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Final */}
+      <section className="bg-gray-900 text-white py-12 md:py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Não Espere Tudo Estar Perfeito</h2>
+          <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
+            Comece com o que você tem hoje: um celular, internet e vontade. Com consistência e essa estratégia, você
+            pode fazer seus primeiros R$100 por dia.
+          </p>
+          <Button
+            size="lg"
+            className="bg-green-600 hover:bg-green-700 font-bold text-lg px-8 py-4 rounded-full"
+            onClick={() =>
+              window.open(
+                "https://wa.me/5551982297355?text=Oi!%20Quero%20comprar%20o%20eBook%20Como%20ganhar%20R$100%20por%20dia%20com%20vendas%20no%20WhatsApp",
+                "_blank",
+              )
+            }
+          >
+            🚀 QUERO COMEÇAR AGORA
+          </Button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white py-8">
+        <div className="container mx-auto px-4 text-center">
+          <p className="mb-4">
+            <strong>Suporte e conteúdos extras:</strong>
+          </p>
+          <Button
+            variant="outline"
+            className="bg-transparent border-green-500 text-green-400 hover:bg-green-500 hover:text-white"
+            onClick={() => window.open("https://wa.me/5551982297355", "_blank")}
+          >
+            💬 WhatsApp: (51) 98229-7355
+          </Button>
+          <p className="text-sm text-gray-400 mt-6">© 2024 - Todos os direitos reservados</p>
+        </div>
+      </footer>
     </div>
-
-    <script>
-        // Dados do Cardápio (JSON incorporado)
-        const menuData = {
-            "Destaques": [
-                { "name": "Combinado de salmão Ossala 36 peças", "description": "IDEAL PARA 2 PESSOAS - ● 16 sashimis de salmão. ● 4 uramakis variados ● 8 niguiris de salmão ● 2 gunka de salmão com cebolinha ● 4 hossomaki de salmão ● 2 niguiris skin OBS: Prato sem alteração (Podendo solicitar a remoção do cream cheese e pepino)" },
-                { "name": "Ebiguru- 6un", "description": "Camarão tempurá envolto com salmão, couve crocante, ovas de massago, gergelim torrado, azeite com trufas." }
-            ],
-            "Os mais pedidos": [
-                { "name": "Uramaki Ebiten 10un", "description": "Uramaki de Camarão empanado, salmão e cream cheese" },
-                { "name": "Ceviche Thai", "description": "Salmão, molho de maracujá picante." },
-                { "name": "Niguiri de Salmão Maçaricado - 8un", "description": "Niguiri de Salmão Maçaricado, tare e mix de alho poró e batata doce crocante - 8 unidades" },
-                { "name": "Combinado N5 Ossala-18 peças", "description": "PERFEITO PARA 1 PESSOA - ● 02 fatias salmão ● 02 de atum ● 02 de atum selado ou peixe branco ● 04 uramakis variados ● 02 nigiris salmão ● 02 nigiris de atum ● 02 shakeneguis ● 02 nigiris ski" },
-                { "name": "Temaki Filadélfia", "description": "Temaki de salmão e cream cheese" },
-                { "name": "Sashimi salmão 5 fatias", "description": "5 fatias de salmão" },
-                { "name": "Hot Filadélfia - 8 Peças", "description": "Salmão enrolado com cream cheese em alga nori por fora, empanado e frito" }
-            ],
-            "Entradas": [
-                { "name": "Ceviche Thai", "description": "Salmão, molho de maracujá picante." },
-                { "name": "Ceviche Cítrico", "description": "Salmão, atum e peixe branco (sazonal) , com molho Doguru e alho poró. Acompanha chips de batata doce." },
-                { "name": "Ceviche Ananako", "description": "Salmão, calda de coco e abacaxi e molho Doguru." },
-                { "name": "Carpaccio Shake Trufado", "description": "16 finas fatias de salmão condimentado com flor de sal, azeite trufado, ovas de massagô e gergelim" },
-                { "name": "Salmorê negro", "description": "Sushi de salmão, purê de batata, chapeado, com cobertura de salmão cru, cebolinha e molho thai (maracujá picante)" },
-                { "name": "Tartare Gegiskan", "description": "Salmão, ovas de massago, azeite com trufa, flor de sal e alho-poró crocante" },
-                { "name": "Tartare Mussashi", "description": "Atum, ovas de massago, azeite com trufa e palha de couve asiática" },
-                { "name": "Tartare Doguro", "description": "Salmão, atum, ovas de massagô, mix de alho-poró e batata doce crocante" },
-                { "name": "Robaoshi 4 Peças", "description": "Delicioso espetinho japonês de salmão recheado com peixes, molho tarê, gergelim torrado e cebolinha verde." },
-                { "name": "Sunomono San", "description": "Sunomono San" },
-                { "name": "Bolinho de Salmão", "description": "Bolinho de salmao frito contém traços de lactose e glúten" }
-            ],
-            "Combinados": [
-                { "name": "Combinado de Salmão Ossala 56 Peças", "description": "● 26 sashimis de de salmão ● 10 niguiri de salmão ● 8 hossomaki ● 4 gunka de salmão com cebolinha ● 4 uramakis variados ● 4 niguiris skin OBS: Prato Sem Alteração (Podendo solicitar a remoção do cream cheese e pepino)" },
-                { "name": "Combinado de salmão Ossala 36 peças", "description": "IDEAL PARA 2 PESSOAS - ● 16 sashimis de salmão. ● 4 uramakis variados ● 8 niguiris de salmão ● 2 gunka de salmão com cebolinha ● 4 hossomaki de salmão ● 2 niguiris skin OBS: Prato sem alteração (Podendo solicitar a remoção do cream cheese e pepino)" },
-                { "name": "Combinado N7 Ossala 36 Peças", "description": "● 4 Fatias de sashimi de salmão ●4 Fatias de sashimi de atum ● 4 Fatias de sashimi de atum selado ●4 Fatias de sashimi de peixe branco ● 4 Uramakis variados ● 4 Nigiris de salmão ● 2 Shakeneguis ● 2 Nigiris de atum ● 2 Nigiris skin ●2 niguiris peixe branco ● 4 hossomakis variados prato sem alteração (Podendo solicitar a remoção do cream cheese e pepino)" },
-                { "name": "Combinado de Salmão Ossala 18 Peças", "description": "● 6 sashimis de salmão ● 4 niguiri de salmão ● 4 uramakis variados ● 2 gunka salmão com cebolinha ● 2 niguiri skin OBS: ( Prato Sem Alteração) (Podendo solicitar a remoção do cream cheese e pepino)" },
-                { "name": "Combinado N11 Ossala 56 peças", "description": "SERVE DE 2 a 3 PESSOAS ● 6 fatias de sashimi de salmao ● 6 fatias de sashimi de atum ● 7 fatias de atum selado ●7 fatias de peixe branco ● 8 hossomakis variados ● 4 nigiris de salmão ● 4 uramakis variados ● 4 shakeneguis ● 4 nigiris de skin ● 3 nigiris de atum ●3 niguiris de peixe branco (Podendo solicitar a remoção do cream cheese e pepino)" },
-                { "name": "Combinado N5 Ossala-18 peças", "description": "● 2 fatias sashimi de salmão ● 2 fatias de sashimi de atum ● 2 fatias sashimi de atum celado ou peixe branco ● 4 uramakis variados ● 2 niguiris salmão ● 2 niguiris de atum ● 2 shakeneguis ● 2 niguiris skin" },
-                { "name": "Combinado Ômega 22 - 22 peças", "description": "IDEAL PARA 1 PESSOA ● 4 bolinhos de salmão ● 4 niguirirs skin ●10 uramakis skin ● 2 niguiris de salmão ● 2 shakeneguis (Podendo solicitar a remoção do cream cheese e pepino)" },
-                { "name": "Combinado N6 - 38 peças", "description": "● 8 hossomakis variados ● 6 uramakis alaska ● 2 niguiris salmão ● 4 shakenegui ●4 gunka kiurimendo ● 2 shakechokes ● 3 niguiris atum ●3 niguiris de peixe branco ● 2 niguiris camarão ● 2 niguiris hadock ● 2 niguiris tako (polvo) OBS: Prato sem alteração (Podendo solicitar a remoção do cream cheese e pepino)" }
-            ],
-            "Sashimis": [
-                { "name": "Sashimi de Salmão - 5un", "description": "5 fatias de Sashimi de Salmão" },
-                { "name": "Sashimi Salmao Trufado 5 fatias", "description": "5 lâminas de salmão trufado e flor de sal" },
-                { "name": "Sashimi de Salmão Maçaricado- 5un", "description": "5 fatias de Sashimi de salmão maçaricado com molho tarê e mix de batata doce crocante e alho poró em crisps" },
-                { "name": "Sashimi de Atum Selado com tarê e cebolinha - 5un", "description": "5 fatias de Sashimi de Atum selado com tare e cebolinha" },
-                { "name": "Sashimi de Polvo - 5un", "description": "5 fatias de sashimi de polvo" },
-                { "name": "Sashimi de Atum - 5un", "description": "5 fatias de Sashimi de Atum" },
-                { "name": "Sashimi de peixe branco defumado - 5un", "description": "5 laminas de peixe branco defumado" }
-            ],
-            "Exclusivos": [
-                { "name": "Gunkalan com trufa - 6 peças", "description": "arroz envolto no salmão, atum, gergelim torrado, couve na manteiga crocante e azeite com trufas." },
-                { "name": "Combinado Não Levo Desaforo Pra Casa 24un", "description": "● 7 sashimis salmão maçaricado (temperado com tarê, gergelim e negui), ● 7 sushis desaforo, ● 6 uramakis alaska ● 2 niguiris de camarão ● 2 gunkamakis cogumelo OBS: Prato sem Alteração (Podendo solicitar a remoção do cream cheese e pepino)" },
-                { "name": "Ebiguru Com Trufa- 6un", "description": "Camarão empanado envolto do salmão azeite com trufas e flor de sal" },
-                { "name": "Shake Wobeto- 6un", "description": "niguiri salmão Maçaricado, Arroz, Azeite Trufado, Ovas de Massagô e mix alho-Poró." },
-                { "name": "Shakelang- 6un", "description": "niguiri Salmão maçaricado, lamina fina de cebola roxa, ovas de massago e azeite com trufas" },
-                { "name": "Desaforo 8 Peças", "description": "Sushi tempura envolto no salmão, negui e gergelim torrado." },
-                { "name": "Ebiguru- 6un", "description": "Camarão tempurá envolto com salmão, couve crocante, ovas de massago, gergelim torrado, azeite com trufas." },
-                { "name": "Shake Honey - 6un", "description": "niguiri Salmão maçaricado, mel com trufas, flor de sal, ovas de massago." }
-            ],
-            "Temakis": [
-                { "name": "Temaki Atum", "description": "Temaki Atum" },
-                { "name": "Temaki Salmão", "description": "Temaki salmão" },
-                { "name": "Temaki Filadélfia", "description": "Temaki de salmão e cream cheese" },
-                { "name": "Temaki Skin", "description": "Temaki Skin-pele de salmao grelhada" },
-                { "name": "Temaki Ebi Tempura Com Cream Cheese", "description": "Camarão empanado e cream cheese" },
-                { "name": "Temaki Ossala", "description": "Camarão empanado, salmão, cream cheese e ovas de massagô." },
-                { "name": "Temaki Ebi", "description": "Camarão Cozido." },
-                { "name": "Temaki peixe branco defumado", "description": "Peixe defumado." }
-            ],
-            "Uramakis": [
-                { "name": "Uramaki Ebiten - 10un", "description": "Uramaki de Camarão empanado, salmão e cream cheese" },
-                { "name": "Uramaki Alanskarasha 10un", "description": "Salmão, calda de maracujá picante, shirasha e mix de alho poró e batata doce crocante." },
-                { "name": "Uramaki Filadelfiano 10un", "description": "Salmão, cream cheese com raspas de limão siciliano." },
-                { "name": "Uramaki Filadelfia 10 Peças", "description": "Salmão e cream cheese 10 uni" },
-                { "name": "Uramaki Atum 10 Peças", "description": "Enrolado de arroz por fora e atum" },
-                { "name": "Uramaki Alaska 10 peças", "description": "Uramaki Alaska" }
-            ],
-            "Gunkas": [
-                { "name": "Gunka Kiurimendo - 8un", "description": "Sushi envolto de pepino com amêndoa dentro, ceviche cítrico e crispy de couve frita" },
-                { "name": "Gunka Shake Skin - 6un", "description": "Arroz envolto de salmão, pele de salmão grelhado, tarê e gergelim por cima- 6 unidades" },
-                { "name": "Gunka Shakemeji-8 peças", "description": "enrolado arroz com salmão em volta e tataki de salmão com cogumelos." },
-                { "name": "Gunka Shakebi-8 peças", "description": "enrolado de arroz com salmão em volta e tataki de salmão com camarão cozido." },
-                { "name": "Gunka Shakenegui - 8un", "description": "Arroz envolto com salmão, salmão e cebolinha em cima - 8 unidades" },
-                { "name": "Gunka Shakeguro -8un", "description": "Arroz envolto de salmão com atum por cima" },
-                { "name": "Gunka Shakemado- 8un", "description": "Arroz salmão em volta com peixe branco defumado em cima - 8 unidades" }
-            ],
-            "Niguiris": [
-                { "name": "Niguiri Shakechoque- 8un", "description": "niguiri de salmão, com tare, cream cheeese e cebolinha." },
-                { "name": "Niguiri de Salmão Maçaricado - 8un", "description": "Niguiri de Salmão Maçaricado, tare e mix de alho poró e batata doce crocante em crisps - 8 unidades" },
-                { "name": "Niguiri de Salmão - 8un", "description": "Niguiri de Salmão - 8 unidades" },
-                { "name": "Niguiri Polvo - 8un", "description": "Bolinho de Arroz com Polvo - 8 unidades" },
-                { "name": "Niguiri de Atum - 8un", "description": "Niguiri de Atum- 8unidades" },
-                { "name": "Niguiri Camarão - 8un", "description": "Bolinho de arroz com camarão - 8 unidades" },
-                { "name": "Niguiri Skin - 8un", "description": "Nniguiris de Salmão Skin com tarê e raspa de limão siciliano - 8 unidades" }
-            ],
-            "Hossomakis": [
-                { "name": "Hosso Shakemaki - 8un", "description": "Hossomaki de salmão - 8 unidades" },
-                { "name": "Hosso Pepino 8 uni", "description": "Hossomaki de pepino japonês - 8 unidades" },
-                { "name": "Hosso de Atum- 8un", "description": "Hossomaki de atum - 8 unidades" },
-                { "name": "Hosso de Camarão cozido - 8un", "description": "Hossomaki de Camarão - 8 unidades" },
-                { "name": "Hosso Filamaki - 8un", "description": "Salmão, cream cheese, arroz, enrolado com alga nori por fora" }
-            ],
-            "Pratos Quentes": [
-                { "name": "Kinoko Shimeji", "description": "cogumelo shimeji na manteiga" },
-                { "name": "Risoto de Frutos do Mar", "description": "Risoto de Frutos do Mar- 450g" },
-                { "name": "Risoto de file mignon", "description": "risoto de file mignon- 450g imagem meramente ilustrativa" },
-                { "name": "Risoto de Camarão", "description": "risoto de camarao imagem meramente ilustrativa" },
-                { "name": "Guioza de Camarão", "description": "Guioza de camarão" },
-                { "name": "Guioza de carne de panela", "description": "Guioza de carne bovina" },
-                { "name": "Guioza de carne de porco", "description": "Guioza de carne de porco" },
-                { "name": "Gyosa de Salmão - 6un", "description": "Pastel japonês recheado de salmão , nirá e molho Ponzu." },
-                { "name": "Kibe Dinare - 6un", "description": "Delicioso Kibe de salmão com molho rose picante." },
-                { "name": "Harumaki - 2un", "description": "Pastel japonês com salmão, vegetais servido com molho agridoce picante - 2 unidades" },
-                { "name": "Edamame", "description": "Grãos de soja verde cozida e flor de sal" },
-                { "name": "Teppanyaki de Salmão", "description": "Salmão grelhado legumes e arroz" },
-                { "name": "Teppanyaki de Camarão", "description": "Camarão grelhado legumes e arroz" },
-                { "name": "Teppanyaki File Mignon", "description": "Filé mignon legumes salteados e gohan" },
-                { "name": "Teppanyaki Frutos do Mar", "description": "Teppanyaki Frutos do Mar" },
-                { "name": "Teppanyaki Frango", "description": "Frango grelhado legumes e arroz" },
-                { "name": "Yakissoba Salmao", "description": "Macarrão cozido legumes e salmão" },
-                { "name": "Yakissoba File Mignon", "description": "Macarrão cozido legumes e filé mignon" },
-                { "name": "Yakissoba Frango", "description": "Macarrão cozido legumes e frango" },
-                { "name": "Yakissoba Camarão", "description": "Macarrão cozido legumes e camarão" },
-                { "name": "Yakissoba Vegano", "description": "Macarrão cozido e legumes" }
-            ],
-            "Veganos": [
-                { "name": "Yakissoba Vegano", "description": "Macarrão cozido e legumes" },
-                { "name": "Edamame", "description": "Grãos de soja verde cozida e flor de sal" },
-                { "name": "Hosso Pepino 8 uni", "description": "Hossomaki de pepino japonês" }
-            ],
-            "Sobremesas": [
-                { "name": "Brownie chocolate", "description": "Brownie chocolate e calda de chocolate" }
-            ],
-            "Bebidas": [
-                { "name": "Coca Cola", "description": "Coca Cola" },
-                { "name": "Guarana Antarctica zero", "description": "Guarana Antarctica zero" },
-                { "name": "Coca Cola Zero", "description": "Coca Cola Zero" },
-                { "name": "Guaraná Antarctica", "description": "Guaraná Antarctica" },
-                { "name": "H2O limao", "description": "H2O limao" },
-                { "name": "Sprite", "description": "Sprite" },
-                { "name": "Sprite Zero", "description": "Sprite Zero" },
-                { "name": "Tônica", "description": "Tônica" },
-                { "name": "Tônica Diet", "description": "Tônica Diet" },
-                { "name": "Água Com Gás", "description": "Água Com Gás" },
-                { "name": "Água sem gás", "description": "Água sem gás" }
-            ],
-            "Cervejas": [
-                { "name": "Heineken 275ml", "description": "Heineken 275ml" },
-                { "name": "Heineken sem álcool", "description": "Heineken sem álcool" },
-                { "name": "Stella Artois 275ml", "description": "Stella Artois 275ml" }
-            ],
-            "Sakes": [
-                { "name": "Hakushika Tradicional 720", "description": "Hakushika Tradicional 720" },
-            ],
-            "Acompanhamentos": [
-                { "name": "Batata Doce Crocante", "description": "Batata doce crocante" },
-                { "name": "Shoyu sachê", "description": "Shoyu sachê" },
-                { "name": "Molho Tarê porção", "description": "Porção Molho Tarê" },
-                { "name": "Molho de Maracujá", "description": "Molho de Maracujá" },
-                { "name": "Porção gengibre", "description": "Gengibre porção 50 gramas" },
-                { "name": "Wassabi porção", "description": "Porção Wasabi 20gr" },
-                { "name": "HASHI E SHOYU", "description": "Hashi e shoyu" }
-            ]
-        };
-
-        let quizQuestions = []; // Perguntas do quiz geradas dinamicamente
-        let currentQuiz = []; // O quiz atual para a sessão
-        let userAnswers = []; // Respostas do usuário
-        let currentUsername = ""; // Nome do usuário logado
-
-        // --- Funções de Utilitário ---
-        // Embaralha um array (algoritmo Fisher-Yates)
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        // Gerar perguntas do quiz com base nos dados do cardápio
-        function generateQuizQuestions() {
-            quizQuestions = []; // Limpa perguntas anteriores
-            const allDishes = Object.values(menuData).flat(); // Todos os pratos em um array único
-
-            // Tipo 1: Dada uma descrição, qual o prato?
-            allDishes.forEach(dish => {
-                const correctAnswer = dish.name;
-                const incorrectAnswers = shuffleArray(allDishes.filter(d => d.name !== dish.name))
-                                         .slice(0, 3) // Pega 3 respostas incorretas
-                                         .map(d => d.name);
-
-                const options = shuffleArray([correctAnswer, ...incorrectAnswers]);
-
-                // Garante que temos 4 opções antes de adicionar a pergunta
-                if (options.length === 4) {
-                    quizQuestions.push({
-                        question: `Qual prato tem a descrição: "${dish.description.substring(0, 100)}..."?`, // Trunca descrição para legibilidade
-                        options: options,
-                        answer: correctAnswer
-                    });
-                }
-            });
-
-            // Tipo 2: Dado um prato, qual a sua descrição?
-            allDishes.forEach(dish => {
-                const correctAnswer = dish.description;
-                const incorrectAnswers = shuffleArray(allDishes.filter(d => d.description !== dish.description))
-                                         .slice(0, 3)
-                                         .map(d => d.description);
-
-                const options = shuffleArray([correctAnswer, ...incorrectAnswers]);
-
-                if (options.length === 4) {
-                    quizQuestions.push({
-                        question: `Qual a descrição de "${dish.name}"?`,
-                        options: options,
-                        answer: correctAnswer
-                    });
-                }
-            });
-
-
-            currentQuiz = shuffleArray(quizQuestions).slice(0, 10); // Seleciona 10 perguntas aleatórias para o quiz atual
-            if (currentQuiz.length < 5) { // fallback if not enough questions are generated (e.g., small menu)
-                alert("Não há perguntas suficientes para gerar um quiz completo. Adicione mais pratos ou descrições variadas.");
-                currentQuiz = shuffleArray(quizQuestions).slice(0, Math.min(quizQuestions.length, 5)); // Generate at least 5 questions if possible
-            }
-        }
-
-        // --- Elementos do DOM ---
-        const loginScreen = document.getElementById('login-screen');
-        const mainApp = document.getElementById('main-app');
-        const loginButton = document.getElementById('login-button');
-        const usernameInput = document.getElementById('username');
-
-        const navMenuBtn = document.getElementById('nav-menu-btn');
-        const navQuizBtn = document.getElementById('nav-quiz-btn');
-        const navScoreboardBtn = document.getElementById('nav-scoreboard-btn');
-
-        const menuSection = document.getElementById('menu-section');
-        const quizSection = document.getElementById('quiz-section');
-        const scoreboardSection = document.getElementById('scoreboard-section');
-
-        const quizQuestionsContainer = document.getElementById('quiz-questions');
-        const submitQuizBtn = document.getElementById('submit-quiz-btn');
-        const retakeQuizBtn = document.getElementById('retake-quiz-btn');
-        const quizResultsDiv = document.getElementById('quiz-results');
-        const finalScoreSpan = document.getElementById('final-score');
-        const totalQuestionsSpan = document.getElementById('total-questions');
-        const individualResultsDiv = document.getElementById('individual-results');
-        const saveScoreBtn = document.getElementById('save-score-btn');
-
-        const scoreboardList = document.getElementById('scoreboard-list');
-
-        // --- Gerenciamento de Telas ---
-        function showSection(sectionId) {
-            // Esconde todas as seções
-            menuSection.classList.add('hidden');
-            quizSection.classList.add('hidden');
-            scoreboardSection.classList.add('hidden');
-
-            // Remove a classe 'active' de todos os botões de navegação
-            navMenuBtn.classList.remove('active');
-            navQuizBtn.classList.remove('active');
-            navScoreboardBtn.classList.remove('active');
-
-            // Mostra a seção desejada e ativa o botão correspondente
-            if (sectionId === 'menu-section') {
-                menuSection.classList.remove('hidden');
-                navMenuBtn.classList.add('active');
-                renderMenu();
-            } else if (sectionId === 'quiz-section') {
-                quizSection.classList.remove('hidden');
-                navQuizBtn.classList.add('active');
-                // Gerar e renderizar quiz apenas quando a seção é acessada
-                generateQuizQuestions();
-                renderQuiz();
-                quizResultsDiv.classList.add('hidden'); // Esconde resultados anteriores
-                submitQuizBtn.classList.remove('hidden'); // Mostra botão de submissão
-                retakeQuizBtn.classList.add('hidden'); // Esconde refazer
-                saveScoreBtn.classList.add('hidden'); // Esconde salvar pontuação
-            } else if (sectionId === 'scoreboard-section') {
-                scoreboardSection.classList.remove('hidden');
-                navScoreboardBtn.classList.add('active');
-                renderScoreboard();
-            }
-        }
-
-        // --- Event Listeners ---
-        loginButton.addEventListener('click', () => {
-            currentUsername = usernameInput.value.trim();
-            if (currentUsername) {
-                loginScreen.classList.add('hidden');
-                mainApp.classList.remove('hidden');
-                showSection('menu-section'); // Mostra a tela do cardápio após o login
-            } else {
-                alert('Por favor, digite seu nome para continuar.');
-                usernameInput.focus();
-            }
-        });
-
-        navMenuBtn.addEventListener('click', () => showSection('menu-section'));
-        navQuizBtn.addEventListener('click', () => showSection('quiz-section'));
-        navScoreboardBtn.addEventListener('click', () => showSection('scoreboard-section'));
-
-        submitQuizBtn.addEventListener('click', checkQuiz);
-        retakeQuizBtn.addEventListener('click', () => {
-            showSection('quiz-section'); // Re-renderiza o quiz para um novo conjunto de perguntas
-        });
-
-        saveScoreBtn.addEventListener('click', saveScore);
-
-        // --- Renderização do Menu ---
-        function renderMenu() {
-            menuSection.innerHTML = '<h2>Nosso Cardápio Completo</h2>'; // Reseta o título
-            for (const category in menuData) {
-                const categoryDiv = document.createElement('div');
-                categoryDiv.classList.add('menu-category');
-                categoryDiv.innerHTML = `<h3>${category}</h3>`;
-
-                menuData[category].forEach(dish => {
-                    const dishDiv = document.createElement('div');
-                    dishDiv.classList.add('dish-item');
-                    dishDiv.innerHTML = `<h4>${dish.name}</h4><p>${dish.description}</p>`;
-                    categoryDiv.appendChild(dishDiv);
-                });
-                menuSection.appendChild(categoryDiv);
-            }
-        }
-
-        // --- Funções do Quiz ---
-        function renderQuiz() {
-            quizQuestionsContainer.innerHTML = ''; // Limpa perguntas anteriores
-            userAnswers = []; // Reseta as respostas do usuário
-
-            currentQuiz.forEach((q, index) => {
-                const questionBlock = document.createElement('div');
-                questionBlock.classList.add('question-block');
-                questionBlock.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
-
-                const optionsDiv = document.createElement('div');
-                optionsDiv.classList.add('options');
-
-                q.options.forEach((option, optionIndex) => {
-                    const optionId = `q${index}-opt${optionIndex}`;
-                    const label = document.createElement('label');
-                    label.setAttribute('for', optionId);
-                    label.innerHTML = `
-                        <input type="radio" id="${optionId}" name="question${index}" value="${option}">
-                        ${option}
-                    `;
-                    optionsDiv.appendChild(label);
-                });
-                questionBlock.appendChild(optionsDiv);
-                quizQuestionsContainer.appendChild(questionBlock);
-            });
-        }
-
-        function checkQuiz() {
-            let score = 0;
-            userAnswers = [];
-            individualResultsDiv.innerHTML = ''; // Limpa resultados anteriores
-
-            currentQuiz.forEach((q, index) => {
-                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-                const userAnswer = selectedOption ? selectedOption.value : null;
-                userAnswers.push(userAnswer);
-
-                const isCorrect = (userAnswer === q.answer);
-                if (isCorrect) {
-                    score++;
-                }
-
-                const resultItem = document.createElement('div');
-                resultItem.classList.add('result-item');
-                resultItem.classList.add(isCorrect ? 'correct' : 'incorrect');
-                resultItem.innerHTML = `
-                    <p><strong>${index + 1}. ${q.question}</strong></p>
-                    <p>Sua resposta: ${userAnswer || 'Não respondido'}</p>
-                    <p class="explanation">Resposta correta: ${q.answer}</p>
-                `;
-                individualResultsDiv.appendChild(resultItem);
-            });
-
-            finalScoreSpan.textContent = score;
-            totalQuestionsSpan.textContent = currentQuiz.length;
-            quizResultsDiv.classList.remove('hidden');
-            submitQuizBtn.classList.add('hidden');
-            retakeQuizBtn.classList.remove('hidden');
-            saveScoreBtn.classList.remove('hidden'); // Permite salvar a pontuação
-        }
-
-        // --- Funções do Scoreboard ---
-        function getScores() {
-            const scores = localStorage.getItem('ossalaScores');
-            return scores ? JSON.parse(scores) : [];
-        }
-
-        function saveScore() {
-            const scores = getScores();
-            const finalScore = parseInt(finalScoreSpan.textContent);
-            if (currentUsername && finalScore !== undefined && finalScore >= 0) { // Garante que a pontuação é válida
-                scores.push({ name: currentUsername, score: finalScore, date: new Date().toLocaleString() });
-                scores.sort((a, b) => b.score - a.score); // Ordena por pontuação (maior primeiro)
-                localStorage.setItem('ossalaScores', JSON.stringify(scores));
-                alert(`Sua pontuação de ${finalScore} foi salva no Mural do Conhecimento!`);
-                renderScoreboard(); // Atualiza o mural
-                saveScoreBtn.classList.add('hidden'); // Esconde o botão após salvar
-            }
-        }
-
-        function renderScoreboard() {
-            scoreboardList.innerHTML = ''; // Limpa lista anterior
-            const scores = getScores();
-
-            if (scores.length === 0) {
-                scoreboardList.innerHTML = '<li style="justify-content: center; color: var(--text-dimmed);">Nenhuma pontuação registrada ainda.</li>';
-                return;
-            }
-
-            scores.forEach((entry, index) => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `
-                    <span>${index + 1}. ${entry.name}</span>
-                    <span>${entry.score} pontos (${entry.date.split(',')[0]})</span>
-                `; // Mostra apenas a data, sem o horário
-                scoreboardList.appendChild(listItem);
-            });
-        }
-
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', () => {
-            // A tela de login é a primeira a ser exibida
-            // O resto da aplicação só é mostrado após o login
-        });
-
-    </script>
-</body>
-</html>
+  )
+}
