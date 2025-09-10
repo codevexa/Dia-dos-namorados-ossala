@@ -1,401 +1,138 @@
-"use client"
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convite - Eloa 2 aninhos</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to bottom, #87CEFA, #fff);
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff4081;
+      font-size: 2.2em;
+    }
+    .info {
+      font-size: 1.2em;
+      margin: 15px 0;
+    }
+    .btn {
+      display: block;
+      margin: 15px auto;
+      padding: 12px 20px;
+      background: #ffca28;
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 25px;
+      width: 220px;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #ffc107;
+      transform: scale(1.05);
+    }
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 400px;
+      text-align: left;
+    }
+    .modal-content h2 {
+      text-align: center;
+      color: #ff4081;
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    .send-btn {
+      background: #25d366;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .send-btn:hover {
+      background: #20b954;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Convite Especial 🎉</h1>
+  <img src="https://i.ibb.co/2gH7kzV/baby-shark.png" alt="Baby Shark" width="200">
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { CheckCircle, Clock, Users, Zap, MessageCircle, TrendingUp, Star } from "lucide-react"
+  <div class="info">🎂 Venha comemorar os <b>2 aninhos da Eloa!</b></div>
+  <div class="info">🦈 Tema: Baby Shark</div>
+  <div class="info">📅 21 de setembro às 16h</div>
+  <div class="info">📍 Beco Souza Costa, 1554</div>
 
-export default function LandingPage() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 py-8 md:py-16">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-          <div className="flex-1 text-center lg:text-left">
-            <Badge className="mb-4 bg-red-500 hover:bg-red-600 text-white">🔥 LANÇAMENTO EXCLUSIVO</Badge>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-              Como Ganhar <span className="text-green-600">R$100 por Dia</span> com Vendas no WhatsApp
-            </h1>
-            <p className="text-lg md:text-xl text-gray-700 mb-6">
-              <strong>Mesmo sem seguidores ou estoque!</strong> Descubra o método simples que já ajudou centenas de
-              pessoas a conquistarem sua independência financeira usando apenas o celular.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
-              <div className="flex items-center gap-2 text-green-600">
-                <CheckCircle className="w-5 h-5" />
-                <span className="font-medium">100% Digital</span>
-              </div>
-              <div className="flex items-center gap-2 text-green-600">
-                <CheckCircle className="w-5 h-5" />
-                <span className="font-medium">Entrega Imediata</span>
-              </div>
-              <div className="flex items-center gap-2 text-green-600">
-                <CheckCircle className="w-5 h-5" />
-                <span className="font-medium">Sem Experiência</span>
-              </div>
-            </div>
-            <div className="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-6">
-              <div className="flex items-center gap-2 text-yellow-800">
-                <Clock className="w-5 h-5" />
-                <span className="font-bold">OFERTA LIMITADA: Bônus exclusivo para os primeiros 10 compradores!</span>
-              </div>
-            </div>
-          </div>
-          <div className="flex-1 max-w-md">
-            <div className="relative">
-              <img
-                src="/placeholder.svg?height=600&width=400"
-                alt="Capa do eBook - Como ganhar R$100 por dia com vendas no WhatsApp"
-                className="w-full h-auto rounded-lg shadow-2xl"
-              />
-              <div className="absolute -top-4 -right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold animate-pulse">
-                NOVO!
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  <a class="btn" href="https://maps.app.goo.gl/8eyEDbZyCrxZC1fn6?g_st=ic" target="_blank">📍 Como chegar</a>
+  <a class="btn" href="https://www.youtube.com/watch?v=XqZsoesa55w" target="_blank">🎶 Baby Shark Dance</a>
+  <button class="btn" onclick="openModal()">📱 Confirmar presença</button>
 
-      {/* Sobre o Método */}
-      <section className="bg-white py-12 md:py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Por Que Este Método Funciona?</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Eu mesmo comecei com R$0, usando apenas o WhatsApp e estratégia. Agora vou te mostrar o passo a passo para
-              você conquistar seus primeiros R$100 por dia de forma consistente.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="text-center p-6">
-              <CardContent className="pt-6">
-                <MessageCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
-                <h3 className="font-bold text-lg mb-2">Sem Complicação</h3>
-                <p className="text-gray-600">
-                  Apenas você, seu celular e o WhatsApp. Nada de sistemas complexos ou investimentos altos.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="text-center p-6">
-              <CardContent className="pt-6">
-                <TrendingUp className="w-12 h-12 text-green-600 mx-auto mb-4" />
-                <h3 className="font-bold text-lg mb-2">Resultados Rápidos</h3>
-                <p className="text-gray-600">
-                  Método testado e aprovado. Você pode começar a ganhar dinheiro já nos primeiros dias.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="text-center p-6">
-              <CardContent className="pt-6">
-                <Users className="w-12 h-12 text-green-600 mx-auto mb-4" />
-                <h3 className="font-bold text-lg mb-2">Sem Seguidores</h3>
-                <p className="text-gray-600">
-                  Não precisa de milhares de seguidores. Vou te mostrar onde encontrar clientes prontos para comprar.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Capítulos */}
-      <section className="bg-gray-50 py-12 md:py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">O Que Você Vai Aprender</h2>
-            <p className="text-lg text-gray-600">5 capítulos diretos ao ponto + bônus exclusivo</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="p-6">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                    1
-                  </div>
-                  <h3 className="font-bold text-lg">O Modelo de Negócio</h3>
-                </div>
-                <p className="text-gray-600">
-                  Revenda digital com entrega imediata. Sem estoque, sem dor de cabeça. Seja o intermediário entre
-                  cliente e produto.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="p-6">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                    2
-                  </div>
-                  <h3 className="font-bold text-lg">Como Atrair Clientes</h3>
-                </div>
-                <p className="text-gray-600">
-                  Grupos do Facebook, WhatsApp, Telegram, OLX, Mercado Livre. Descubra onde seus clientes já estão
-                  esperando.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="p-6">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                    3
-                  </div>
-                  <h3 className="font-bold text-lg">Script de Vendas</h3>
-                </div>
-                <p className="text-gray-600">
-                  Mensagens prontas que convertem. Scripts testados para primeira abordagem e fechamento de vendas.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="p-6">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                    4
-                  </div>
-                  <h3 className="font-bold text-lg">R$100 por Dia</h3>
-                </div>
-                <p className="text-gray-600">
-                  A conta simples: 5 vendas de R$20 = R$100/dia. Estratégia diária passo a passo para atingir essa meta.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="p-6">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                    5
-                  </div>
-                  <h3 className="font-bold text-lg">Aumentando Lucros</h3>
-                </div>
-                <p className="text-gray-600">
-                  Como escalar depois dos primeiros R$100. Automação, produtos próprios e grupos VIP.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="p-6 border-2 border-yellow-400 bg-yellow-50">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Zap className="w-8 h-8 text-yellow-600" />
-                  <h3 className="font-bold text-lg text-yellow-800">BÔNUS</h3>
-                </div>
-                <p className="text-gray-700 font-medium">
-                  Lista completa de produtos para revender com lucro médio de R$15 a R$100 por venda!
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Depoimentos */}
-      <section className="bg-white py-12 md:py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              Veja o Que Nossos Alunos Estão Dizendo
-            </h2>
-            <p className="text-lg text-gray-600">Resultados reais de pessoas reais</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="p-6">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-600 mb-4 italic">
-                  "Em 15 dias já estava ganhando meus primeiros R$100. O método é simples e funciona mesmo!"
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <span className="font-bold text-green-600">M</span>
-                  </div>
-                  <div>
-                    <p className="font-medium">Maria Silva</p>
-                    <p className="text-sm text-gray-500">São Paulo, SP</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="p-6">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-600 mb-4 italic">
-                  "Estava desempregado e consegui uma renda extra que virou meu trabalho principal. Recomendo!"
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <span className="font-bold text-green-600">J</span>
-                  </div>
-                  <div>
-                    <p className="font-medium">João Santos</p>
-                    <p className="text-sm text-gray-500">Rio de Janeiro, RJ</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="p-6">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-600 mb-4 italic">
-                  "Método direto e sem enrolação. Em 1 mês já estava ganhando mais que meu salário!"
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <span className="font-bold text-green-600">A</span>
-                  </div>
-                  <div>
-                    <p className="font-medium">Ana Costa</p>
-                    <p className="text-sm text-gray-500">Belo Horizonte, MG</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Oferta */}
-      <section className="bg-gradient-to-r from-green-600 to-emerald-700 py-12 md:py-16 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">🚨 OFERTA ESPECIAL DE LANÇAMENTO</h2>
-          <p className="text-lg md:text-xl mb-6 opacity-90">
-            Por apenas <span className="line-through opacity-75">R$97</span>
-          </p>
-          <div className="text-4xl md:text-5xl font-bold mb-6">R$47</div>
-          <div className="bg-red-500 text-white px-4 py-2 rounded-full inline-block mb-8 animate-pulse">
-            ⏰ BÔNUS EXCLUSIVO PARA OS 10 PRIMEIROS!
-          </div>
-          <div className="max-w-2xl mx-auto mb-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4" />
-                <span>eBook Completo</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4" />
-                <span>Scripts Prontos</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4" />
-                <span>Lista de Produtos</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4" />
-                <span>Suporte Direto</span>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-lg px-8 py-4 rounded-full"
-              onClick={() =>
-                window.open(
-                  "https://wa.me/5551982297055?text=Oi!%20Quero%20comprar%20o%20eBook%20Como%20ganhar%20R$100%20por%20dia%20com%20vendas%20no%20WhatsApp",
-                  "_blank",
-                )
-              }
-            >
-              💬 COMPRAR PELO WHATSAPP
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="bg-white text-green-600 hover:bg-gray-100 font-bold text-lg px-8 py-4 rounded-full border-2"
-            >
-              💳 COMPRAR COM CARTÃO
-            </Button>
-          </div>
-          <p className="text-sm mt-4 opacity-75">✅ Entrega imediata • ✅ Garantia de 7 dias • ✅ Pagamento seguro</p>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="bg-gray-50 py-12 md:py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Perguntas Frequentes</h2>
-          </div>
-          <div className="max-w-3xl mx-auto space-y-6">
-            <Card className="p-6">
-              <CardContent className="pt-6">
-                <h3 className="font-bold text-lg mb-2">Preciso ter experiência em vendas?</h3>
-                <p className="text-gray-600">
-                  Não! O método foi criado justamente para iniciantes. Você recebe scripts prontos e passo a passo
-                  detalhado.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="p-6">
-              <CardContent className="pt-6">
-                <h3 className="font-bold text-lg mb-2">Quanto tempo leva para ver resultados?</h3>
-                <p className="text-gray-600">
-                  Seguindo o método, você pode ter suas primeiras vendas em 7 a 15 dias. Tudo depende da sua dedicação.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="p-6">
-              <CardContent className="pt-6">
-                <h3 className="font-bold text-lg mb-2">Preciso investir dinheiro para começar?</h3>
-                <p className="text-gray-600">
-                  Apenas o valor do eBook. O método ensina como começar sem estoque e sem investimentos altos.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Final */}
-      <section className="bg-gray-900 text-white py-12 md:py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Não Espere Tudo Estar Perfeito</h2>
-          <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
-            Comece com o que você tem hoje: um celular, internet e vontade. Com consistência e essa estratégia, você
-            pode fazer seus primeiros R$100 por dia.
-          </p>
-          <Button
-            size="lg"
-            className="bg-green-600 hover:bg-green-700 font-bold text-lg px-8 py-4 rounded-full"
-            onClick={() =>
-              window.open(
-                "https://wa.me/5551982297355?text=Oi!%20Quero%20comprar%20o%20eBook%20Como%20ganhar%20R$100%20por%20dia%20com%20vendas%20no%20WhatsApp",
-                "_blank",
-              )
-            }
-          >
-            🚀 QUERO COMEÇAR AGORA
-          </Button>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p className="mb-4">
-            <strong>Suporte e conteúdos extras:</strong>
-          </p>
-          <Button
-            variant="outline"
-            className="bg-transparent border-green-500 text-green-400 hover:bg-green-500 hover:text-white"
-            onClick={() => window.open("https://wa.me/5551982297055", "_blank")}
-          >
-            💬 WhatsApp: (51) 98229-7055
-          </Button>
-          <p className="text-sm text-gray-400 mt-6">© 2024 - Todos os direitos reservados</p>
-        </div>
-      </footer>
+  <!-- Modal -->
+  <div id="confirmModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Confirme sua presença</h2>
+      <input type="text" id="nome" placeholder="Seu nome">
+      <input type="number" id="pessoas" placeholder="Qtd. de pessoas">
+      <button class="send-btn" onclick="enviarWhatsApp()">Enviar pelo WhatsApp</button>
     </div>
-  )
-}
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById("confirmModal").style.display = "block";
+    }
+    function closeModal() {
+      document.getElementById("confirmModal").style.display = "none";
+    }
+    function enviarWhatsApp() {
+      const nome = document.getElementById("nome").value;
+      const pessoas = document.getElementById("pessoas").value;
+      const numero = "5551996388979"; // seu número
+      let mensagem = `Olá! Sou ${nome} e confirmo presença com ${pessoas} pessoa(s) na festa da Eloa 🎉🦈`;
+      let url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, "_blank");
+    }
+    window.onclick = function(event) {
+      let modal = document.getElementById("confirmModal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
