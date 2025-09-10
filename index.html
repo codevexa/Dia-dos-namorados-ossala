@@ -1,138 +1,281 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Convite - Eloa 2 aninhos</title>
-  <style>
-    body {
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(to bottom, #87CEFA, #fff);
-      text-align: center;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      color: #ff4081;
-      font-size: 2.2em;
-    }
-    .info {
-      font-size: 1.2em;
-      margin: 15px 0;
-    }
-    .btn {
-      display: block;
-      margin: 15px auto;
-      padding: 12px 20px;
-      background: #ffca28;
-      color: #000;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 25px;
-      width: 220px;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      background: #ffc107;
-      transform: scale(1.05);
-    }
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
-    }
-    .modal-content {
-      background-color: #fff;
-      margin: 15% auto;
-      padding: 20px;
-      border-radius: 10px;
-      width: 80%;
-      max-width: 400px;
-      text-align: left;
-    }
-    .modal-content h2 {
-      text-align: center;
-      color: #ff4081;
-    }
-    .modal-content input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      cursor: pointer;
-    }
-    .send-btn {
-      background: #25d366;
-      color: #fff;
-      border: none;
-      padding: 12px;
-      width: 100%;
-      border-radius: 25px;
-      font-size: 1em;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .send-btn:hover {
-      background: #20b954;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Aniversário | Eloa faz 2!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul-shark: #00a0e9;
+            --amarelo-shark: #f9dd00;
+            --rosa-shark: #ff90c9;
+            --branco: #ffffff;
+            --sombra: rgba(0, 0, 0, 0.15);
+            --texto-principal: #333;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--azul-shark), var(--amarelo-shark), var(--rosa-shark));
+            color: var(--texto-principal);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--branco);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--sombra);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .header-image {
+            width: 80%;
+            max-width: 300px;
+            margin-bottom: 15px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--azul-shark);
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 2px 2px var(--amarelo-shark);
+        }
+
+        .convite-texto p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .info-festa {
+            margin: 20px 0;
+            font-size: 1.1rem;
+        }
+
+        .info-festa p {
+            margin: 8px 0;
+            font-weight: 700;
+        }
+
+        .botoes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            font-family: 'Fredoka One', cursive;
+            text-decoration: none;
+            color: var(--branco);
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 10px var(--sombra);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px var(--sombra);
+        }
+
+        .btn-mapa { background-color: var(--azul-shark); }
+        .btn-playlist { background-color: var(--amarelo-shark); color: var(--texto-principal); }
+        .btn-confirmar { background-color: var(--rosa-shark); }
+
+        .shark-gif {
+            position: absolute;
+            width: 80px;
+            animation: dance 5s linear infinite;
+        }
+
+        .gif-1 {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .gif-2 {
+            top: 10px;
+            right: 10px;
+            transform: scaleX(-1); /* Inverte o GIF horizontalmente */
+        }
+        
+        @keyframes dance {
+            0%, 100% { transform: rotate(0deg) scaleX(1); }
+            25% { transform: rotate(10deg) scaleX(1); }
+            75% { transform: rotate(-10deg) scaleX(1); }
+        }
+
+        /* Estilos do Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeInModal 0.5s;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        @keyframes fadeInModal {
+             from { opacity: 0; }
+             to { opacity: 1; }
+        }
+
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-content h2 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--rosa-shark);
+            margin-top: 0;
+        }
+
+        .modal-content input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+    </style>
 </head>
 <body>
-  <h1>🎉 Convite Especial 🎉</h1>
-  <img src="https://i.ibb.co/2gH7kzV/baby-shark.png" alt="Baby Shark" width="200">
 
-  <div class="info">🎂 Venha comemorar os <b>2 aninhos da Eloa!</b></div>
-  <div class="info">🦈 Tema: Baby Shark</div>
-  <div class="info">📅 21 de setembro às 16h</div>
-  <div class="info">📍 Beco Souza Costa, 1554</div>
+    <div class="container">
+        <img src="https://i.giphy.com/media/d4bn31D4nBsp5O2Q/giphy.gif" alt="Baby Shark Dançando" class="shark-gif gif-1">
+        <img src="https://i.giphy.com/media/o5oLImoQg58SY/giphy.gif" alt="Baby Shark Dançando" class="shark-gif gif-2">
 
-  <a class="btn" href="https://maps.app.goo.gl/8eyEDbZyCrxZC1fn6?g_st=ic" target="_blank">📍 Como chegar</a>
-  <a class="btn" href="https://www.youtube.com/watch?v=XqZsoesa55w" target="_blank">🎶 Baby Shark Dance</a>
-  <button class="btn" onclick="openModal()">📱 Confirmar presença</button>
+        <img src="https://i.postimg.cc/x8K6N5f2/baby-shark-family.png" alt="Família Baby Shark" class="header-image">
+        
+        <div class="convite-texto">
+            <p>Venha comemorar meus</p>
+            <h1>2 aninhos!</h1>
+        </div>
 
-  <!-- Modal -->
-  <div id="confirmModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Confirme sua presença</h2>
-      <input type="text" id="nome" placeholder="Seu nome">
-      <input type="number" id="pessoas" placeholder="Qtd. de pessoas">
-      <button class="send-btn" onclick="enviarWhatsApp()">Enviar pelo WhatsApp</button>
+        <h1>Eloa</h1>
+
+        <div class="info-festa">
+            <p>🗓️ 21 de Setembro</p>
+            <p>⏰ 16h</p>
+            <p>📍 Beco Souza Costa, 1554</p>
+        </div>
+
+        <div class="botoes-container">
+            <a href="https://www.google.com/maps/search/?api=1&query=Beco+Souza+Costa,1554" target="_blank" class="btn btn-mapa">Como chegar</a>
+            <a href="https://www.youtube.com/watch?v=XqZsoesa55w&list=PL-k0_242FWzX533L-NGRdJ2s2n3nIagbM" target="_blank" class="btn btn-playlist">Playlist da festa</a>
+            <button class="btn btn-confirmar" onclick="abrirModal()">Confirmar Presença</button>
+        </div>
     </div>
-  </div>
 
-  <script>
-    function openModal() {
-      document.getElementById("confirmModal").style.display = "block";
-    }
-    function closeModal() {
-      document.getElementById("confirmModal").style.display = "none";
-    }
-    function enviarWhatsApp() {
-      const nome = document.getElementById("nome").value;
-      const pessoas = document.getElementById("pessoas").value;
-      const numero = "5551996388979"; // seu número
-      let mensagem = `Olá! Sou ${nome} e confirmo presença com ${pessoas} pessoa(s) na festa da Eloa 🎉🦈`;
-      let url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
-      window.open(url, "_blank");
-    }
-    window.onclick = function(event) {
-      let modal = document.getElementById("confirmModal");
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-  </script>
+    <div id="modalConfirmacao" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharModal()">&times;</span>
+            <h2>Confirme sua presença!</h2>
+            <form id="formPresenca">
+                <input type="text" id="nomeConvidado" placeholder="Seu nome" required>
+                <input type="number" id="qtdPessoas" placeholder="Quantidade de pessoas (incluindo você)" min="1" required>
+                <button type="submit" class="btn btn-confirmar">Enviar Confirmação</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Funções do Modal
+        const modal = document.getElementById('modalConfirmacao');
+        
+        function abrirModal() {
+            modal.style.display = 'block';
+        }
+
+        function fecharModal() {
+            modal.style.display = 'none';
+        }
+
+        // Fecha o modal se o usuário clicar fora do conteúdo
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                fecharModal();
+            }
+        }
+
+        // Lógica do Formulário
+        document.getElementById('formPresenca').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            const nome = document.getElementById('nomeConvidado').value;
+            const quantidade = document.getElementById('qtdPessoas').value;
+            const numeroWhatsApp = '5551996388979'; // Número sem o '+' e outros caracteres
+
+            // Cria a mensagem
+            const mensagem = `Olá! confirmo minha presença no aniversário da Eloa.
+Nome: ${nome}
+Quantidade de pessoas: ${quantidade}`;
+
+            // Codifica a mensagem para URL
+            const mensagemCodificada = encodeURIComponent(mensagem);
+
+            // Cria o link do WhatsApp e redireciona
+            const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
+            window.open(linkWhatsApp, '_blank');
+
+            // Limpa o formulário e fecha o modal
+            document.getElementById('formPresenca').reset();
+            fecharModal();
+        });
+    </script>
+
 </body>
 </html>
