@@ -1,82 +1,425 @@
-<!-- Esse é o código que você já enviou; não precisa modificar -->
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Especial de Namorados - Ossala Sushi</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Especial de Namorados — Ossala (demo)</title>
 
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Fonte (opcional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f0f12;
+      --card-bg: rgba(255,255,255,0.04);
+      --accent:#ff6b9a; /* cor principal (mude aqui) */
+      --muted:#bfc4cc;
+      --glass: rgba(255,255,255,0.03);
+    }
+
+    /* Reset simples */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(255,107,154,0.06), transparent),
+                  radial-gradient(1000px 500px at 90% 90%, rgba(255,200,230,0.03), transparent),
+                  var(--bg);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+      padding:24px;
+    }
+
+    /* Layout */
+    .wrap{
+      max-width:1100px;
+      margin:24px auto;
+      display:grid;
+      grid-template-columns:1fr 420px;
+      gap:28px;
+      align-items:start;
+    }
+
+    /* Card principal (conteúdo que será o 'site') */
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+      padding:28px;
+      border-radius:14px;
+      position:relative;
+      overflow:hidden;
+      min-height:480px;
+    }
+
+    header.site-header{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    .logo{
+      width:64px;height:64px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#ff9fc1);
+      display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:22px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.35);
+      flex:0 0 64px;
+    }
+    .site-title h1{font-size:20px;margin-bottom:4px}
+    .site-title p{color:var(--muted);font-size:13px;margin-top:2px}
+
+    /* Galeria / mídia */
+    .media{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    .media .placeholder{
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:10px;
+      min-height:160px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      font-size:13px;
+      overflow:hidden;
+      position:relative;
+    }
+    .media img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* Texto & chamada */
+    .desc{
+      margin-top:14px;
+      color:var(--muted);
+      font-size:15px;
+    }
+    .cta{
+      margin-top:18px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .btn{
+      background:linear-gradient(90deg,var(--accent), #ff8db3);
+      color:#fff;
+      padding:12px 16px;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+      box-shadow: 0 8px 24px rgba(255,107,154,0.14);
+    }
+    .btn.secondary{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--muted);
+      font-weight:500;
+    }
+
+    /* Sidebar com cardápio resumido */
+    .side{
+      position:relative;
+      top:0;
+    }
+    .panel{
+      background:var(--glass);
+      padding:18px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.03);
+      color:var(--muted);
+    }
+    .panel h3{margin-bottom:10px}
+    .menu-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
+    .menu-item:last-child{border-bottom:none}
+    .price{font-weight:700;color:#fff}
+
+    /* Hearts overlay (container absoluto) */
+    .hearts-layer{
+      pointer-events:none;
+      position:absolute;
+      inset:0;
+      z-index:10;
+      overflow:hidden;
+    }
+
+    /* each heart */
+    .heart{
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%) translateY(0) scale(1);
+      font-size:20px;
+      will-change:transform,opacity;
+      opacity:0;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.35));
+    }
+
+    /* small helper footer */
+    .foot{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    /* Responsive */
+    @media (max-width:980px){
+      .wrap{grid-template-columns:1fr; padding-bottom:80px;}
+      .card{min-height:420px}
+    }
+  </style>
 </head>
 <body>
 
-<header class="hero">
-  <div class="hero-content">
-    <h1>🍣 Especial de Namorados Ossala</h1>
-    <p>Uma noite inesquecível com a nossa cozinha japonesa autoral</p>
+  <div class="wrap">
+    <!-- MAIN -->
+    <main class="card" id="mainCard" aria-labelledby="titulo">
+      <div class="hearts-layer" id="heartsLayer" aria-hidden="true"></div>
+
+      <header class="site-header">
+        <div class="logo">OSS</div>
+        <div class="site-title">
+          <h1 id="titulo">Especial de Namorados — Ossala</h1>
+          <p>Combinados romanticos, variações de tapas e entrega para celebrar.</p>
+        </div>
+      </header>
+
+      <section class="media" aria-label="Fotos e vídeo">
+        <!-- Substitua as imagens pelos seus arquivos -->
+        <div class="placeholder">
+          <img src="https://via.placeholder.com/800x600?text=Foto+1" alt="Foto destaque 1 (trocar)">
+        </div>
+        <div class="placeholder">
+          <img src="https://via.placeholder.com/800x600?text=Foto+2" alt="Foto destaque 2 (trocar)">
+        </div>
+
+        <!-- vídeo: se quiser usar um vídeo local, troque o src -->
+        <div class="placeholder" style="grid-column:1 / -1; min-height:220px;">
+          <!-- Se for vídeo, substituir <img> por <video controls src="meu-video.mp4"></video> -->
+          <video src="" controls style="width:100%;height:100%;object-fit:cover;border-radius:10px; display:none" id="demoVideo"></video>
+          <div id="videoFallback" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted)">
+            Vídeo: arraste e solte aqui ou substitua o elemento por &lt;video&gt;
+          </div>
+        </div>
+      </section>
+
+      <p class="desc">
+        Use este espaço para um pequeno texto de apresentação — por exemplo: "Celebre com um menu especial preparado com carinho. Entregamos direto na sua mesa. Escolha entre combinados de 18, 36 e 56 peças, acompanhamentos e opções de vinhos."
+      </p>
+
+      <div class="cta" role="group" aria-label="Ações">
+        <button class="btn" id="orderBtn">Pedir agora</button>
+        <button class="btn secondary" id="toggleHeartsBtn" aria-pressed="false">Ativar corações</button>
+      </div>
+
+      <div class="foot">
+        <div>Entrega disponível: Porto Alegre (região selecionada)</div>
+        <div style="color:var(--muted)">Contato: (51) 9xxxx-xxxx</div>
+      </div>
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="side">
+      <div class="panel">
+        <h3>Cardápio especial — Destaques</h3>
+        <div class="menu-item">
+          <div>Combinado Love — 18 peças</div>
+          <div class="price">R$ 89</div>
+        </div>
+        <div class="menu-item">
+          <div>Combinado Romance — 36 peças</div>
+          <div class="price">R$ 169</div>
+        </div>
+        <div class="menu-item">
+          <div>Combinado Apaixonados — 56 peças</div>
+          <div class="price">R$ 259</div>
+        </div>
+
+        <h3 style="margin-top:12px">Vinhos & Espumantes</h3>
+        <div class="menu-item">
+          <div>Espumante Rosé</div>
+          <div class="price">R$ 79</div>
+        </div>
+        <div class="menu-item">
+          <div>Vinho Tinto Reserva</div>
+          <div class="price">R$ 119</div>
+        </div>
+      </div>
+
+      <div style="height:18px"></div>
+
+      <div class="panel" style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+        <strong style="color:#fff">Ajustes rápidos</strong>
+        <label style="font-size:13px;color:var(--muted)">
+          Cor principal:
+          <input type="color" id="accentPicker" value="#ff6b9a" style="margin-left:8px">
+        </label>
+
+        <label style="font-size:13px;color:var(--muted)">
+          Intensidade dos corações:
+          <input type="range" id="intensityRange" min="1" max="40" value="12">
+        </label>
+
+        <small style="color:var(--muted);font-size:12px">Clique em "Ativar corações" para iniciar. Ajuste cor e intensidade conforme desejar.</small>
+      </div>
+    </aside>
   </div>
-</header>
 
-<main class="container">
+  <script>
+    /* ============================
+       Floating hearts animation
+       ============================ */
+    (function(){
+      const layer = document.getElementById('heartsLayer');
+      const toggleBtn = document.getElementById('toggleHeartsBtn');
+      const intensityRange = document.getElementById('intensityRange');
+      const accentPicker = document.getElementById('accentPicker');
 
-  <section id="horarios">
-    <h2>📆 Horários disponíveis</h2>
-    <ul>
-      <li><strong>1º Horário:</strong> das <strong>18h30 às 20h30</strong> (contas fechadas até 20h30)</li>
-      <li><strong>(ESGOTADO) 2º Horário:</strong> das <strong>21h15 às 23h00</strong></li>
-    </ul>
-  </section>
+      let running = false;
+      let spawnTimer = null;
 
-  <section id="menu">
-    <h2>🥢 Nossas Experiências</h2>
-    <div class="menu-container">
-      
-      <div class="menu-card">
-        <h3>Experiência Ossala</h3>
-        <p class="price">R$ 220,00 por pessoa</p>
-        <p class="description">Total de 27 peças cuidadosamente selecionadas, sem repetição.</p>
-        <ul>
-          <li><strong>Entradas:</strong> Sunomono e Edamame</li>
-          <li><strong>Principais:</strong> Salmorê, Camarão Crocante, Gyosas, Trilogia de Ceviches, Sashimis Frescos (10pç), Tartare do Dia, Gunkas (4pç), Niguiris (3pç) e o exclusivo <strong>Ebiossala</strong> (2pç).</li>
-          <li><strong>Sobremesa:</strong> Sorvete com brownie.</li>
-        </ul>
-      </div>
+      // update accent color live
+      accentPicker.addEventListener('input', (e)=>{
+        document.documentElement.style.setProperty('--accent', e.target.value);
+      });
 
-      <div class="menu-card">
-        <h3>Menu Degustação</h3>
-        <p class="price">R$ 268,00 por pessoa</p>
-        <p class="description">Sequência livre para você saborear seus pratos favoritos à vontade.</p>
-        <ul>
-            <li><strong>Entradas:</strong> Sunomono, Missoshiro, Edamame.</li>
-            <li><strong>Pratos quentes e frios:</strong> Sashimis, Ceviches, Sushis Variados, Salmorê, Gyoza, Shimeji, Tartar, Temakis, Yakissoba e muito mais.</li>
-            <li><strong>Sobremesa:</strong> Inclusa.</li>
-        </ul>
-      </div>
+      // create a single heart element (returns the element)
+      function createHeart() {
+        const span = document.createElement('span');
+        span.className = 'heart';
+        span.innerHTML = '♥'; // caractere do coração
+        const size = Math.random() * 26 + 12; // 12 - 38px
+        span.style.fontSize = size + 'px';
 
-    </div>
-  </section>
+        // starting horizontal position (0% - 100%)
+        const left = Math.random() * 100;
+        span.style.left = left + '%';
 
-  <section id="reserva">
-    <h2>💰 Como Reservar</h2>
-    <p>Para garantir sua mesa, solicitamos um adiantamento de <strong>R$ 200,00 por casal</strong> via Pix, que será integralmente abatido do valor final da sua conta.</p>
-    
-    <div class="cta-box">
-      <p>As vagas são limitadas. Garanta sua noite especial!</p>
-      <a href="https://wa.me/555133288330?text=Quero%20reservar%20minha%20mesa%20para%20o%20Especial%20de%20Namorados!" target="_blank" class="cta-button">
-        Reservar por WhatsApp
-      </a>
-    </div>
-  </section>
+        // color variation around accent
+        span.style.color = randomTint();
 
-</main>
+        // initial transform & opacity
+        span.style.opacity = 0;
 
-<footer>
-  <p>© 2025 Ossala Sushi – Todos os direitos reservados.</p>
-</footer>
+        // duration and delay
+        const duration = (Math.random() * 3 + 4) * (Math.random() < 0.4 ? 0.9 : 1); // 4s - 7s range
+        const translateY = -(Math.random() * 60 + 120); // px per second approximation - we'll use percent anim
+
+        // animate with Web Animations API if available, fallback to CSS transitions
+        if (span.animate) {
+          // keyframes: from bottom (110%) to top (-30%)
+          const keyframes = [
+            { transform: `translateY(0) scale(${1})`, opacity: 0, offset: 0 },
+            { transform: `translateY(-20vh) scale(${1.05})`, opacity: 0.85, offset: 0.12 },
+            { transform: `translateY(-80vh) scale(${1.08})`, opacity: 0.5, offset: 0.7 },
+            { transform: `translateY(-120vh) scale(${1.12})`, opacity: 0, offset: 1 }
+          ];
+          const anim = span.animate(keyframes, {
+            duration: duration * 1000,
+            easing: 'cubic-bezier(.2,.8,.2,1)',
+            iterations: 1,
+            fill: 'forwards'
+          });
+          anim.onfinish = ()=> {
+            span.remove();
+          };
+        } else {
+          // fallback: CSS transition
+          span.style.transition = `transform ${duration}s linear, opacity ${duration}s linear`;
+          // append then force reflow then set end state
+          requestAnimationFrame(()=>{
+            span.style.transform = `translateY(-120vh)`;
+            span.style.opacity = 0;
+            setTimeout(()=>span.remove(), duration*1000 + 50);
+          });
+        }
+
+        layer.appendChild(span);
+      }
+
+      // small helper to produce slight color variations
+      function randomTint(){
+        const base = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#ff6b9a';
+        // try to parse hex and shift slightly
+        try {
+          const hex = base.replace('#','');
+          const r = parseInt(hex.substring(0,2),16);
+          const g = parseInt(hex.substring(2,4),16);
+          const b = parseInt(hex.substring(4,6),16);
+          // small random +/- 18
+          const nr = Math.min(255, Math.max(0, r + (Math.random()*36 - 18)));
+          const ng = Math.min(255, Math.max(0, g + (Math.random()*36 - 18)));
+          const nb = Math.min(255, Math.max(0, b + (Math.random()*36 - 18)));
+          return `rgb(${Math.round(nr)}, ${Math.round(ng)}, ${Math.round(nb)})`;
+        } catch(e){
+          return base;
+        }
+      }
+
+      // spawn hearts at interval depending on intensity
+      function startHearts(){
+        if (running) return;
+        running = true;
+        toggleBtn.textContent = 'Desativar corações';
+        toggleBtn.setAttribute('aria-pressed','true');
+
+        // spawn burst initially
+        burst(parseInt(intensityRange.value,10)/2 | 0);
+
+        spawnTimer = setInterval(()=>{
+          const count = Math.max(1, Math.round(intensityRange.value / 6 * (Math.random()*2 + 0.5)));
+          for(let i=0;i<count;i++){
+            createHeart();
+          }
+        }, 700); // every 0.7s create a few hearts
+      }
+
+      function stopHearts(){
+        if (!running) return;
+        running = false;
+        toggleBtn.textContent = 'Ativar corações';
+        toggleBtn.setAttribute('aria-pressed','false');
+        clearInterval(spawnTimer);
+        spawnTimer = null;
+      }
+
+      function burst(n){
+        for(let i=0;i<n;i++){
+          setTimeout(createHeart, i*80 + Math.random()*200);
+        }
+      }
+
+      // toggle
+      toggleBtn.addEventListener('click', ()=>{
+        if (running) stopHearts(); else startHearts();
+      });
+
+      // change intensity (no immediate creation, but affects spawn count)
+      intensityRange.addEventListener('input', ()=>{
+        // small burst to show change
+        const v = parseInt(intensityRange.value,10);
+        burst(Math.max(1, Math.round(v/8)));
+      });
+
+      // accessibility: start hearts if user pressed 'Pedir agora' as demonstration
+      document.getElementById('orderBtn').addEventListener('click', ()=>{
+        // show a short burst and then ensure hearts run
+        burst(8);
+      });
+
+      // optional: start on page load? disabled to avoid annoyance. Uncomment below to auto-start.
+      // startHearts();
+
+      // cleanup on unload (best-effort)
+      window.addEventListener('beforeunload', ()=>{
+        clearInterval(spawnTimer);
+      });
+
+    })();
+  </script>
 
 </body>
 </html>
