@@ -28,51 +28,59 @@
     }
     a { color: inherit; text-decoration: none; }
     .wrap { max-width: var(--max-width); margin: 0 auto; padding: 36px 22px; }
-    header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 0 24px;
-    }
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .logo {
-      width: 48px; height: 48px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--accent), #6cc0ff);
-      display: grid; place-items: center;
-      font-weight: 700; color: #031020; font-family: Montserrat, sans-serif;
-    }
-    .brand h1 { font-size: 16px; margin: 0; }
-    .brand p { font-size: 13px; margin: 0; color: var(--muted); }
-    nav { display: flex; gap: 18px; }
-    nav a {
-      font-weight: 600; font-size: 14px; padding: 8px 12px;
-      border-radius: 8px; color: var(--muted);
-      transition: var(--transition);
-    }
-    nav a:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+
+    /* Hero */
     .hero {
-      display: flex; gap: 32px; align-items: center; justify-content: space-between;
-      margin-top: 8px; padding: 36px; background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-      border-radius: 16px; box-shadow: var(--card-shadow);
+      text-align: center;
+      margin-top: 40px;
+      padding: 60px 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
     }
-    .hero-left { flex: 1; min-width: 260px; }
-    .eyebrow { font-size: 13px; color: var(--accent); font-weight: 700; margin-bottom: 14px; }
-    .hero h2 { margin: 0; font-size: 34px; line-height: 1.1; font-family: Montserrat, sans-serif; }
-    .hero p.lead { margin-top: 14px; color: var(--muted); max-width: 66%; }
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 700;
+      font-family: "Montserrat", sans-serif;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 28px auto;
+      line-height: 1.6;
+    }
     .btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 12px 16px; border-radius: 10px; font-weight: 700;
-      cursor: pointer; transition: var(--transition); border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: var(--transition);
+      margin: 5px;
+      border: 1px solid transparent;
+      text-decoration: none;
     }
     .btn-primary {
       background: linear-gradient(90deg, var(--accent), #6cc0ff);
       color: #031024;
     }
     .btn-outline {
-      background: transparent; border: 1px solid rgba(255,255,255,0.06); color: var(--text);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--text);
     }
-    section { margin-top: 40px; }
+    section { margin-top: 50px; }
     .card {
       background: linear-gradient(180deg, var(--surface), rgba(255,255,255,0.01));
-      padding: 22px; border-radius: 12px; box-shadow: var(--card-shadow);
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
     }
     .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; }
     .service { padding: 16px; border-radius: 12px; background: rgba(255,255,255,0.02); }
@@ -84,43 +92,31 @@
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo">Vx</div>
-        <div>
-          <h1>Juan Oliveira</h1>
-          <p>Desenvolvimento • Marketing • Vídeo • Vendas</p>
-        </div>
-      </div>
-      <nav>
-        <a href="#portfolio">Portfólio</a>
-        <a href="#servicos">Serviços</a>
-        <a href="#contato" class="btn-outline">Contato</a>
-      </nav>
-    </header>
 
+    <!-- HERO -->
     <section class="hero">
-      <div class="hero-left">
-        <span class="eyebrow">CONSULTORIA | EXECUÇÃO | RESULTADO</span>
-        <h2>Olá, sou <strong>Juan Oliveira</strong><br>Desenvolvedor e estrategista digital.</h2>
-        <p class="lead">Crio sites modernos, vídeos e estratégias de marketing que geram resultado. Foco em performance, estética e conversão.</p>
-        <div style="margin-top:20px;">
-          <a class="btn btn-primary" href="#portfolio">Ver Portfólio</a>
-          <a class="btn btn-outline" href="https://wa.me/5551981392606" target="_blank">WhatsApp</a>
-        </div>
+      <h1>Juan Oliveira</h1>
+      <p>Crio sites, vídeos e estratégias digitais que unem design e resultado.  
+      Desenvolvimento, marketing e produção audiovisual — tudo em um só lugar.</p>
+
+      <div>
+        <a class="btn btn-primary" href="https://wa.me/5551981392606" target="_blank">💬 WhatsApp</a>
+        <a class="btn btn-outline" href="https://www.instagram.com/_vexa.code?igsh=MTEzdjNvc3FvaHV4aw==" target="_blank">📸 Instagram</a>
       </div>
     </section>
 
+    <!-- SERVIÇOS -->
     <section id="servicos" class="card">
       <h3>Áreas de Atuação</h3>
       <div class="services">
-        <div class="service"><h4>Desenvolvimento de Sites</h4><p>Criação de sites responsivos e otimizados.</p></div>
-        <div class="service"><h4>Marketing Digital</h4><p>Gestão de campanhas e presença online.</p></div>
-        <div class="service"><h4>Edição e Produção de Vídeos</h4><p>Roteiro, edição e finalização profissional.</p></div>
-        <div class="service"><h4>Vendas</h4><p>Estratégias de conversão e atendimento.</p></div>
+        <div class="service"><h4>Desenvolvimento de Sites</h4><p>Criação de sites modernos, responsivos e otimizados para performance.</p></div>
+        <div class="service"><h4>Marketing Digital</h4><p>Gestão de campanhas, anúncios e estratégias de posicionamento.</p></div>
+        <div class="service"><h4>Vídeo & Edição</h4><p>Produção de vídeos criativos e promocionais com identidade e ritmo.</p></div>
+        <div class="service"><h4>Vendas</h4><p>Abordagem estratégica e comunicação comercial de alto impacto.</p></div>
       </div>
     </section>
 
+    <!-- PORTFÓLIO -->
     <section id="portfolio" class="card">
       <h3>Portfólio</h3>
 
@@ -128,12 +124,13 @@
       <article class="proj">
         <div style="display:flex; flex-wrap:wrap; gap:16px;">
           <div style="flex:1 1 320px;">
-            <img src="8D4B50D5-A049-4712-9B6C-8124ED866BBC.jpeg" alt="Logo Egiane Franco">
-            <img src="AF37F4EE-8A2D-4D6B-979F-B47FD6A6B3CF.jpeg" alt="Feedback Cliente Egiane Franco">
+            <img src="https://i.ibb.co/hxQP6tLN/8-D4B50-D5-A049-4712-9B6C-8124-ED866-BBC.jpg" alt="Logo Egiane Franco">
+            <img src="https://i.ibb.co/8nZmqwgb/AF37F4-EE-8-A2-D-4-D6-B-979-F-B47-FD6-A6-B3-CF.jpg" alt="Feedback Cliente Egiane Franco">
           </div>
         </div>
         <h4 style="color:#2EA3FF; margin-top:16px;">Identidade Visual — Egiane Franco</h4>
-        <p>Criação da identidade visual e conteúdo digital para a nutricionista Egiane Franco. Projeto completo de marca pessoal e estratégia de presença online.</p>
+        <p>Criação da identidade visual e conteúdo digital para a nutricionista Egiane Franco.  
+        Projeto completo de marca pessoal e estratégia de presença online.</p>
       </article>
 
       <!-- Projeto 2 -->
@@ -143,13 +140,17 @@
             width="100%" height="280" frameborder="0" allowfullscreen></iframe>
         </div>
         <h4 style="color:#2EA3FF; margin-top:16px;">Vídeo Promocional — Me Encontra na Vila</h4>
-        <p>Produção e edição de vídeo promocional para o evento <strong>“Me Encontra na Vila”</strong>, idealizado por <strong>Fabrício de Paula</strong>. O objetivo foi transmitir a energia e o clima do pagode através de uma montagem vibrante e envolvente.</p>
+        <p>Produção e edição de vídeo promocional para o evento <strong>“Me Encontra na Vila”</strong>,  
+        idealizado por <strong>Fabrício de Paula</strong>. O projeto transmite o clima vibrante e envolvente do pagode e da festa.</p>
       </article>
     </section>
 
+    <!-- CONTATO -->
     <section id="contato" class="card">
       <h3>Contato</h3>
-      <p>📍 Porto Alegre — RS<br>📞 WhatsApp: <a href="https://wa.me/5551981392606" target="_blank">(51) 98139-2606</a><br>✉️ E-mail: juan.oliver200a@gmail.com</p>
+      <p>📍 Porto Alegre — RS<br>
+         📞 <a href="https://wa.me/5551981392606" target="_blank">(51) 98139-2606</a><br>
+         ✉️ juan.oliver200a@gmail.com</p>
     </section>
 
     <footer>© 2025 Juan Oliveira — Desenvolvimento e Marketing Digital</footer>
