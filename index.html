@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Juan Oliveira — Portfólio Profissional</title>
   <style>
     :root {
@@ -12,7 +12,6 @@
       --muted: #9aa3ad;
       --accent: #2EA3FF;
       --card-shadow: 0 6px 20px rgba(2,6,23,0.6);
-      --radius: 12px;
       --transition: 320ms cubic-bezier(.2,.9,.3,1);
       --max-width: 1100px;
     }
@@ -27,8 +26,11 @@
       padding-bottom: 60px;
     }
     a { color: inherit; text-decoration: none; }
-    .wrap { max-width: var(--max-width); margin: 0 auto; padding: 36px 22px; }
-
+    .wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 36px 22px;
+    }
     /* Hero */
     .hero {
       text-align: center;
@@ -38,17 +40,15 @@
       border-radius: 16px;
       box-shadow: var(--card-shadow);
     }
-    .hero h1 {
-      font-size: 40px;
-      font-weight: 700;
-      font-family: "Montserrat", sans-serif;
-      margin-bottom: 8px;
+    .hero img.logo-top {
+      height: 140px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 8px rgba(46,163,255,0.4));
     }
-    .hero img.logo {
-      height: 50px;
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 700;
       margin-bottom: 12px;
-      margin-top: 6px;
-      filter: drop-shadow(0 0 6px rgba(46,163,255,0.4));
     }
     .hero p {
       font-size: 16px;
@@ -62,7 +62,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 12px 18px;
+      padding: 12px 20px;
       border-radius: 10px;
       font-weight: 600;
       font-size: 15px;
@@ -70,7 +70,6 @@
       transition: var(--transition);
       margin: 5px;
       border: 1px solid transparent;
-      text-decoration: none;
     }
     .btn-primary {
       background: linear-gradient(90deg, var(--accent), #6cc0ff);
@@ -110,9 +109,9 @@
 
     <!-- HERO -->
     <section class="hero">
+      <img src="https://i.postimg.cc/xXymLvLs/vexa-logo.png" alt="Logo VEXA" class="logo-top">
       <h1>Juan Oliveira</h1>
-      <img src="https://i.postimg.cc/3dk0bMmg/logo-VEXA.png" alt="Logo VEXA" class="logo">
-      <p>Crio sites, vídeos e estratégias digitais que unem design e resultado.  
+      <p>Crio sites, vídeos e estratégias digitais que unem design e resultado.<br>
       Desenvolvimento, marketing e produção audiovisual — tudo em um só lugar.</p>
 
       <div>
@@ -145,8 +144,7 @@
           </div>
         </div>
         <h4 style="color:#2EA3FF; margin-top:16px;">Identidade Visual — Egiane Franco</h4>
-        <p>Criação da identidade visual e conteúdo digital para a nutricionista Egiane Franco.  
-        Projeto completo de marca pessoal e estratégia de presença online.</p>
+        <p>Criação da identidade visual e conteúdo digital para a nutricionista Egiane Franco. Projeto completo de marca pessoal e estratégia de presença online.</p>
       </article>
 
       <!-- Projeto 2 -->
@@ -156,8 +154,7 @@
             width="100%" height="280" frameborder="0" allowfullscreen></iframe>
         </div>
         <h4 style="color:#2EA3FF; margin-top:16px;">Vídeo Promocional — Me Encontra na Vila</h4>
-        <p>Produção e edição de vídeo promocional para o evento <strong>“Me Encontra na Vila”</strong>,  
-        idealizado por <strong>Fabrício de Paula</strong>. O projeto transmite o clima vibrante e envolvente do pagode e da festa.</p>
+        <p>Produção e edição de vídeo promocional para o evento <strong>“Me Encontra na Vila”</strong>, idealizado por <strong>Fabrício de Paula</strong>. O projeto transmite o clima vibrante e envolvente do pagode e da festa.</p>
       </article>
     </section>
 
@@ -173,6 +170,7 @@
       © 2025 Juan Oliveira — Desenvolvimento e Marketing Digital<br>
       <span>Desenvolvido por VEXA</span>
     </footer>
+
   </div>
 </body>
 </html>
