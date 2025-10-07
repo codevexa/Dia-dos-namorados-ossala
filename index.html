@@ -1,228 +1,273 @@
-<!doctype html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Juan Oliveira — Desenvolvimento & Marketing Digital</title>
-  <meta name="description" content="Juan Oliveira — desenvolvimento de sites, marketing digital, produção de vídeos e vendas. Porto Alegre - RS. Contato: (51) 98139-2606" />
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juan Oliveira | Portfólio Profissional</title>
   <style>
-    /* ==========================
-       Variáveis de tema
-       ========================== */
-    :root{
-      --bg:#0b0d10;              /* fundo principal */
-      --surface:#0f1114;         /* seções */
-      --muted:#9aa3ad;           /* texto secundário */
-      --text:#e6eef5;            /* texto principal */
-      --accent:#2EA3FF;          /* azul metálico */
-      --accent-2:#d03b3b;        /* vermelho metálico (uso pontual) */
-      --glass: rgba(255,255,255,0.03);
-      --glass-2: rgba(255,255,255,0.02);
-      --card-shadow: 0 6px 20px rgba(2,6,23,0.6);
-      --radius:12px;
-      --max-width:1100px;
-      --transition: 320ms cubic-bezier(.2,.9,.3,1);
+    /* ====== ESTILO GERAL ====== */
+    :root {
+      --cor-fundo: #0f0f10;
+      --cor-primaria: #0d6efd;
+      --cor-texto: #eaeaea;
+      --cor-secundaria: #a0a0a0;
     }
 
-    /* Reset minimal */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(46,163,255,0.04), transparent),
-                  radial-gradient(800px 400px at 90% 90%, rgba(208,59,59,0.02), transparent),
-                  var(--bg);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
-      padding-bottom:60px; /* espaço para rodapé */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+      scroll-behavior: smooth;
     }
 
-    a{color:inherit; text-decoration:none}
-    img{max-width:100%; display:block}
-
-    /* Container */
-    .wrap{
-      max-width:var(--max-width);
-      margin:0 auto;
-      padding:36px 22px;
+    body {
+      background-color: var(--cor-fundo);
+      color: var(--cor-texto);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    /* Header */
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding:12px 0 24px 0;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .logo{
-      width:48px;
-      height:48px;
-      border-radius:10px;
-      background:linear-gradient(135deg,var(--accent), #6cc0ff 60%);
-      display:grid;
-      place-items:center;
-      font-weight:700;
-      color:#031020;
-      font-family:Montserrat, Inter;
-      box-shadow: 0 6px 18px rgba(46,163,255,0.06);
-    }
-    .brand h1{font-size:16px; margin:0; letter-spacing:0.2px}
-    .brand p{margin:0; color:var(--muted); font-size:13px}
-
-    nav{display:flex; gap:18px; align-items:center}
-    nav a{font-weight:600; color:var(--muted); font-size:14px; padding:8px 12px; border-radius:8px}
-    nav a:hover{color:var(--text); background:var(--glass); transition:var(--transition)}
-
-    /* Hero */
-    .hero{
-      display:flex;
-      gap:32px;
-      align-items:center;
-      justify-content:space-between;
-      margin-top:8px;
-      padding:36px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-      border-radius:16px;
-      box-shadow: var(--card-shadow);
-      overflow:hidden;
-    }
-    .hero-left{flex:1; min-width:260px}
-    .eyebrow{display:inline-block; font-size:13px; color:var(--accent); font-weight:700; letter-spacing:0.6px; margin-bottom:14px}
-    .hero h2{margin:0; font-size:34px; line-height:1.02; font-weight:700; font-family:Montserrat}
-    .hero p.lead{color:var(--muted); margin-top:14px; max-width:66%;}
-
-    .hero-cta{margin-top:22px; display:flex; gap:12px; align-items:center}
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:12px 16px;
-      border-radius:10px;
-      font-weight:700;
-      cursor:pointer;
-      transition:var(--transition);
-      border:1px solid transparent;
-    }
-    .btn-primary{
-      background:linear-gradient(90deg,var(--accent), #6cc0ff);
-      color:#031024;
-      box-shadow: 0 8px 28px rgba(46,163,255,0.12);
-    }
-    .btn-outline{
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.06);
-      color:var(--text);
-    }
-    .btn:hover{transform:translateY(-3px)}
-
-    /* Hero visual */
-    .hero-right{
-      width:420px; max-width:45%; min-width:260px;
-      position:relative;
-    }
-    .device{
-      border-radius:14px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,0.03);
-      background:linear-gradient(180deg,var(--glass), transparent);
-      padding:18px;
-      box-shadow: 0 10px 40px rgba(2,6,23,0.65);
-    }
-    .device-frame{
-      height:260px;
-      border-radius:10px;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2)),
-        linear-gradient(180deg,#071018, #07121a);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--muted);
-      font-weight:600;
-      font-size:14px;
-      position:relative;
-      overflow:hidden;
-    }
-    /* subtle animated background lines */
-    .bg-lines{
-      position:absolute;
-      inset: -20% -10% -10% -10%;
-      background-image:
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
-      opacity:0.25;
-      transform:rotate(7deg);
-      filter:blur(8px);
-      pointer-events:none;
-      animation: drift 18s linear infinite;
-    }
-    @keyframes drift{
-      from{transform:translateX(0) rotate(7deg)}
-      to{transform:translateX(-60px) rotate(7deg)}
+    h1, h2, h3 {
+      color: var(--cor-primaria);
+      margin-bottom: 10px;
     }
 
-    /* Sections */
-    section{margin-top:28px}
-    .card{
-      background:linear-gradient(180deg,var(--surface), rgba(255,255,255,0.01));
-      padding:22px;
-      border-radius:12px;
-      box-shadow: var(--card-shadow);
+    section {
+      padding: 80px 10%;
+      text-align: center;
+      animation: fadeIn 1.5s ease;
     }
 
-    /* About */
-    .about-grid{
-      display:grid;
-      grid-template-columns: 1fr 320px;
-      gap:20px;
-      align-items:start;
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
     }
-    .about-list{display:flex; gap:12px; flex-direction:column; margin-top:12px}
-    .about-item{background:var(--glass-2); padding:10px 12px; border-radius:10px; color:var(--muted); font-size:14px}
 
-    /* Services */
-    .services{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap:16px;
-      margin-top:12px;
+    /* ====== INÍCIO ====== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at 20% 20%, #111 0%, #000 100%);
+      text-align: center;
+      padding: 0 20px;
     }
-    .service{
-      padding:16px;
-      border-radius:12px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      border:1px solid rgba(255,255,255,0.02);
-    }
-    .service h4{margin:0 0 8px 0; font-size:16px}
-    .service p{margin:0; color:var(--muted); font-size:14px}
 
-    /* Portfolio gallery */
-    .gallery{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap:14px;
-      margin-top:12px;
+    .hero h1 {
+      font-size: 2.8em;
+      color: #fff;
+      margin-bottom: 10px;
     }
-    .proj{
-      border-radius:12px;
-      overflow:hidden;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      border:1px solid rgba(255,255,255,0.03);
-      transition:transform 280ms ease, box-shadow 280ms ease;
+
+    .hero p {
+      font-size: 1.2em;
+      color: var(--cor-secundaria);
+      margin-bottom: 30px;
+      max-width: 600px;
     }
-    .proj:hover{transform:translateY(-8px); box-shadow: 0 18px 36px rgba(2,6,23,0.6)}
-    .proj img{width:100%; height:150px; object-fit:cover}
-    .proj .meta{padding:12px}
-    .proj .meta h5{margin:0 0 6px 0; font-size:15px}
-    .proj .meta p{margin:0; color:var
+
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      margin: 10px;
+      color: #fff;
+      background: var(--cor-primaria);
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #084298;
+      transform: scale(1.05);
+    }
+
+    /* ====== SOBRE ====== */
+    .sobre {
+      background: #121212;
+      border-top: 1px solid #1f1f1f;
+      border-bottom: 1px solid #1f1f1f;
+    }
+
+    .sobre p {
+      max-width: 800px;
+      margin: 15px auto;
+      color: var(--cor-secundaria);
+    }
+
+    .dados {
+      margin-top: 30px;
+      color: var(--cor-primaria);
+    }
+
+    /* ====== ÁREAS ====== */
+    .areas {
+      background: #101010;
+    }
+
+    .area {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #1a1a1a;
+      padding: 25px;
+      border-radius: 10px;
+      border-left: 3px solid var(--cor-primaria);
+      transition: 0.3s;
+    }
+
+    .area:hover {
+      transform: scale(1.03);
+    }
+
+    /* ====== PORTFÓLIO ====== */
+    .portfolio {
+      background: #121212;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .projeto {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 3px solid var(--cor-primaria);
+      color: var(--cor-secundaria);
+    }
+
+    /* ====== CONTATO ====== */
+    .contato a {
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .rodape {
+      text-align: center;
+      padding: 30px;
+      background: #0a0a0a;
+      color: #777;
+      border-top: 1px solid #1f1f1f;
+    }
+
+    /* ====== WHATSAPP FLOAT ====== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #25d366;
+      color: white;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      text-decoration: none;
+      box-shadow: 0 0 10px #25d366;
+      transition: 0.3s;
+      z-index: 1000;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== INÍCIO ====== -->
+  <section class="hero">
+    <h1>Juan Oliveira</h1>
+    <p>Desenvolvedor de sites, especialista em marketing digital e vendas.<br>Transformo ideias em presença digital e resultados reais.</p>
+    <a href="#portfolio" class="btn">Ver Portfólio</a>
+    <a href="https://wa.me/5551981392606" target="_blank" class="btn">Falar no WhatsApp</a>
+  </section>
+
+  <!-- ====== SOBRE ====== -->
+  <section class="sobre" id="sobre">
+    <h2>Sobre Mim</h2>
+    <p>Sou um profissional multidisciplinar com experiência nas áreas de desenvolvimento web, marketing digital, produção de conteúdo e vendas. Atuo na criação de sites modernos e funcionais, gestão de estratégias digitais e campanhas de conversão, além da produção de vídeos e roteiros voltados para o posicionamento de marcas e negócios.</p>
+    <p>Meu foco é entregar soluções que unam estética, performance e resultado.</p>
+
+    <div class="dados">
+      <p><strong>Nome:</strong> Juan Oliveira</p>
+      <p><strong>WhatsApp:</strong> (51) 98139-2606</p>
+      <p><strong>Localização:</strong> Porto Alegre — RS</p>
+      <p><strong>Disponível para projetos e parcerias.</strong></p>
+    </div>
+  </section>
+
+  <!-- ====== ÁREAS ====== -->
+  <section class="areas" id="areas">
+    <h2>Áreas de Atuação</h2>
+
+    <div class="area">
+      <h3>Desenvolvimento de Sites</h3>
+      <p>Criação de sites institucionais, landing pages e portfólios modernos, com design responsivo, otimizado para SEO e integrações inteligentes.</p>
+    </div>
+
+    <div class="area">
+      <h3>Marketing Digital</h3>
+      <p>Planejamento estratégico e execução de campanhas de marketing com foco em resultados, identidade visual e crescimento de marca.</p>
+    </div>
+
+    <div class="area">
+      <h3>Edição e Produção de Vídeos</h3>
+      <p>Roteirização, edição e finalização de vídeos publicitários, institucionais e de redes sociais, com narrativa criativa e impacto visual.</p>
+    </div>
+
+    <div class="area">
+      <h3>Vendas</h3>
+      <p>Experiência em atendimento, negociação e conversão, com foco em experiência do cliente e fidelização de resultados comerciais.</p>
+    </div>
+  </section>
+
+  <!-- ====== PORTFÓLIO ====== -->
+  <section class="portfolio" id="portfolio">
+    <h2>Portfólio</h2>
+    <p>Alguns dos meus projetos e produções recentes:</p>
+
+    <div class="portfolio-grid">
+      <div class="projeto">
+        <h3>Website Corporativo</h3>
+        <p>Criação de site institucional para empresa de tecnologia, com layout moderno e otimização para SEO.</p>
+      </div>
+
+      <div class="projeto">
+        <h3>Campanha Digital</h3>
+        <p>Gestão de campanha para lançamento de produto, com resultados expressivos em alcance e engajamento.</p>
+      </div>
+
+      <div class="projeto">
+        <h3>Vídeo Promocional</h3>
+        <p>Produção e edição de vídeo publicitário para redes sociais, voltado à conversão e branding.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONTATO ====== -->
+  <section class="contato" id="contato">
+    <h2>Contato</h2>
+    <p>Pronto para dar o próximo passo? Entre em contato e transforme sua presença digital.</p>
+    <a href="https://wa.me/5551981392606" target="_blank" class="btn">Conversar no WhatsApp</a>
+  </section>
+
+  <footer class="rodape">
+    © 2025 Juan Oliveira | Desenvolvimento e Marketing Digital <br>
+    Site desenvolvido por Vexa
+  </footer>
+
+  <a href="https://wa.me/5551981392606" class="whatsapp-float" target="_blank">💬</a>
+
+</body>
+</html>
